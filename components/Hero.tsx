@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
-import WaveguideCanvas from "./WaveguideCanvas"
+import PinchingAntennaModel from "./PinchingAntennaModel"
 
 const lineVariants = {
   hidden: { opacity: 0, y: 14 },
@@ -20,10 +20,20 @@ const lineVariants = {
 export default function Hero() {
   return (
     <section className="relative h-[100svh] min-h-[640px] w-full overflow-hidden">
-      {/* Canvas background */}
+      {/* 3D PASS model background */}
       <div className="absolute inset-0 z-0">
-        <WaveguideCanvas />
+        <PinchingAntennaModel />
       </div>
+
+      {/* Radial readability mask — darken edges, gentle dim at center for legibility */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-[2]"
+        style={{
+          background:
+            "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.75) 55%, rgba(10,10,10,0.95) 100%)",
+        }}
+      />
 
       {/* Slow scan line */}
       <div className="scanline" aria-hidden />
