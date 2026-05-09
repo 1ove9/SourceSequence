@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next"
-import { Instrument_Serif, DM_Sans, JetBrains_Mono } from "next/font/google"
+import { Instrument_Serif, Geist, JetBrains_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
@@ -11,9 +11,8 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 })
 
-const dmSans = DM_Sans({
+const geist = Geist({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
   variable: "--font-sans",
   display: "swap",
 })
@@ -55,7 +54,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${instrumentSerif.variable} ${dmSans.variable} ${jetbrainsMono.variable} bg-background`}
+      className={`${instrumentSerif.variable} ${geist.variable} ${jetbrainsMono.variable} bg-background`}
     >
       <body className="font-sans antialiased bg-background text-foreground">
         {children}

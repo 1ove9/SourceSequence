@@ -62,12 +62,13 @@ function XRSVG() {
         />
       ))}
       <ellipse cx="160" cy="160" rx="220" ry="80" fill="none" stroke="#ff8a3d" strokeWidth="1.3" />
-      {Array.from({ length: 12 }).map((_, i) => {
-        const a = (i / 12) * Math.PI * 2
-        const x = 160 + Math.cos(a) * 220
-        const y = 160 + Math.sin(a) * 80
-        return <circle key={i} cx={x} cy={y} r="2.4" fill="#ff8a3d" />
-      })}
+      {[
+        [380, 160], [350.5, 200.0], [270.3, 229.3], [160, 240],
+        [49.7, 229.3], [-30.5, 200.0], [-60, 160], [-30.5, 120.0],
+        [49.7, 90.7], [160, 80], [270.3, 90.7], [350.5, 120.0],
+      ].map(([cx, cy], i) => (
+        <circle key={i} cx={cx} cy={cy} r="2.4" fill="#ff8a3d" />
+      ))}
       <rect x="140" y="150" width="40" height="20" fill="none" stroke="#5b8def" strokeWidth="1" />
     </svg>
   )

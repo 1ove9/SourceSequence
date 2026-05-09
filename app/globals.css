@@ -54,7 +54,7 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-sans), 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-sans), 'Geist', ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono), 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-display: var(--font-display), 'Instrument Serif', ui-serif, Georgia, serif;
 
