@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import PinchingAntennaModel from "./PinchingAntennaModel"
+import SignalFlux from "./SignalFlux"
 
 const lineVariants = {
   hidden: { opacity: 0, y: 16 },
@@ -184,6 +185,11 @@ export default function Hero() {
             </div>
 
             <PinchingAntennaModel />
+
+            {/* Signal flux visualizer — bottom-left */}
+            <div className="pointer-events-none absolute bottom-12 left-5 z-10">
+              <SignalFlux />
+            </div>
 
             {/* Bottom mono spec line — left-aligned, subdued */}
             <div className="pointer-events-none absolute inset-x-5 bottom-4 z-10 font-mono text-[10px] uppercase tracking-[0.18em]" style={{ color: "#9a9a9a" }}>
