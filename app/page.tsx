@@ -1,5 +1,6 @@
 import Nav from "@/components/Nav"
 import Hero from "@/components/Hero"
+import Marquee from "@/components/Marquee"
 import Capabilities from "@/components/Capabilities"
 import Solutions from "@/components/Solutions"
 import Research from "@/components/Research"
@@ -12,6 +13,7 @@ export default function Page() {
       <BackgroundLayer />
       <Nav />
       <Hero />
+      <Marquee />
       <Capabilities />
       <Solutions />
       <Research />

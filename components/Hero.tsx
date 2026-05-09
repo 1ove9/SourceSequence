@@ -39,11 +39,15 @@ export default function Hero() {
               </span>
             </motion.div>
 
-            {/* Hero headline */}
-            <h1 className="mt-7 font-display text-[clamp(3rem,8vw,7rem)] leading-[1] tracking-[-0.02em] text-foreground">
-              <motion.span custom={1} variants={lineVariants} className="block italic">
-                AI-Native
-              </motion.span>
+            {/* Hero headline — two-tier hierarchy */}
+            <motion.p
+              custom={1}
+              variants={lineVariants}
+              className="mt-7 font-display text-[clamp(1.3rem,3vw,2.2rem)] italic leading-[1.2] tracking-[-0.01em] text-muted-foreground"
+            >
+              {"AI\u2014Native"}
+            </motion.p>
+            <h1 className="mt-2 font-display text-[clamp(3rem,8vw,7rem)] leading-[0.95] tracking-[-0.025em] text-foreground">
               <motion.span custom={2} variants={lineVariants} className="block">
                 Pinching Antenna
               </motion.span>
