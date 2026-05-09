@@ -4,43 +4,57 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* YuanXu palette — cold, instrument-grade */
-  --background: #0a0a0a;
-  --foreground: #f5f5f0;
+  /* Source Sequence — Liquid Glass palette (light, premium hardware) */
+  --background: #fafaf7;          /* off-white, faint warm tint */
+  --background-deep: #f0f0eb;     /* gradient bottom */
+  --foreground: #0a0a0a;          /* primary deep black text */
+  --muted: #f5f5f0;
+  --muted-foreground: #6e6e73;    /* Apple secondary gray */
 
-  --muted: #181818;
-  --muted-foreground: #777777;
+  --border: rgba(0, 0, 0, 0.08);
+  --input: rgba(0, 0, 0, 0.08);
 
-  --border: #1c1c1c;
-  --input: #1c1c1c;
+  --card: rgba(255, 255, 255, 0.55);
+  --card-foreground: #0a0a0a;
 
-  --card: #0f0f0f;
-  --card-foreground: #f5f5f0;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
 
-  --popover: #0f0f0f;
-  --popover-foreground: #f5f5f0;
+  /* Primary = warm amber, used sparingly on CTA + key data */
+  --primary: #ff8a3d;
+  --primary-foreground: #ffffff;
 
-  /* Primary = amber instrument readout */
-  --primary: #ffa94d;
-  --primary-foreground: #0a0a0a;
+  /* Secondary = soft cool blue, charts/state only */
+  --secondary: #5b8def;
+  --secondary-foreground: #ffffff;
 
-  /* Secondary = cool teal, only for secondary data */
-  --secondary: #5eead4;
-  --secondary-foreground: #0a0a0a;
-
-  --accent: #ffa94d;
-  --accent-foreground: #0a0a0a;
+  --accent: #ff8a3d;
+  --accent-foreground: #ffffff;
 
   --destructive: #ef4444;
-  --destructive-foreground: #f5f5f0;
+  --destructive-foreground: #ffffff;
 
-  --ring: #ffa94d;
+  --ring: rgba(255, 138, 61, 0.5);
 
-  --radius: 0.25rem;
+  --radius: 1.25rem;
+
+  /* Glass tokens */
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-bg-strong: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --glass-shadow: rgba(0, 0, 0, 0.04);
+
+  /* Soft ambient color blobs */
+  --blob-warm: #ffe4d0;
+  --blob-cool: #d8e4ff;
+  --blob-pink: #ffe0e8;
+
+  /* Apple-standard easing */
+  --ease-apple: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @theme inline {
-  --font-sans: var(--font-sans), 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-sans), 'DM Sans', ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono), 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-display: var(--font-display), 'Instrument Serif', ui-serif, Georgia, serif;
 
@@ -64,85 +78,147 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --radius-sm: calc(var(--radius) - 2px);
-  --radius-md: var(--radius);
-  --radius-lg: calc(var(--radius) + 2px);
-  --radius-xl: calc(var(--radius) + 6px);
+  --radius-sm: calc(var(--radius) - 12px);
+  --radius-md: calc(var(--radius) - 8px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 8px);
+  --radius-2xl: calc(var(--radius) + 16px);
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/40;
+    @apply border-border outline-ring/50;
   }
 
   html {
     background: var(--background);
+    color-scheme: light;
   }
 
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   ::selection {
-    background: rgba(255, 169, 77, 0.25);
-    color: #f5f5f0;
+    background: rgba(255, 138, 61, 0.2);
+    color: var(--foreground);
   }
 }
 
-/* ---------- Grain overlay ---------- */
-.grain::before {
+/* ---------- Page background system ---------- */
+/* Layer 1: subtle warm gradient under everything */
+.bg-canvas {
+  background: linear-gradient(180deg, #fafaf7 0%, #f3f3ee 60%, #efefe9 100%);
+}
+
+/* Layer 3: ultra-fine grain — covers the whole page */
+.bg-grain::after {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 100;
-  opacity: 0.035;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  z-index: 1;
+  opacity: 0.025;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.7 0'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>");
 }
 
-/* Faint vignette to deepen edges */
-.vignette::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 99;
-  background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+/* ---------- Liquid Glass mixin ---------- */
+.glass {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.04) inset,
+    0 8px 32px rgba(0, 0, 0, 0.04),
+    0 24px 80px rgba(0, 0, 0, 0.06);
+  transition:
+    background 400ms var(--ease-apple),
+    transform 400ms var(--ease-apple),
+    box-shadow 400ms var(--ease-apple);
 }
 
-/* ---------- Hero scan line ---------- */
-@keyframes scanline-y {
-  0%   { transform: translateY(0vh); opacity: 0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { transform: translateY(100vh); opacity: 0; }
+.glass-hover:hover {
+  background: var(--glass-bg-strong);
+  transform: translateY(-2px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.05) inset,
+    0 12px 40px rgba(0, 0, 0, 0.06),
+    0 32px 100px rgba(0, 0, 0, 0.08);
 }
 
-.scanline {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
+.glass-thin {
+  background: rgba(255, 255, 255, 0.45);
+  -webkit-backdrop-filter: blur(28px) saturate(170%);
+  backdrop-filter: blur(28px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.85) inset,
+    0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.6);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Amber CTA with inset highlight */
+.btn-amber {
+  background: linear-gradient(180deg, #ffa56b 0%, #ff8a3d 100%);
+  color: #ffffff;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.5) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.08) inset,
+    0 6px 16px rgba(255, 138, 61, 0.32),
+    0 1px 2px rgba(255, 138, 61, 0.4);
+  transition: all 400ms var(--ease-apple);
+}
+.btn-amber:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.55) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.08) inset,
+    0 10px 24px rgba(255, 138, 61, 0.38),
+    0 1px 2px rgba(255, 138, 61, 0.5);
+}
+
+/* Showcase well — gives the 3D model container a vitrine feel */
+.showcase-inner {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -40px 60px rgba(0, 0, 0, 0.04),
+    inset 0 40px 60px rgba(255, 255, 255, 0.5);
+}
+
+/* Fine hairline */
+.hairline {
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1) 12%, rgba(0, 0, 0, 0.1) 88%, transparent);
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 169, 77, 0.35), transparent);
-  opacity: 0.1;
-  animation: scanline-y 30s linear infinite;
-  pointer-events: none;
+  width: 100%;
 }
 
-/* ---------- Pulse dot ---------- */
+/* Pulse */
 @keyframes pulse-amber {
   0%, 100% { opacity: 1; transform: scale(1); }
-  50%      { opacity: 0.35; transform: scale(0.85); }
+  50%      { opacity: 0.4; transform: scale(0.85); }
 }
-
 .pulse-dot {
-  animation: pulse-amber 1.8s ease-in-out infinite;
+  animation: pulse-amber 2s ease-in-out infinite;
 }
 
-/* ---------- CTA underline sweep ---------- */
+/* Underline sweep */
 .underline-sweep {
   position: relative;
   display: inline-flex;
@@ -158,20 +234,13 @@
   background: currentColor;
   transform: scaleX(0);
   transform-origin: left center;
-  transition: transform 350ms cubic-bezier(0.65, 0, 0.35, 1);
+  transition: transform 400ms var(--ease-apple);
 }
 .underline-sweep:hover::after {
   transform: scaleX(1);
 }
 
-/* ---------- Hairline rule helper ---------- */
-.hairline {
-  background: linear-gradient(90deg, transparent, #2a2a2a 15%, #2a2a2a 85%, transparent);
-  height: 1px;
-  width: 100%;
-}
-
-/* ---------- Subtle chrome scrollbars ---------- */
+/* Subtle scrollbar */
 html {
-  scrollbar-color: #1c1c1c #0a0a0a;
+  scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
 }

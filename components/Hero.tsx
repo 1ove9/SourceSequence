@@ -5,144 +5,132 @@ import { ArrowRight } from "lucide-react"
 import PinchingAntennaModel from "./PinchingAntennaModel"
 
 const lineVariants = {
-  hidden: { opacity: 0, y: 14 },
+  hidden: { opacity: 0, y: 16 },
   show: (i: number) => ({
     opacity: 1,
     y: 0,
     transition: {
-      delay: 0.08 * i,
-      duration: 0.7,
-      ease: [0.22, 0.65, 0.3, 1] as const,
+      delay: 0.1 * i,
+      duration: 0.8,
+      ease: [0.4, 0, 0.2, 1] as const,
     },
   }),
 }
 
 export default function Hero() {
   return (
-    <section className="relative h-[100svh] min-h-[640px] w-full overflow-hidden">
-      {/* 3D PASS model background */}
-      <div className="absolute inset-0 z-0">
-        <PinchingAntennaModel />
-      </div>
+    <section className="relative pt-28 pb-20 md:pt-36 md:pb-28">
+      <div className="mx-auto grid max-w-6xl grid-cols-12 items-center gap-x-8 gap-y-16 px-5 md:px-8">
+        {/* LEFT — text */}
+        <div className="col-span-12 lg:col-span-7">
+          <motion.div initial="hidden" animate="show">
+            {/* Pill — research preview */}
+            <motion.div custom={0} variants={lineVariants}>
+              <span className="glass-pill inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[12.5px] font-medium text-muted-foreground">
+                <span
+                  aria-hidden
+                  className="text-[14px] leading-none"
+                  style={{ color: "var(--primary)" }}
+                >
+                  ⊹
+                </span>
+                Now in research preview
+              </span>
+            </motion.div>
 
-      {/* Radial readability mask — darken edges, gentle dim at center for legibility */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 z-[2]"
-        style={{
-          background:
-            "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.75) 55%, rgba(10,10,10,0.95) 100%)",
-        }}
-      />
+            {/* Hero headline */}
+            <h1 className="mt-7 font-display text-[clamp(3rem,8vw,7rem)] leading-[1] tracking-[-0.02em] text-foreground">
+              <motion.span custom={1} variants={lineVariants} className="block italic">
+                AI-Native
+              </motion.span>
+              <motion.span custom={2} variants={lineVariants} className="block">
+                Pinching Antenna
+              </motion.span>
+              <motion.span custom={3} variants={lineVariants} className="block">
+                Systems<span style={{ color: "var(--primary)" }}>.</span>
+              </motion.span>
+            </h1>
 
-      {/* Slow scan line */}
-      <div className="scanline" aria-hidden />
-
-      {/* Faint grid overlay */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1] opacity-[0.07]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, #f5f5f0 1px, transparent 1px), linear-gradient(to bottom, #f5f5f0 1px, transparent 1px)",
-          backgroundSize: "120px 120px",
-          maskImage:
-            "radial-gradient(ellipse at center, rgba(0,0,0,0.7) 30%, transparent 75%)",
-        }}
-      />
-
-      {/* Corner instrument metadata */}
-      <div className="pointer-events-none absolute inset-0 z-10">
-        <div className="absolute left-5 top-20 md:left-10 md:top-24 font-mono text-[10px] tracking-[0.2em] text-muted-foreground">
-          YUANXU
-          <span className="mx-2 text-border">//</span>
-          02.01.2026
-        </div>
-
-        <div className="absolute right-5 top-20 md:right-10 md:top-24 font-mono text-[10px] tracking-[0.2em] text-muted-foreground text-right">
-          v0.1
-          <span className="mx-2 text-border">—</span>
-          RESEARCH PREVIEW
-        </div>
-
-        <div className="absolute left-5 bottom-6 md:left-10 md:bottom-10 font-mono text-[10px] tracking-[0.2em] text-muted-foreground">
-          N 31.2304°
-          <span className="mx-2 text-border">/</span>
-          E 121.4737°
-        </div>
-
-        <div className="absolute right-5 bottom-6 md:right-10 md:bottom-10 font-mono text-[10px] tracking-[0.2em] text-muted-foreground flex items-center gap-2 justify-end">
-          <span className="block h-1.5 w-1.5 rounded-full bg-primary pulse-dot shadow-[0_0_10px_rgba(255,169,77,0.8)]" />
-          SIGNAL <span className="text-border">//</span> ACTIVE
-        </div>
-      </div>
-
-      {/* Hero content — left aligned */}
-      <div className="relative z-10 mx-auto flex h-full max-w-[1400px] flex-col justify-center px-5 md:px-10">
-        <motion.div initial="hidden" animate="show" className="max-w-4xl">
-          <motion.div
-            custom={0}
-            variants={lineVariants}
-            className="mb-6 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] text-primary"
-          >
-            <span className="h-px w-8 bg-primary/70" />
-            00 / Index
-          </motion.div>
-
-          <h1 className="font-display leading-[0.95] tracking-tight text-foreground text-[clamp(3rem,9vw,9rem)]">
-            <motion.span custom={1} variants={lineVariants} className="block italic">
-              AI-Native
-            </motion.span>
-            <motion.span custom={2} variants={lineVariants} className="block">
-              Pinching Antenna
-            </motion.span>
-            <motion.span custom={3} variants={lineVariants} className="block">
-              Systems<span className="text-primary">.</span>
-            </motion.span>
-          </h1>
-
-          <motion.p
-            custom={4}
-            variants={lineVariants}
-            className="mt-8 font-mono text-[11px] md:text-xs uppercase tracking-[0.32em] text-muted-foreground"
-          >
-            Commercializing the 6G Physical-Layer Frontier
-          </motion.p>
-
-          <motion.p
-            custom={5}
-            variants={lineVariants}
-            className="mt-6 max-w-2xl text-pretty text-base md:text-lg leading-relaxed text-foreground/80"
-          >
-            We build movable radiation points along low-loss dielectric waveguides, controlled in real time by
-            AI. On-demand line-of-sight, in any space, at the speed of an agent.
-          </motion.p>
-
-          <motion.div
-            custom={6}
-            variants={lineVariants}
-            className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6"
-          >
-            <a
-              href="#whitepaper"
-              className="group inline-flex items-center gap-3 border border-primary/70 px-5 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-primary transition-colors duration-200 hover:bg-primary hover:text-primary-foreground"
+            {/* Body copy */}
+            <motion.p
+              custom={4}
+              variants={lineVariants}
+              className="mt-8 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground md:text-[17px] md:leading-[1.6]"
             >
-              Read the Whitepaper
-              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1" />
-            </a>
+              We build movable radiation points along low-loss dielectric waveguides,
+              controlled in real time by AI. On-demand line-of-sight, in any space, at the
+              speed of an agent.
+            </motion.p>
 
-            <a
-              href="#contact"
-              className="underline-sweep font-mono text-[11px] uppercase tracking-[0.22em] text-foreground/85 hover:text-foreground"
+            {/* CTAs */}
+            <motion.div
+              custom={5}
+              variants={lineVariants}
+              className="mt-10 flex flex-wrap items-center gap-3"
             >
-              Request a Demo
-            </a>
-          </motion.div>
-        </motion.div>
-      </div>
+              <a
+                href="#whitepaper"
+                className="btn-amber group inline-flex h-12 items-center gap-2 rounded-2xl px-6 text-[14px] font-semibold"
+              >
+                Read the Whitepaper
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+              </a>
 
-      {/* Bottom edge fade */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-background z-[5]" />
+              <a
+                href="#contact"
+                className="glass-pill inline-flex h-12 items-center gap-2 rounded-2xl px-6 text-[14px] font-semibold text-foreground transition-all duration-300 hover:[background:rgba(255,255,255,0.85)]"
+              >
+                Request a Demo
+              </a>
+            </motion.div>
+
+            {/* Mono metadata */}
+            <motion.p
+              custom={6}
+              variants={lineVariants}
+              className="mt-12 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground/80"
+            >
+              v0.1 <span className="mx-2 text-border">·</span> Research Preview
+              <span className="mx-2 text-border">·</span> Shanghai
+            </motion.p>
+          </motion.div>
+        </div>
+
+        {/* RIGHT — 3D showcase */}
+        <div className="col-span-12 lg:col-span-5">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96, y: 24 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{
+              duration: 1,
+              delay: 0.4,
+              ease: [0.4, 0, 0.2, 1] as const,
+            }}
+            className="glass showcase-inner relative aspect-square w-full overflow-hidden"
+            style={{ borderRadius: 32 }}
+          >
+            {/* Top corner instrument label */}
+            <div className="pointer-events-none absolute left-5 top-5 z-10 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground/80">
+              <span
+                className="block h-1.5 w-1.5 rounded-full pulse-dot"
+                style={{ background: "var(--primary)" }}
+              />
+              PASS-001 <span className="text-border">/</span> LIVE
+            </div>
+            <div className="pointer-events-none absolute right-5 top-5 z-10 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground/80">
+              28.0 GHz
+            </div>
+
+            <PinchingAntennaModel />
+
+            {/* Bottom mono spec line */}
+            <div className="pointer-events-none absolute inset-x-5 bottom-4 z-10 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground/70">
+              <span>Dielectric waveguide · 3 pinches</span>
+              <span>Drag to inspect</span>
+            </div>
+          </motion.div>
+        </div>
+      </div>
     </section>
   )
 }

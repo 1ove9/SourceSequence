@@ -1,5 +1,7 @@
 "use client"
 
+import { ArrowRight } from "lucide-react"
+
 const navItems = [
   { label: "Capabilities", href: "#capabilities" },
   { label: "Solutions", href: "#solutions" },
@@ -8,39 +10,46 @@ const navItems = [
   { label: "Contact", href: "#contact" },
 ]
 
+const socialItems = [
+  { label: "Twitter / X", href: "#" },
+  { label: "LinkedIn", href: "#" },
+  { label: "GitHub", href: "#" },
+]
+
 export default function Footer() {
   return (
-    <footer id="contact" className="relative pt-28 pb-10 border-t border-border/80">
-      <div className="mx-auto max-w-[1400px] px-5 md:px-10">
-        {/* Contact / address row */}
-        <div className="grid grid-cols-12 gap-y-10 gap-x-6 md:gap-x-12 mb-16 md:mb-20">
+    <footer id="contact" className="relative pt-24 pb-10">
+      <div className="mx-auto max-w-6xl px-5 md:px-8">
+        {/* Contact row */}
+        <div className="grid grid-cols-12 gap-y-12 gap-x-8 mb-16">
           <div className="col-span-12 md:col-span-6">
-            <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-primary mb-4">
+            <div className="mb-5 font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
               ⌖ Contact
             </div>
-            <h3 className="font-display text-3xl md:text-5xl leading-[1.05] tracking-tight max-w-2xl text-balance">
+            <h3 className="max-w-2xl text-balance font-display text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.05] tracking-[-0.02em] text-foreground">
               Building partners, hires, and pilots.{" "}
               <span className="italic text-muted-foreground">Get in touch.</span>
             </h3>
 
-            <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8">
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
-                href="mailto:hello@yuanxu.tech"
-                className="group inline-flex items-center gap-3 border border-primary/70 px-5 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-primary transition-colors duration-200 hover:bg-primary hover:text-primary-foreground"
+                href="mailto:hello@sourcesequence.io"
+                className="btn-amber group inline-flex h-12 items-center gap-2 rounded-2xl px-6 text-[14px] font-semibold"
               >
-                hello@yuanxu.tech
+                hello@sourcesequence.io
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
               </a>
               <a
                 href="#"
-                className="underline-sweep font-mono text-[11px] uppercase tracking-[0.22em] text-foreground/85"
+                className="glass-pill inline-flex h-12 items-center rounded-2xl px-6 text-[14px] font-semibold text-foreground transition-all duration-300 hover:[background:rgba(255,255,255,0.85)]"
               >
                 Open Roles
               </a>
             </div>
           </div>
 
-          <div className="col-span-6 md:col-span-3">
-            <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-4">
+          <div className="col-span-6 md:col-span-3 md:col-start-8">
+            <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
               HQ // Shanghai
             </div>
             <p className="font-mono text-[12px] leading-relaxed text-foreground/80">
@@ -53,7 +62,7 @@ export default function Footer() {
           </div>
 
           <div className="col-span-6 md:col-span-3">
-            <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-4">
+            <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
               Lab // Beijing
             </div>
             <p className="font-mono text-[12px] leading-relaxed text-foreground/80">
@@ -66,12 +75,11 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Top divider with sitemap */}
         <div className="hairline mb-8" />
 
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-16">
-          <div className="font-mono text-[11px] tracking-[0.2em] text-muted-foreground">
-            YUANXU TECHNOLOGY <span className="mx-2 text-border">©</span> 2026
+        <div className="mb-12 flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+          <div className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground">
+            SOURCE SEQUENCE <span className="mx-2 text-border">©</span> 2026
           </div>
 
           <ul className="flex flex-wrap items-center gap-x-6 gap-y-2">
@@ -79,26 +87,38 @@ export default function Footer() {
               <li key={n.label}>
                 <a
                   href={n.href}
-                  className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-[13px] text-muted-foreground transition-colors hover:text-foreground"
                 >
                   {n.label}
                 </a>
               </li>
             ))}
           </ul>
+
+          <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            {socialItems.map((s) => (
+              <li key={s.label}>
+                <a
+                  href={s.href}
+                  className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {s.label}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* Massive low-key bottom statement */}
-        <div className="overflow-hidden -mx-5 md:-mx-10">
+        {/* Massive low-key signature */}
+        <div className="overflow-hidden -mx-5 md:-mx-8">
           <div
-            className="font-mono uppercase whitespace-nowrap select-none leading-[0.95] tracking-[-0.01em] px-5 md:px-10"
+            className="select-none whitespace-nowrap px-5 font-display italic leading-[0.95] tracking-[-0.02em] md:px-8"
             style={{
-              color: "#1a1a1a",
-              fontSize: "clamp(2.5rem, 11vw, 11rem)",
-              fontWeight: 500,
+              color: "#d4d4d0",
+              fontSize: "clamp(2.75rem, 11vw, 11rem)",
             }}
           >
-            BUILDING THE PHYSICAL LAYER OF 6G.
+            Building the physical layer of 6G.
           </div>
         </div>
 
@@ -106,7 +126,10 @@ export default function Footer() {
         <div className="mt-10 flex flex-wrap items-center justify-between gap-3 font-mono text-[10px] tracking-[0.22em] text-muted-foreground/70">
           <span>v0.1 — RESEARCH PREVIEW</span>
           <span className="flex items-center gap-2">
-            <span className="block h-1.5 w-1.5 rounded-full bg-primary pulse-dot" />
+            <span
+              className="block h-1.5 w-1.5 rounded-full pulse-dot"
+              style={{ background: "var(--primary)" }}
+            />
             SIGNAL // ACTIVE
           </span>
           <span>BUILT IN SHANGHAI</span>

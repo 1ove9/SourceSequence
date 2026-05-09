@@ -15,9 +15,9 @@ export interface RadiationRipplesProps {
 }
 
 /**
- * Three concentric, phase-staggered amber rings expanding outward
- * from a pinch point — represents leaked radiation from the waveguide.
- * Rings billboard toward the camera so they always read as halos.
+ * Concentric, phase-staggered amber rings expanding outward from a pinch point.
+ * Opacity is capped low (≤0.4) so they read as soft halos against the bright scene
+ * rather than glaring blooms.
  */
 const RadiationRipples = forwardRef<Group, RadiationRipplesProps>(function RadiationRipples(
   { position = [0, 0, 0], ringCount = 3, duration = 3, rMin = 0.2, rMax = 1.5 },
@@ -26,7 +26,6 @@ const RadiationRipples = forwardRef<Group, RadiationRipplesProps>(function Radia
   const ringRefs = useRef<Array<Mesh | null>>([])
   const matRefs = useRef<Array<MeshBasicMaterial | null>>([])
 
-  // Per-ring phase offset (in seconds), evenly distributed across duration
   const phases = useMemo(
     () => Array.from({ length: ringCount }, (_, i) => (duration / ringCount) * i),
     [ringCount, duration],
@@ -40,12 +39,11 @@ const RadiationRipples = forwardRef<Group, RadiationRipplesProps>(function Radia
       const mat = matRefs.current[i]
       if (!mesh || !mat) continue
       const local = ((t - phases[i]) % duration + duration) % duration
-      const k = local / duration // 0 → 1
+      const k = local / duration
       const radius = rMin + (rMax - rMin) * k
-      const scale = radius // base ring is unit-radius
-      mesh.scale.set(scale, scale, 1)
-      // Opacity: fade from 0.6 → 0 with slight ease-out
-      mat.opacity = 0.6 * (1 - k) * (1 - k)
+      mesh.scale.set(radius, radius, 1)
+      // Opacity capped at 0.4 in light scenes
+      mat.opacity = 0.4 * (1 - k) * (1 - k)
     }
   })
 
@@ -58,13 +56,12 @@ const RadiationRipples = forwardRef<Group, RadiationRipplesProps>(function Radia
             ringRefs.current[i] = el
           }}
         >
-          {/* Unit radius ring with thickness ~0.04 — scaled in useFrame */}
           <ringGeometry args={[0.96, 1.0, 96]} />
           <meshBasicMaterial
             ref={(el) => {
               matRefs.current[i] = el
             }}
-            color="#ffa94d"
+            color="#ff8a3d"
             transparent
             opacity={0}
             depthWrite={false}

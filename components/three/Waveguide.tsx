@@ -9,9 +9,9 @@ export interface WaveguideProps {
 }
 
 /**
- * Dielectric (PTFE) waveguide oriented along the X axis.
- * - Outer translucent white sheath
- * - Inner amber-emissive core that suggests guided energy
+ * Dielectric (PTFE-like) waveguide oriented along the X axis.
+ * - Outer translucent white sheath with high transmission for premium glass feel
+ * - Inner amber-emissive core suggesting guided RF energy
  */
 const Waveguide = forwardRef<Group, WaveguideProps>(function Waveguide(
   { length = 5.6, radius = 0.08 },
@@ -19,33 +19,33 @@ const Waveguide = forwardRef<Group, WaveguideProps>(function Waveguide(
 ) {
   return (
     <group ref={ref} rotation={[0, 0, Math.PI / 2]}>
-      {/* Outer PTFE sheath */}
+      {/* Outer translucent dielectric sheath */}
       <mesh castShadow receiveShadow>
         <cylinderGeometry args={[radius, radius, length, 64, 1, false]} />
         <meshPhysicalMaterial
-          color="#f0f0e8"
-          transmission={0.6}
-          roughness={0.15}
-          thickness={0.3}
-          ior={1.4}
+          color="#fafafa"
+          transmission={0.85}
+          roughness={0.05}
+          thickness={0.4}
+          ior={1.45}
           metalness={0}
-          clearcoat={0.5}
-          clearcoatRoughness={0.25}
-          attenuationColor="#fff4e0"
-          attenuationDistance={3}
+          clearcoat={0.6}
+          clearcoatRoughness={0.15}
+          attenuationColor="#fff4e6"
+          attenuationDistance={2.5}
           transparent
           opacity={0.95}
         />
       </mesh>
 
-      {/* Inner core — emissive amber glow */}
+      {/* Inner emissive core */}
       <mesh>
         <cylinderGeometry args={[radius * 0.45, radius * 0.45, length * 0.998, 32, 1, false]} />
         <meshStandardMaterial
-          color="#1a1410"
+          color="#fff4e0"
           emissive="#ffa94d"
-          emissiveIntensity={0.3}
-          roughness={0.5}
+          emissiveIntensity={0.6}
+          roughness={0.4}
           metalness={0}
         />
       </mesh>

@@ -1,7 +1,7 @@
 "use client"
 
 import { forwardRef, useEffect, useRef } from "react"
-import { Environment, OrbitControls } from "@react-three/drei"
+import { ContactShadows, Environment, OrbitControls } from "@react-three/drei"
 import type { Group } from "three"
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib"
 
@@ -16,7 +16,6 @@ export interface SceneProps {
 }
 
 const WAVEGUIDE_LENGTH = 5.6
-// 3 pinch positions, evenly distributed along ~70% of the guide
 const PINCH_OFFSETS: number[] = [-1.6, 0, 1.6]
 
 const Scene = forwardRef<Group, SceneProps>(function Scene({ isMobile = false }, ref) {
@@ -50,12 +49,12 @@ const Scene = forwardRef<Group, SceneProps>(function Scene({ isMobile = false },
 
   return (
     <group ref={ref}>
-      {/* Lighting */}
-      <ambientLight intensity={0.15} color="#ffffff" />
+      {/* Lighting — bright ambient scene */}
+      <ambientLight intensity={0.7} color="#ffffff" />
       <directionalLight
-        position={[5, 5, 5]}
-        intensity={1.2}
-        color="#fff4e0"
+        position={[4, 6, 4]}
+        intensity={1.0}
+        color="#ffffff"
         castShadow
         shadow-mapSize-width={1024}
         shadow-mapSize-height={1024}
@@ -66,16 +65,18 @@ const Scene = forwardRef<Group, SceneProps>(function Scene({ isMobile = false },
         shadow-camera-top={4}
         shadow-camera-bottom={-4}
       />
-      <directionalLight position={[-5, 2, -3]} intensity={0.6} color="#aaccff" />
-      <pointLight position={[0, 1, 0.5]} intensity={0.8} color="#ffa94d" distance={6} decay={2} />
+      {/* Warm fill from opposite side */}
+      <directionalLight position={[-4, 3, -2]} intensity={0.5} color="#ffe4d0" />
+      {/* Subtle amber under-glow on the waveguide center */}
+      <pointLight position={[0, 0.4, 0.6]} intensity={0.45} color="#ffa94d" distance={5} decay={2} />
 
-      {/* Studio environment for PBR reflections (no visible background) */}
-      <Environment preset="studio" background={false} />
+      {/* Bright reflection environment */}
+      <Environment preset="apartment" background={false} />
 
       {/* Waveguide */}
       <Waveguide length={WAVEGUIDE_LENGTH} radius={0.08} />
 
-      {/* Endpoint connectors — at each end of the waveguide along X */}
+      {/* Endpoint connectors */}
       <Connector position={[-WAVEGUIDE_LENGTH / 2 - 0.02, 0, 0]} direction={-1} />
       <Connector position={[WAVEGUIDE_LENGTH / 2 + 0.02, 0, 0]} direction={1} />
 
@@ -87,14 +88,18 @@ const Scene = forwardRef<Group, SceneProps>(function Scene({ isMobile = false },
         </group>
       ))}
 
-      {/* Rail */}
+      {/* Rail beneath the waveguide */}
       <Rail length={WAVEGUIDE_LENGTH + 0.6} yOffset={-0.4} />
 
-      {/* Soft ground catcher for shadows — invisible material */}
-      <mesh position={[0, -0.55, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
-        <planeGeometry args={[10, 4]} />
-        <shadowMaterial transparent opacity={0.35} />
-      </mesh>
+      {/* Soft contact shadow grounds the product */}
+      <ContactShadows
+        position={[0, -0.55, 0]}
+        opacity={0.4}
+        scale={6}
+        blur={2.4}
+        far={1.6}
+        resolution={isMobile ? 256 : 512}
+      />
 
       {/* Controls */}
       <OrbitControls

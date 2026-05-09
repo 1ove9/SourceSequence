@@ -3,9 +3,7 @@
 import { Suspense, forwardRef, useEffect, useRef, useState } from "react"
 import { Canvas } from "@react-three/fiber"
 import { useProgress } from "@react-three/drei"
-import { Bloom, ChromaticAberration, EffectComposer, Vignette } from "@react-three/postprocessing"
-import { BlendFunction } from "postprocessing"
-import { Vector2 } from "three"
+import { Bloom, EffectComposer, SMAA } from "@react-three/postprocessing"
 
 import Scene from "./three/Scene"
 
@@ -18,7 +16,7 @@ function LoadingOverlay() {
   if (!active) return null
   return (
     <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
-      <span className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
+      <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
         Initializing antenna system…
       </span>
     </div>
@@ -32,7 +30,6 @@ const PinchingAntennaModel = forwardRef<HTMLDivElement, PinchingAntennaModelProp
     const [inView, setInView] = useState(true)
     const [docVisible, setDocVisible] = useState(true)
 
-    // Mobile detection (matchMedia for live updates)
     useEffect(() => {
       const mq = window.matchMedia("(max-width: 767px)")
       const apply = () => setIsMobile(mq.matches)
@@ -41,7 +38,6 @@ const PinchingAntennaModel = forwardRef<HTMLDivElement, PinchingAntennaModelProp
       return () => mq.removeEventListener("change", apply)
     }, [])
 
-    // Pause render when offscreen
     useEffect(() => {
       const el = wrapperRef.current
       if (!el) return
@@ -55,7 +51,6 @@ const PinchingAntennaModel = forwardRef<HTMLDivElement, PinchingAntennaModelProp
       return () => io.disconnect()
     }, [])
 
-    // Pause when tab is hidden
     useEffect(() => {
       const onVis = () => setDocVisible(document.visibilityState === "visible")
       document.addEventListener("visibilitychange", onVis)
@@ -83,7 +78,7 @@ const PinchingAntennaModel = forwardRef<HTMLDivElement, PinchingAntennaModelProp
             powerPreference: "high-performance",
             preserveDrawingBuffer: false,
           }}
-          camera={{ position: [3, 1.5, 4], fov: 35, near: 0.1, far: 100 }}
+          camera={{ position: [3, 1.6, 4], fov: 35, near: 0.1, far: 100 }}
           frameloop={shouldRender ? "always" : "never"}
           style={{ background: "transparent" }}
         >
@@ -92,18 +87,12 @@ const PinchingAntennaModel = forwardRef<HTMLDivElement, PinchingAntennaModelProp
             {enablePost && (
               <EffectComposer multisampling={0}>
                 <Bloom
-                  intensity={0.6}
-                  luminanceThreshold={0.7}
-                  luminanceSmoothing={0.2}
+                  intensity={0.4}
+                  luminanceThreshold={0.85}
+                  luminanceSmoothing={0.25}
                   mipmapBlur
                 />
-                <ChromaticAberration
-                  blendFunction={BlendFunction.NORMAL}
-                  offset={new Vector2(0.0005, 0.0005)}
-                  radialModulation={false}
-                  modulationOffset={0}
-                />
-                <Vignette darkness={0.4} offset={0.5} />
+                <SMAA />
               </EffectComposer>
             )}
           </Suspense>
