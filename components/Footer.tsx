@@ -33,10 +33,10 @@ export default function Footer() {
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
-                href="mailto:hello@yuanxu.io"
+                href="mailto:hello@sourcesequence.io"
                 className="btn-electric group inline-flex h-12 items-center gap-2 rounded-[14px] px-6 text-[14px] font-semibold"
               >
-                hello@yuanxu.io
+                hello@sourcesequence.io
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
               </a>
               <a
@@ -79,7 +79,7 @@ export default function Footer() {
 
         <div className="mb-12 flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           <div className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground">
-            YUANXU / 源序 <span className="mx-2 text-white/[0.1]">&copy;</span> 2026
+            SOURCE SEQUENCE <span className="mx-2 text-white/[0.1]">&copy;</span> 2026
           </div>
 
           <ul className="flex flex-wrap items-center gap-x-6 gap-y-2">

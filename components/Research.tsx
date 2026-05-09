@@ -41,7 +41,7 @@ export default function Research() {
               </h2>
               <p className="mt-7 max-w-md text-[15px] leading-[1.65] text-muted-foreground">
                 Every product claim sits on a peer-reviewable foundation. Selected work
-                from the YuanXu Lab, with collaborators across academia and industry.
+                from the Source Sequence Lab, with collaborators across academia and industry.
               </p>
 
               <a

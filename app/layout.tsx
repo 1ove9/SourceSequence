@@ -25,7 +25,7 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "YuanXu — AI-Native Pinching Antenna Systems",
+  title: "Source Sequence — AI-Native Pinching Antenna Systems",
   description:
     "Commercializing the 6G physical-layer frontier. Movable radiation points along low-loss dielectric waveguides, controlled in real time by AI.",
   keywords: [
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     "AI",
     "Wireless",
     "Physical Layer",
-    "YuanXu",
+    "Source Sequence",
   ],
 }
 
