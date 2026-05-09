@@ -112,11 +112,39 @@ export default function Hero() {
               </a>
             </motion.div>
 
-            {/* Mono metadata */}
-            <motion.p
+            {/* Trusted by */}
+            <motion.div
               custom={7}
               variants={lineVariants}
-              className="mt-12 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground/80"
+              className="mt-12 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6"
+            >
+              <span className="shrink-0 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground/70">
+                Trusted by research teams at
+              </span>
+              <div className="flex flex-wrap items-center gap-2.5">
+                {["IMT-2030", "SOUTHEAST UNIV.", "CICT", "ZTE"].map((name) => (
+                  <span
+                    key={name}
+                    className="inline-flex items-center rounded-full px-3 py-[5px] font-mono text-[11px] font-medium tracking-[0.08em] text-muted-foreground/60"
+                    style={{
+                      background: "rgba(255,255,255,0.35)",
+                      backdropFilter: "blur(8px) saturate(130%)",
+                      WebkitBackdropFilter: "blur(8px) saturate(130%)",
+                      border: "1px solid rgba(255,255,255,0.45)",
+                      boxShadow: "inset 0 1px 0 rgba(255,255,255,0.6), 0 1px 2px rgba(0,0,0,0.02)",
+                    }}
+                  >
+                    {name}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Mono metadata */}
+            <motion.p
+              custom={8}
+              variants={lineVariants}
+              className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground/80"
             >
               v0.1 <span className="mx-2 text-border">·</span> Research Preview
               <span className="mx-2 text-border">·</span> Shanghai
