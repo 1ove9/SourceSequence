@@ -25,10 +25,9 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Source Sequence — AI-Native Pinching Antenna Systems",
+  title: "YuanXu — AI-Native Pinching Antenna Systems",
   description:
     "Commercializing the 6G physical-layer frontier. Movable radiation points along low-loss dielectric waveguides, controlled in real time by AI.",
-  generator: "v0.app",
   keywords: [
     "6G",
     "Pinching Antenna",
@@ -36,12 +35,12 @@ export const metadata: Metadata = {
     "AI",
     "Wireless",
     "Physical Layer",
-    "Source Sequence",
+    "YuanXu",
   ],
 }
 
 export const viewport: Viewport = {
-  themeColor: "#fafaf7",
+  themeColor: "#0a0e1a",
   width: "device-width",
   initialScale: 1,
 }

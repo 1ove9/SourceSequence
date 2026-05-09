@@ -22,8 +22,8 @@ function MarqueeTrack() {
 export default function Marquee() {
   return (
     <div
-      className="relative flex h-8 select-none items-center overflow-hidden font-mono text-[11px] uppercase tracking-[0.25em]"
-      style={{ color: "#c4c4c0" }}
+      className="relative flex h-8 select-none items-center overflow-hidden border-y border-white/[0.06] font-mono text-[11px] uppercase tracking-[0.25em]"
+      style={{ color: "rgba(255,255,255,0.15)" }}
       role="marquee"
       aria-label="Scrolling ticker: PASS, Pinching Antenna Systems, 6G Physical Layer, AI-Native Radio, Shanghai"
     >

@@ -22,7 +22,6 @@ const Scene = forwardRef<Group, SceneProps>(function Scene({ isMobile = false },
   const controlsRef = useRef<OrbitControlsImpl | null>(null)
   const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  // Pause autoRotate during user interaction; resume 3s after release
   useEffect(() => {
     const c = controlsRef.current
     if (!c || isMobile) return
@@ -32,9 +31,7 @@ const Scene = forwardRef<Group, SceneProps>(function Scene({ isMobile = false },
     }
     const onEnd = () => {
       if (resumeTimer.current) clearTimeout(resumeTimer.current)
-      resumeTimer.current = setTimeout(() => {
-        c.autoRotate = true
-      }, 3000)
+      resumeTimer.current = setTimeout(() => { c.autoRotate = true }, 3000)
     }
     c.addEventListener("start", onStart)
     c.addEventListener("end", onEnd)
@@ -49,11 +46,13 @@ const Scene = forwardRef<Group, SceneProps>(function Scene({ isMobile = false },
 
   return (
     <group ref={ref}>
-      {/* Lighting — bright ambient scene */}
-      <ambientLight intensity={0.5} color="#ffffff" />
+      {/* Cold ambient */}
+      <ambientLight intensity={0.25} color="#b8c5d6" />
+
+      {/* Main key light */}
       <directionalLight
         position={[4, 6, 4]}
-        intensity={0.7}
+        intensity={0.6}
         color="#ffffff"
         castShadow
         shadow-mapSize-width={1024}
@@ -65,13 +64,15 @@ const Scene = forwardRef<Group, SceneProps>(function Scene({ isMobile = false },
         shadow-camera-top={4}
         shadow-camera-bottom={-4}
       />
-      {/* Warm fill from opposite side */}
-      <directionalLight position={[-4, 3, -2]} intensity={0.5} color="#ffe4d0" />
-      {/* Subtle amber under-glow on the waveguide center */}
-      <pointLight position={[0, 0.4, 0.6]} intensity={0.45} color="#ffa94d" distance={5} decay={2} />
 
-      {/* Bright reflection environment */}
-      <Environment preset="apartment" background={false} />
+      {/* Blue fill — brand color */}
+      <directionalLight position={[-4, 2, -3]} intensity={0.4} color="#4d7cff" />
+
+      {/* Purple rim light — edge glow */}
+      <directionalLight position={[0, 3, -5]} intensity={0.5} color="#a78bfa" />
+
+      {/* Night / dawn environment */}
+      <Environment preset="dawn" background={false} environmentIntensity={0.3} />
 
       {/* Waveguide */}
       <Waveguide length={WAVEGUIDE_LENGTH} radius={0.08} />
@@ -88,16 +89,17 @@ const Scene = forwardRef<Group, SceneProps>(function Scene({ isMobile = false },
         </group>
       ))}
 
-      {/* Rail beneath the waveguide */}
+      {/* Rail */}
       <Rail length={WAVEGUIDE_LENGTH + 0.6} yOffset={-0.4} />
 
-      {/* Soft contact shadow grounds the product */}
+      {/* Contact shadow — grounds the product in the dark vitrine */}
       <ContactShadows
         position={[0, -0.55, 0]}
-        opacity={0.55}
+        opacity={0.6}
         scale={6}
         blur={2.4}
         far={1.6}
+        color="#000000"
         resolution={isMobile ? 256 : 512}
       />
 

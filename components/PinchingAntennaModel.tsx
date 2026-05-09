@@ -4,12 +4,9 @@ import { Suspense, forwardRef, useEffect, useRef, useState } from "react"
 import { Canvas } from "@react-three/fiber"
 import { useProgress } from "@react-three/drei"
 import { Bloom, EffectComposer, SMAA } from "@react-three/postprocessing"
+import * as THREE from "three"
 
 import Scene from "./three/Scene"
-
-export interface PinchingAntennaModelProps {
-  className?: string
-}
 
 function LoadingOverlay() {
   const { active } = useProgress()
@@ -23,7 +20,7 @@ function LoadingOverlay() {
   )
 }
 
-const PinchingAntennaModel = forwardRef<HTMLDivElement, PinchingAntennaModelProps>(
+const PinchingAntennaModel = forwardRef<HTMLDivElement, { className?: string }>(
   function PinchingAntennaModel({ className }, ref) {
     const wrapperRef = useRef<HTMLDivElement | null>(null)
     const [isMobile, setIsMobile] = useState(false)
@@ -42,9 +39,7 @@ const PinchingAntennaModel = forwardRef<HTMLDivElement, PinchingAntennaModelProp
       const el = wrapperRef.current
       if (!el) return
       const io = new IntersectionObserver(
-        (entries) => {
-          for (const e of entries) setInView(e.isIntersecting)
-        },
+        (entries) => { for (const e of entries) setInView(e.isIntersecting) },
         { threshold: 0.05 },
       )
       io.observe(el)
@@ -77,6 +72,8 @@ const PinchingAntennaModel = forwardRef<HTMLDivElement, PinchingAntennaModelProp
             antialias: true,
             powerPreference: "high-performance",
             preserveDrawingBuffer: false,
+            toneMapping: THREE.ACESFilmicToneMapping,
+            toneMappingExposure: 0.7,
           }}
           camera={{ position: [3, 1.6, 4], fov: 35, near: 0.1, far: 100 }}
           frameloop={shouldRender ? "always" : "never"}
@@ -87,8 +84,8 @@ const PinchingAntennaModel = forwardRef<HTMLDivElement, PinchingAntennaModelProp
             {enablePost && (
               <EffectComposer multisampling={0}>
                 <Bloom
-                  intensity={0.25}
-                  luminanceThreshold={0.92}
+                  intensity={0.8}
+                  luminanceThreshold={0.6}
                   luminanceSmoothing={0.25}
                   mipmapBlur
                 />

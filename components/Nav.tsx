@@ -14,7 +14,6 @@ const items = [
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
-  const [lang, setLang] = useState<"EN" | "中">("EN")
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -27,20 +26,23 @@ export default function Nav() {
     <header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
       <nav
         className={[
-          "glass mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-3 pl-5 pr-3",
-          "transition-[background,box-shadow] duration-500",
+          "mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-3 pl-5 pr-3",
+          "rounded-full border transition-[background,box-shadow,border-color] duration-500",
           scrolled
-            ? "[background:rgba(255,255,255,0.78)]"
-            : "[background:rgba(255,255,255,0.5)]",
+            ? "border-white/[0.1] bg-[rgba(10,14,26,0.78)] shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+            : "border-white/[0.06] bg-[rgba(10,14,26,0.6)]",
         ].join(" ")}
-        style={{ borderRadius: 9999 }}
+        style={{
+          backdropFilter: "blur(20px) saturate(180%)",
+          WebkitBackdropFilter: "blur(20px) saturate(180%)",
+        }}
       >
         {/* Logo */}
         <Link href="/" className="group flex items-center gap-2.5">
           <span className="relative grid h-5 w-5 place-items-center">
             <span
               className="block h-[2px] w-3.5 rounded-full"
-              style={{ background: "linear-gradient(90deg,#ff8a3d,#ffb27a)" }}
+              style={{ background: "linear-gradient(90deg,#4d7cff,#60a5fa)" }}
             />
             <span className="absolute h-1.5 w-1.5 rounded-full bg-foreground" />
           </span>
@@ -65,35 +67,9 @@ export default function Nav() {
 
         {/* Right side */}
         <div className="flex items-center gap-2">
-          <div className="hidden items-center font-mono text-[11px] tracking-[0.18em] md:flex">
-            <button
-              type="button"
-              onClick={() => setLang("EN")}
-              className={[
-                "px-1.5 transition-colors",
-                lang === "EN" ? "text-foreground" : "text-muted-foreground hover:text-foreground/80",
-              ].join(" ")}
-              aria-pressed={lang === "EN"}
-            >
-              EN
-            </button>
-            <span className="text-border">/</span>
-            <button
-              type="button"
-              onClick={() => setLang("中")}
-              className={[
-                "px-1.5 transition-colors",
-                lang === "中" ? "text-foreground" : "text-muted-foreground hover:text-foreground/80",
-              ].join(" ")}
-              aria-pressed={lang === "中"}
-            >
-              中
-            </button>
-          </div>
-
           <a
             href="#contact"
-            className="btn-amber group ml-1 inline-flex h-9 items-center gap-1.5 rounded-full px-4 text-[12.5px] font-medium"
+            className="btn-electric group ml-1 inline-flex h-9 items-center gap-1.5 rounded-full px-4 text-[12.5px] font-medium"
           >
             Request Access
             <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />

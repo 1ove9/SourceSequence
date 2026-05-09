@@ -31,9 +31,9 @@ export default function Hero() {
                 <span
                   aria-hidden
                   className="text-[14px] leading-none"
-                  style={{ color: "var(--primary)" }}
+                  style={{ color: "#4d7cff" }}
                 >
-                  ⊹
+                  &#x22B9;
                 </span>
                 Now in research preview
               </span>
@@ -43,7 +43,8 @@ export default function Hero() {
             <motion.p
               custom={1}
               variants={lineVariants}
-              className="mt-7 font-display text-[clamp(1.3rem,3vw,2.2rem)] italic leading-[1.2] tracking-[-0.01em] text-muted-foreground"
+              className="mt-7 font-display text-[clamp(1.3rem,3vw,2.2rem)] italic leading-[1.2] tracking-[-0.01em]"
+              style={{ color: "#4d7cff" }}
             >
               {"AI\u2014Native"}
             </motion.p>
@@ -52,7 +53,7 @@ export default function Hero() {
                 Pinching Antenna
               </motion.span>
               <motion.span custom={3} variants={lineVariants} className="block">
-                Systems<span style={{ color: "var(--primary)" }}>.</span>
+                Systems<span style={{ color: "#4d7cff" }}>.</span>
               </motion.span>
             </h1>
 
@@ -63,23 +64,25 @@ export default function Hero() {
               className="mt-6 flex flex-wrap items-center gap-2"
             >
               {[
-                "FREQUENCY \u00b7 28 GHz mmWave",
-                "LATENCY \u00b7 Sub-millisecond",
-                "COVERAGE \u00b7 Reconfigurable in real time",
-              ].map((label) => (
+                { label: "FREQUENCY", value: "28 GHz mmWave" },
+                { label: "LATENCY", value: "Sub-millisecond" },
+                { label: "COVERAGE", value: "Reconfigurable in real time" },
+              ].map((item) => (
                 <span
-                  key={label}
-                  className="inline-flex items-center rounded-full px-3 py-1 font-mono text-[11.5px] tracking-[0.04em] text-muted-foreground"
+                  key={item.label}
+                  className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[11.5px] tracking-[0.04em]"
                   style={{
-                    background: "rgba(255,255,255,0.4)",
+                    background: "rgba(255,255,255,0.04)",
                     backdropFilter: "blur(12px) saturate(140%)",
                     WebkitBackdropFilter: "blur(12px) saturate(140%)",
-                    border: "1px solid rgba(255,255,255,0.55)",
+                    border: "1px solid rgba(255,255,255,0.08)",
                     boxShadow:
-                      "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 3px rgba(0,0,0,0.03)",
+                      "inset 0 1px 0 rgba(255,255,255,0.08), 0 1px 3px rgba(0,0,0,0.2)",
                   }}
                 >
-                  {label}
+                  <span className="text-muted-foreground">{item.label}</span>
+                  <span style={{ color: "#4d7cff" }}>{"\u00b7"}</span>
+                  <span className="text-foreground">{item.value}</span>
                 </span>
               ))}
             </motion.div>
@@ -103,7 +106,7 @@ export default function Hero() {
             >
               <a
                 href="#whitepaper"
-                className="btn-amber group inline-flex h-12 items-center gap-2 rounded-2xl px-6 text-[14px] font-semibold"
+                className="btn-electric group inline-flex h-12 items-center gap-2 rounded-[14px] px-6 text-[14px] font-semibold"
               >
                 Read the Whitepaper
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
@@ -111,7 +114,7 @@ export default function Hero() {
 
               <a
                 href="#contact"
-                className="glass-pill inline-flex h-12 items-center gap-2 rounded-2xl px-6 text-[14px] font-semibold text-foreground transition-all duration-300 hover:[background:rgba(255,255,255,0.85)]"
+                className="glass-pill inline-flex h-12 items-center gap-2 rounded-[14px] px-6 text-[14px] font-semibold text-foreground transition-all duration-300 hover:bg-white/[0.1]"
               >
                 Request a Demo
               </a>
@@ -123,20 +126,17 @@ export default function Hero() {
               variants={lineVariants}
               className="mt-12 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6"
             >
-              <span className="shrink-0 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground/70">
+              <span className="shrink-0 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground/50">
                 Trusted by research teams at
               </span>
               <div className="flex flex-wrap items-center gap-2.5">
                 {["IMT-2030", "SOUTHEAST UNIV.", "CICT", "ZTE"].map((name) => (
                   <span
                     key={name}
-                    className="inline-flex items-center rounded-full px-3 py-[5px] font-mono text-[11px] font-medium tracking-[0.08em] text-muted-foreground/60"
+                    className="inline-flex items-center rounded-full px-3 py-[5px] font-mono text-[11px] font-medium tracking-[0.08em] text-muted-foreground/50"
                     style={{
-                      background: "rgba(255,255,255,0.35)",
-                      backdropFilter: "blur(8px) saturate(130%)",
-                      WebkitBackdropFilter: "blur(8px) saturate(130%)",
-                      border: "1px solid rgba(255,255,255,0.45)",
-                      boxShadow: "inset 0 1px 0 rgba(255,255,255,0.6), 0 1px 2px rgba(0,0,0,0.02)",
+                      background: "rgba(255,255,255,0.04)",
+                      border: "1px solid rgba(255,255,255,0.06)",
                     }}
                   >
                     {name}
@@ -149,10 +149,10 @@ export default function Hero() {
             <motion.p
               custom={8}
               variants={lineVariants}
-              className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground/80"
+              className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground/60"
             >
-              v0.1 <span className="mx-2 text-border">·</span> Research Preview
-              <span className="mx-2 text-border">·</span> Shanghai
+              v0.1 <span className="mx-2 text-white/[0.1]">{"\u00b7"}</span> Research Preview
+              <span className="mx-2 text-white/[0.1]">{"\u00b7"}</span> Shanghai
             </motion.p>
           </motion.div>
         </div>
@@ -172,19 +172,16 @@ export default function Hero() {
           >
             {/* Top instrument bar — three-segment layout */}
             <div className="pointer-events-none absolute inset-x-5 top-5 z-10 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em]">
-              {/* Left — model ID */}
               <span className="text-foreground">PASS-001</span>
-              {/* Center — live indicator */}
               <span className="flex items-center gap-1.5 text-muted-foreground/80">
                 <span
                   className="block h-[6px] w-[6px] animate-pulse rounded-full"
-                  style={{ backgroundColor: "#34d399" }}
+                  style={{ backgroundColor: "#4d7cff" }}
                 />
                 LIVE
               </span>
-              {/* Right — frequency + channel */}
-              <span className="text-muted-foreground/80">
-                28.0 GHz <span className="text-border">/</span> Ch.2
+              <span className="text-muted-foreground">
+                28.0 GHz <span className="text-white/[0.15]">/</span> Ch.2
               </span>
             </div>
 
@@ -195,8 +192,8 @@ export default function Hero() {
               <SignalFlux />
             </div>
 
-            {/* Bottom mono spec line — left-aligned, subdued */}
-            <div className="pointer-events-none absolute inset-x-5 bottom-4 z-10 font-mono text-[10px] uppercase tracking-[0.18em]" style={{ color: "#9a9a9a" }}>
+            {/* Bottom mono spec line */}
+            <div className="pointer-events-none absolute inset-x-5 bottom-4 z-10 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground/50">
               Dielectric waveguide · 3 pinches · Drag to inspect
             </div>
           </motion.div>

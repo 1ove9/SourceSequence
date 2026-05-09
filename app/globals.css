@@ -4,50 +4,50 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Source Sequence — Liquid Glass palette (light, premium hardware) */
-  --background: #fafaf7;          /* off-white, faint warm tint */
-  --background-deep: #f0f0eb;     /* gradient bottom */
-  --foreground: #0a0a0a;          /* primary deep black text */
-  --muted: #f5f5f0;
-  --muted-foreground: #6e6e73;    /* Apple secondary gray */
+  /* Deep space blue palette — Linear / Vercel inspired */
+  --background: #0a0e1a;
+  --background-deep: #131829;
+  --foreground: #f5f7fa;
+  --muted: #1a1f30;
+  --muted-foreground: #8b92a8;
 
-  --border: rgba(0, 0, 0, 0.08);
-  --input: rgba(0, 0, 0, 0.08);
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.08);
 
-  --card: rgba(255, 255, 255, 0.55);
-  --card-foreground: #0a0a0a;
+  --card: rgba(255, 255, 255, 0.06);
+  --card-foreground: #f5f7fa;
 
-  --popover: #ffffff;
-  --popover-foreground: #0a0a0a;
+  --popover: #131829;
+  --popover-foreground: #f5f7fa;
 
-  /* Primary = warm amber, used sparingly on CTA + key data */
-  --primary: #ff8a3d;
+  /* Primary = electric blue */
+  --primary: #4d7cff;
   --primary-foreground: #ffffff;
 
-  /* Secondary = soft cool blue, charts/state only */
-  --secondary: #5b8def;
+  /* Secondary = muted purple, charts only */
+  --secondary: #a78bfa;
   --secondary-foreground: #ffffff;
 
-  --accent: #ff8a3d;
+  --accent: #4d7cff;
   --accent-foreground: #ffffff;
 
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
 
-  --ring: rgba(255, 138, 61, 0.5);
+  --ring: rgba(77, 124, 255, 0.5);
 
   --radius: 1.25rem;
 
-  /* Glass tokens */
-  --glass-bg: rgba(255, 255, 255, 0.55);
-  --glass-bg-strong: rgba(255, 255, 255, 0.75);
-  --glass-border: rgba(255, 255, 255, 0.7);
-  --glass-shadow: rgba(0, 0, 0, 0.04);
+  /* Glass tokens — dark variant */
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-bg-strong: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: rgba(0, 0, 0, 0.3);
 
-  /* Soft ambient color blobs */
-  --blob-warm: #ffe4d0;
-  --blob-cool: #d8e4ff;
-  --blob-pink: #ffe0e8;
+  /* Glow colors */
+  --glow-blue: #3b82f6;
+  --glow-purple: #8b5cf6;
+  --glow-cyan: #06b6d4;
 
   /* Apple-standard easing */
   --ease-apple: cubic-bezier(0.4, 0, 0.2, 1);
@@ -92,7 +92,7 @@
 
   html {
     background: var(--background);
-    color-scheme: light;
+    color-scheme: dark;
   }
 
   body {
@@ -103,41 +103,40 @@
   }
 
   ::selection {
-    background: rgba(255, 138, 61, 0.2);
+    background: rgba(77, 124, 255, 0.25);
     color: var(--foreground);
   }
 }
 
 /* ---------- Page background system ---------- */
-/* Layer 1: subtle warm gradient under everything */
 .bg-canvas {
-  background: linear-gradient(180deg, #fafaf7 0%, #f3f3ee 60%, #efefe9 100%);
+  background: #0a0e1a;
 }
 
-/* Layer 3: ultra-fine grain — covers the whole page */
+/* Layer 3: grain — stronger for dark scene to suppress banding */
 .bg-grain::after {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.025;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.7 0'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>");
+  opacity: 0.04;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>");
 }
 
-/* ---------- Liquid Glass mixin ---------- */
+/* ---------- Dark glass mixin ---------- */
 .glass {
-  background: var(--glass-bg);
+  background: rgba(255, 255, 255, 0.06);
   -webkit-backdrop-filter: blur(40px) saturate(180%);
   backdrop-filter: blur(40px) saturate(180%);
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.04) inset,
-    0 8px 32px rgba(0, 0, 0, 0.04),
-    0 24px 80px rgba(0, 0, 0, 0.06);
+    0 1px 0 rgba(255, 255, 255, 0.1) inset,
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 24px 80px rgba(0, 0, 0, 0.4);
   transition:
     background 400ms var(--ease-apple),
     transform 400ms var(--ease-apple),
@@ -145,66 +144,66 @@
 }
 
 .glass-hover:hover {
-  background: var(--glass-bg-strong);
+  background: rgba(255, 255, 255, 0.1);
   transform: translateY(-2px);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.05) inset,
-    0 12px 40px rgba(0, 0, 0, 0.06),
-    0 32px 100px rgba(0, 0, 0, 0.08);
+    0 1px 0 rgba(255, 255, 255, 0.14) inset,
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    0 32px 100px rgba(0, 0, 0, 0.5);
 }
 
 .glass-thin {
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.04);
   -webkit-backdrop-filter: blur(28px) saturate(170%);
   backdrop-filter: blur(28px) saturate(170%);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.85) inset,
-    0 4px 16px rgba(0, 0, 0, 0.03);
+    0 1px 0 rgba(255, 255, 255, 0.08) inset,
+    0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
 .glass-pill {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.06);
   -webkit-backdrop-filter: blur(20px) saturate(160%);
   backdrop-filter: blur(20px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
-    0 4px 12px rgba(0, 0, 0, 0.04);
+    0 1px 0 rgba(255, 255, 255, 0.1) inset,
+    0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Amber CTA with inset highlight */
-.btn-amber {
-  background: linear-gradient(180deg, #ffa56b 0%, #ff8a3d 100%);
+/* Electric blue CTA with glow */
+.btn-electric {
+  background: linear-gradient(135deg, #4d7cff 0%, #6366f1 100%);
   color: #ffffff;
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.5) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.08) inset,
-    0 6px 16px rgba(255, 138, 61, 0.32),
-    0 1px 2px rgba(255, 138, 61, 0.4);
+    0 1px 0 rgba(255, 255, 255, 0.3) inset,
+    0 0 0 1px rgba(255, 255, 255, 0.15) inset,
+    0 4px 16px rgba(77, 124, 255, 0.4);
   transition: all 400ms var(--ease-apple);
 }
-.btn-amber:hover {
+.btn-electric:hover {
   transform: translateY(-1px);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.55) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.08) inset,
-    0 10px 24px rgba(255, 138, 61, 0.38),
-    0 1px 2px rgba(255, 138, 61, 0.5);
+    0 1px 0 rgba(255, 255, 255, 0.35) inset,
+    0 0 0 1px rgba(255, 255, 255, 0.2) inset,
+    0 8px 28px rgba(77, 124, 255, 0.55),
+    0 2px 6px rgba(77, 124, 255, 0.6);
 }
 
-/* Showcase well — gives the 3D model container a vitrine feel */
+/* Showcase well — deep vitrine for 3D */
 .showcase-inner {
+  background: radial-gradient(ellipse at center, #1a2238 0%, #0a0e1a 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -40px 60px rgba(0, 0, 0, 0.04),
-    inset 0 40px 60px rgba(255, 255, 255, 0.5);
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -40px 60px rgba(0, 0, 0, 0.5),
+    inset 0 40px 60px rgba(10, 14, 26, 0.6);
 }
 
 /* Fine hairline */
 .hairline {
-  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1) 12%, rgba(0, 0, 0, 0.1) 88%, transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08) 12%, rgba(255, 255, 255, 0.08) 88%, transparent);
   height: 1px;
   width: 100%;
 }
@@ -219,12 +218,12 @@
 }
 
 /* Pulse */
-@keyframes pulse-amber {
+@keyframes pulse-blue {
   0%, 100% { opacity: 1; transform: scale(1); }
   50%      { opacity: 0.4; transform: scale(0.85); }
 }
 .pulse-dot {
-  animation: pulse-amber 2s ease-in-out infinite;
+  animation: pulse-blue 2s ease-in-out infinite;
 }
 
 /* Underline sweep */
@@ -249,7 +248,7 @@
   transform: scaleX(1);
 }
 
-/* Subtle scrollbar */
+/* Scrollbar */
 html {
-  scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
 }

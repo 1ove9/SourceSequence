@@ -9,9 +9,8 @@ export interface WaveguideProps {
 }
 
 /**
- * Dielectric (PTFE-like) waveguide oriented along the X axis.
- * - Outer translucent white sheath with high transmission for premium glass feel
- * - Inner amber-emissive core suggesting guided RF energy
+ * Cold-blue dielectric waveguide for deep-space scene.
+ * Outer translucent sheath transmits blue light; inner core emits #4d7cff.
  */
 const Waveguide = forwardRef<Group, WaveguideProps>(function Waveguide(
   { length = 5.6, radius = 0.08 },
@@ -23,28 +22,28 @@ const Waveguide = forwardRef<Group, WaveguideProps>(function Waveguide(
       <mesh castShadow receiveShadow>
         <cylinderGeometry args={[radius, radius, length, 64, 1, false]} />
         <meshPhysicalMaterial
-          color="#fafafa"
-          transmission={0.85}
-          roughness={0.05}
+          color="#c8d4e8"
+          transmission={0.7}
+          roughness={0.12}
           thickness={0.4}
           ior={1.45}
           metalness={0}
-          clearcoat={0.6}
-          clearcoatRoughness={0.15}
-          attenuationColor="#fff4e6"
+          clearcoat={0.5}
+          clearcoatRoughness={0.2}
+          attenuationColor="#4d7cff"
           attenuationDistance={2.5}
           transparent
-          opacity={0.95}
+          opacity={0.92}
         />
       </mesh>
 
-      {/* Inner emissive core */}
+      {/* Inner emissive core — electric blue */}
       <mesh>
         <cylinderGeometry args={[radius * 0.45, radius * 0.45, length * 0.998, 32, 1, false]} />
         <meshStandardMaterial
-          color="#fff4e0"
-          emissive="#ffa94d"
-          emissiveIntensity={0.6}
+          color="#3b6bcc"
+          emissive="#4d7cff"
+          emissiveIntensity={0.4}
           roughness={0.4}
           metalness={0}
         />

@@ -9,9 +9,7 @@ export interface PinchElementProps {
 }
 
 /**
- * Light-finish pinching jaw assembly clamping the dielectric waveguide.
- * Two opposing chamfered blocks above and below the waveguide,
- * connected by a vertical driver post that terminates against the rail.
+ * Dark-finish pinching jaw assembly — deeper metals for the deep-space scene.
  */
 const PinchElement = forwardRef<Group, PinchElementProps>(function PinchElement(
   { position = [0, 0, 0], active = false },
@@ -28,11 +26,11 @@ const PinchElement = forwardRef<Group, PinchElementProps>(function PinchElement(
       <mesh position={[0, jawOffsetY, 0]} castShadow receiveShadow>
         <boxGeometry args={[jawWidth, jawHeight, jawDepth]} />
         <meshStandardMaterial
-          color="#e8e8ea"
+          color="#6b7280"
           metalness={0.95}
-          roughness={0.15}
-          envMapIntensity={1.5}
-          emissive={active ? "#ff8a3d" : "#000000"}
+          roughness={0.25}
+          envMapIntensity={0.7}
+          emissive={active ? "#4d7cff" : "#000000"}
           emissiveIntensity={active ? 0.18 : 0}
         />
       </mesh>
@@ -41,11 +39,11 @@ const PinchElement = forwardRef<Group, PinchElementProps>(function PinchElement(
       <mesh position={[0, -jawOffsetY, 0]} castShadow receiveShadow>
         <boxGeometry args={[jawWidth, jawHeight, jawDepth]} />
         <meshStandardMaterial
-          color="#e8e8ea"
+          color="#6b7280"
           metalness={0.95}
-          roughness={0.15}
-          envMapIntensity={1.5}
-          emissive={active ? "#ff8a3d" : "#000000"}
+          roughness={0.25}
+          envMapIntensity={0.7}
+          emissive={active ? "#4d7cff" : "#000000"}
           emissiveIntensity={active ? 0.18 : 0}
         />
       </mesh>
@@ -53,23 +51,23 @@ const PinchElement = forwardRef<Group, PinchElementProps>(function PinchElement(
       {/* Inner contact pads */}
       <mesh position={[0, 0.105, 0]} castShadow>
         <boxGeometry args={[jawWidth * 0.6, 0.01, jawDepth * 0.7]} />
-        <meshStandardMaterial color="#f4f4f6" metalness={1} roughness={0.08} envMapIntensity={1.8} />
+        <meshStandardMaterial color="#9ca3af" metalness={1} roughness={0.08} envMapIntensity={0.8} />
       </mesh>
       <mesh position={[0, -0.105, 0]} castShadow>
         <boxGeometry args={[jawWidth * 0.6, 0.01, jawDepth * 0.7]} />
-        <meshStandardMaterial color="#f4f4f6" metalness={1} roughness={0.08} envMapIntensity={1.8} />
+        <meshStandardMaterial color="#9ca3af" metalness={1} roughness={0.08} envMapIntensity={0.8} />
       </mesh>
 
-      {/* Driver post — connects lower jaw to rail (rail at y = -0.4) */}
+      {/* Driver post */}
       <mesh position={[0, -0.28, 0]} castShadow>
         <cylinderGeometry args={[0.022, 0.022, 0.16, 16]} />
-        <meshStandardMaterial color="#c8c8ca" metalness={0.95} roughness={0.18} envMapIntensity={1.5} />
+        <meshStandardMaterial color="#4b5563" metalness={0.95} roughness={0.18} envMapIntensity={0.7} />
       </mesh>
 
-      {/* Driver collar at base of post */}
+      {/* Driver collar */}
       <mesh position={[0, -0.36, 0]} castShadow>
         <cylinderGeometry args={[0.05, 0.05, 0.04, 16]} />
-        <meshStandardMaterial color="#dadadc" metalness={0.9} roughness={0.2} envMapIntensity={1.4} />
+        <meshStandardMaterial color="#6b7280" metalness={0.9} roughness={0.2} envMapIntensity={0.7} />
       </mesh>
     </group>
   )

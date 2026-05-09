@@ -10,8 +10,7 @@ type Cap = {
   title: string
   desc: string
   icon: LucideIcon
-  /** Tailwind gradient utility for the icon-tile background */
-  tint: string
+  glow: string
 }
 
 const items: Cap[] = [
@@ -20,28 +19,28 @@ const items: Cap[] = [
     title: "Pinching Antenna Systems",
     desc: "Movable radiation points on low-loss dielectric waveguides. The flagship.",
     icon: Antenna,
-    tint: "from-[#ffe4d0] to-[#ffd0b0]",
+    glow: "#3b82f6",
   },
   {
     num: "02",
     title: "AI Control Plane",
     desc: "Real-time activation, beam focusing, and user-aware optimization.",
     icon: Brain,
-    tint: "from-[#d8e4ff] to-[#bcd0ff]",
+    glow: "#8b5cf6",
   },
   {
     num: "03",
     title: "Generative RF Design",
     desc: "Neural topology search for waveguides, pinches, and metasurfaces.",
     icon: Sparkles,
-    tint: "from-[#ffe0e8] to-[#ffd0dc]",
+    glow: "#06b6d4",
   },
   {
     num: "04",
     title: "Integrated Sensing & Communication",
     desc: "One aperture, two functions: connect and perceive.",
     icon: Radar,
-    tint: "from-[#e0f0e4] to-[#cce4d2]",
+    glow: "#4d7cff",
   },
 ]
 
@@ -49,7 +48,6 @@ export default function Capabilities() {
   return (
     <section id="capabilities" className="relative py-28 md:py-40">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
-        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -65,7 +63,6 @@ export default function Capabilities() {
           </h2>
         </motion.div>
 
-        {/* Grid */}
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {items.map((c, idx) => {
             const Icon = c.icon
@@ -88,29 +85,24 @@ export default function Capabilities() {
                 >
                   {/* Icon tile */}
                   <div
-                    className={`relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${c.tint}`}
+                    className="relative flex h-14 w-14 items-center justify-center rounded-2xl"
                     style={{
-                      boxShadow:
-                        "inset 0 1px 0 rgba(255,255,255,0.9), 0 4px 12px rgba(0,0,0,0.04)",
+                      background: "rgba(255,255,255,0.06)",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      boxShadow: `inset 0 1px 0 rgba(255,255,255,0.1), 0 0 24px ${c.glow}22`,
                     }}
                   >
-                    <Icon className="h-6 w-6 text-foreground/80" strokeWidth={1.5} />
+                    <Icon className="h-6 w-6 text-foreground/70" strokeWidth={1.5} />
                   </div>
 
-                  {/* Number */}
-                  <div
-                    className="font-mono text-[12px] tracking-[0.18em]"
-                    style={{ color: "var(--primary)" }}
-                  >
+                  <div className="font-mono text-[12px] tracking-[0.18em]" style={{ color: "#4d7cff" }}>
                     {c.num}.
                   </div>
 
-                  {/* Title */}
                   <h3 className="font-display text-[26px] leading-[1.1] tracking-[-0.01em] text-foreground">
                     {c.title}
                   </h3>
 
-                  {/* Desc */}
                   <p className="mt-auto text-[14.5px] leading-relaxed text-muted-foreground">
                     {c.desc}
                   </p>
