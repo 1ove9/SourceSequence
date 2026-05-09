@@ -79,7 +79,7 @@ export default function Footer() {
 
         <div className="mb-12 flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           <div className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground">
-            SOURCE SEQUENCE <span className="mx-2 text-border">©</span> 2026
+            YUANXU / 源序 <span className="mx-2 text-border">©</span> 2026
           </div>
 
           <ul className="flex flex-wrap items-center gap-x-6 gap-y-2">

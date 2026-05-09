@@ -45,10 +45,7 @@ export default function Nav() {
             <span className="absolute h-1.5 w-1.5 rounded-full bg-foreground" />
           </span>
           <span className="text-[15px] font-semibold tracking-tight text-foreground">
-            source sequence
-          </span>
-          <span className="hidden font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground/80 md:inline">
-            / 源序
+            yuanxu
           </span>
         </Link>
 
