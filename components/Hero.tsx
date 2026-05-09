@@ -51,11 +51,39 @@ export default function Hero() {
               </motion.span>
             </h1>
 
-            {/* Body copy */}
-            <motion.p
+            {/* Engineering metadata pills */}
+            <motion.div
               custom={4}
               variants={lineVariants}
-              className="mt-8 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground md:text-[17px] md:leading-[1.6]"
+              className="mt-6 flex flex-wrap items-center gap-2"
+            >
+              {[
+                "FREQUENCY \u00b7 28 GHz mmWave",
+                "LATENCY \u00b7 Sub-millisecond",
+                "COVERAGE \u00b7 Reconfigurable in real time",
+              ].map((label) => (
+                <span
+                  key={label}
+                  className="inline-flex items-center rounded-full px-3 py-1 font-mono text-[11.5px] tracking-[0.04em] text-muted-foreground"
+                  style={{
+                    background: "rgba(255,255,255,0.4)",
+                    backdropFilter: "blur(12px) saturate(140%)",
+                    WebkitBackdropFilter: "blur(12px) saturate(140%)",
+                    border: "1px solid rgba(255,255,255,0.55)",
+                    boxShadow:
+                      "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 3px rgba(0,0,0,0.03)",
+                  }}
+                >
+                  {label}
+                </span>
+              ))}
+            </motion.div>
+
+            {/* Body copy */}
+            <motion.p
+              custom={5}
+              variants={lineVariants}
+              className="mt-7 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground md:text-[17px] md:leading-[1.6]"
             >
               We build movable radiation points along low-loss dielectric waveguides,
               controlled in real time by AI. On-demand line-of-sight, in any space, at the
@@ -64,7 +92,7 @@ export default function Hero() {
 
             {/* CTAs */}
             <motion.div
-              custom={5}
+              custom={6}
               variants={lineVariants}
               className="mt-10 flex flex-wrap items-center gap-3"
             >
@@ -86,7 +114,7 @@ export default function Hero() {
 
             {/* Mono metadata */}
             <motion.p
-              custom={6}
+              custom={7}
               variants={lineVariants}
               className="mt-12 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground/80"
             >
