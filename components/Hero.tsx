@@ -165,24 +165,29 @@ export default function Hero() {
             className="glass showcase-inner relative aspect-square w-full overflow-hidden"
             style={{ borderRadius: 32 }}
           >
-            {/* Top corner instrument label */}
-            <div className="pointer-events-none absolute left-5 top-5 z-10 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground/80">
-              <span
-                className="block h-1.5 w-1.5 rounded-full pulse-dot"
-                style={{ background: "var(--primary)" }}
-              />
-              PASS-001 <span className="text-border">/</span> LIVE
-            </div>
-            <div className="pointer-events-none absolute right-5 top-5 z-10 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground/80">
-              28.0 GHz
+            {/* Top instrument bar — three-segment layout */}
+            <div className="pointer-events-none absolute inset-x-5 top-5 z-10 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em]">
+              {/* Left — model ID */}
+              <span className="text-foreground">PASS-001</span>
+              {/* Center — live indicator */}
+              <span className="flex items-center gap-1.5 text-muted-foreground/80">
+                <span
+                  className="block h-[6px] w-[6px] animate-pulse rounded-full"
+                  style={{ backgroundColor: "#34d399" }}
+                />
+                LIVE
+              </span>
+              {/* Right — frequency + channel */}
+              <span className="text-muted-foreground/80">
+                28.0 GHz <span className="text-border">/</span> Ch.2
+              </span>
             </div>
 
             <PinchingAntennaModel />
 
-            {/* Bottom mono spec line */}
-            <div className="pointer-events-none absolute inset-x-5 bottom-4 z-10 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground/70">
-              <span>Dielectric waveguide · 3 pinches</span>
-              <span>Drag to inspect</span>
+            {/* Bottom mono spec line — left-aligned, subdued */}
+            <div className="pointer-events-none absolute inset-x-5 bottom-4 z-10 font-mono text-[10px] uppercase tracking-[0.18em]" style={{ color: "#9a9a9a" }}>
+              Dielectric waveguide · 3 pinches · Drag to inspect
             </div>
           </motion.div>
         </div>

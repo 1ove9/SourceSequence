@@ -87,8 +87,8 @@ const PinchingAntennaModel = forwardRef<HTMLDivElement, PinchingAntennaModelProp
             {enablePost && (
               <EffectComposer multisampling={0}>
                 <Bloom
-                  intensity={0.4}
-                  luminanceThreshold={0.85}
+                  intensity={0.25}
+                  luminanceThreshold={0.92}
                   luminanceSmoothing={0.25}
                   mipmapBlur
                 />

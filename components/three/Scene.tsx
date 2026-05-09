@@ -50,10 +50,10 @@ const Scene = forwardRef<Group, SceneProps>(function Scene({ isMobile = false },
   return (
     <group ref={ref}>
       {/* Lighting — bright ambient scene */}
-      <ambientLight intensity={0.7} color="#ffffff" />
+      <ambientLight intensity={0.5} color="#ffffff" />
       <directionalLight
         position={[4, 6, 4]}
-        intensity={1.0}
+        intensity={0.7}
         color="#ffffff"
         castShadow
         shadow-mapSize-width={1024}
@@ -94,7 +94,7 @@ const Scene = forwardRef<Group, SceneProps>(function Scene({ isMobile = false },
       {/* Soft contact shadow grounds the product */}
       <ContactShadows
         position={[0, -0.55, 0]}
-        opacity={0.4}
+        opacity={0.55}
         scale={6}
         blur={2.4}
         far={1.6}
