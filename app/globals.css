@@ -54,9 +54,9 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-sans), 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-sans), 'Geist', var(--font-sans-cn), 'Noto Sans SC', ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono), 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-display: var(--font-display), 'Instrument Serif', ui-serif, Georgia, serif;
+  --font-display: var(--font-display), 'Instrument Serif', var(--font-display-cn), 'Noto Serif SC', ui-serif, Georgia, serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);

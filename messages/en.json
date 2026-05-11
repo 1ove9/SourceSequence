@@ -1,0 +1,159 @@
+{
+  "nav": {
+    "research": "Research",
+    "lab": "Lab",
+    "applications": "Applications",
+    "about": "About",
+    "careers": "Careers",
+    "contact": "Contact",
+    "cta": "Get in Touch"
+  },
+  "hero": {
+    "pill": "A research company building the physical layer of 6G",
+    "title": "We build wireless systems that think.",
+    "body": "Source Sequence is a deep-tech research company developing AI-native radio architectures for the 6G era. Founded in Hangzhou by researchers trained at leading universities across China, the UK, and the US.",
+    "ctaPrimary": "Our Research",
+    "ctaSecondary": "Get in Touch",
+    "modelCaption": "Pinching Antenna Systems · One of our active research lines"
+  },
+  "vision": {
+    "label": "01 / Vision",
+    "body": "For decades, antennas have been static—fixed shapes radiating fixed patterns. We believe that as wireless systems enter the 6G era, the physical layer itself must become intelligent, adaptive, and software-defined.",
+    "quote": "We build radio systems where every photon is placed by an algorithm."
+  },
+  "research": {
+    "label": "02 / Research",
+    "heading": "What we're building.",
+    "thread": "Research thread",
+    "horizonBadge": "Long-horizon research",
+    "directions": {
+      "pass": {
+        "title": "Pinching Antenna Systems",
+        "desc": "Reconfigurable radiation along low-loss dielectric waveguides. Our flagship research line, exploring on-demand line-of-sight wireless coverage for indoor and immersive environments."
+      },
+      "control": {
+        "title": "AI Control Plane",
+        "desc": "Real-time decision-making for wireless physical-layer reconfiguration. Neural agents that orchestrate beams, links, and apertures at sub-millisecond latency."
+      },
+      "generative": {
+        "title": "Generative RF Design",
+        "desc": "Neural topology search for antennas, waveguides, and metasurfaces. We use diffusion models and neural architecture search to design RF structures beyond human intuition."
+      },
+      "isac": {
+        "title": "Integrated Sensing & Communication",
+        "desc": "One aperture, two functions. Antennas that simultaneously connect and perceive—a foundational primitive for 6G."
+      },
+      "aircomp": {
+        "title": "AirComp & Wireless AI Compute",
+        "desc": "Treating the wireless channel itself as a computing substrate. We explore over-the-air computation for distributed AI inference at the edge of 6G networks."
+      }
+    }
+  },
+  "footer": {
+    "copyright": "© 2026 Source Sequence Technology · Hangzhou · All rights reserved",
+    "backedBy": "Backed by leading deep-tech investors",
+    "signature": "Building the physical layer of 6G.",
+    "pressLabel": "Press inquiries"
+  },
+  "contact": {
+    "label": "08 / Contact",
+    "heading": "Let's talk.",
+    "entries": {
+      "general": "General",
+      "research": "Research collaboration",
+      "press": "Press",
+      "careers": "Careers"
+    },
+    "address": "Source Sequence Technology · Hangzhou, China"
+  },
+  "careers": {
+    "label": "07 / Careers",
+    "quote": "We're building an unusual company. If you want to build the physical layer of 6G, talk to us.",
+    "intro": "We hire researchers, engineers, and operators who care about doing fundamental work. Open positions are posted as we grow—but we're always open to talking with exceptional people.",
+    "apply": "Apply",
+    "roles": {
+      "rfEngineer": {
+        "title": "Antenna / RF Research Engineer",
+        "location": "Hangzhou · Full-time",
+        "desc": "Lead the design and characterization of next-generation dielectric waveguide systems."
+      },
+      "aiResearcher": {
+        "title": "AI Researcher · Wireless Physical Layer",
+        "location": "Hangzhou / Remote · Full-time",
+        "desc": "Develop neural architectures for real-time control of reconfigurable radio systems."
+      },
+      "frontendEngineer": {
+        "title": "Frontend / Visualization Engineer",
+        "location": "Hangzhou / Remote · Full-time",
+        "desc": "Build the tools and interfaces that make our research legible to the world."
+      }
+    }
+  },
+  "publications": {
+    "label": "06 / Publications — We publish what we build.",
+    "paper": {
+      "meta": "Source Sequence · Position Paper · 2026",
+      "title": "Core Views on AI-Native Radio",
+      "abstract": "Why we believe the physical layer of wireless communication is the next frontier for AI—and why the 6G era requires us to rebuild radio systems from first principles.",
+      "cta": "Read the essay"
+    },
+    "comingSoon": "More papers and technical notes coming soon."
+  },
+  "about": {
+    "label": "05 / About",
+    "heading": "A small research company with global roots.",
+    "para1": "Source Sequence was founded in Hangzhou in 2025 by a group of researchers and engineers trained at leading universities across China, the United Kingdom, and the United States. We came together around a simple thesis: that the physical layer of wireless communication—long treated as fixed, passive infrastructure—is the next frontier for AI.",
+    "para2": "We are a research-first company. We publish what we build. We collaborate with universities and standards bodies. We believe the path to 6G runs through new physics, not just new software.",
+    "facts": {
+      "founded": {"label": "Founded", "value": "2025 · Hangzhou"},
+      "team": {"label": "Team", "value": "Master's & PhD researchers from China, UK & US"},
+      "focus": {"label": "Focus", "value": "AI-Native Radio Systems"},
+      "stage": {"label": "Stage", "value": "Research preview"}
+    }
+  },
+  "applications": {
+    "label": "04 / Applications",
+    "heading": "Where the research lands.",
+    "scenarios": {
+      "factory": {
+        "tag": "Industrial IoT",
+        "title": "Smart Factory & Industrial IoT",
+        "desc": "Reconfigurable mmWave coverage in dynamic NLOS environments."
+      },
+      "immersive": {
+        "tag": "XR & Venues",
+        "title": "Immersive Spaces",
+        "desc": "On-demand line-of-sight for XR, stadiums, and large exhibition venues."
+      },
+      "hangar": {
+        "tag": "Low-Altitude Economy",
+        "title": "Low-Altitude Hangars & Vertiports",
+        "desc": "Antenna infrastructure for the emerging low-altitude economy."
+      }
+    }
+  },
+  "lab": {
+    "label": "03 / Lab",
+    "heading": "How we work.",
+    "intro": "We operate a lean wireless research lab in Hangzhou, combining in-house prototyping with simulation, open hardware, and university partnerships.",
+    "cardBadge": "Hangzhou · Distributed",
+    "practices": {
+      "simulation": {
+        "title": "Simulation & Modeling",
+        "desc": "Full-wave EM simulation, channel modeling, and RF system co-design."
+      },
+      "hardware": {
+        "title": "Open Hardware Prototyping",
+        "desc": "SDR-based over-the-air experimentation and rapid waveguide fabrication."
+      },
+      "partners": {
+        "title": "Partner Lab Network",
+        "desc": "Collaborative access to mmWave testbeds and anechoic chambers through university partnerships in China, the UK, and the US."
+      },
+      "aiStack": {
+        "title": "AI Compute Stack",
+        "desc": "GPU-accelerated training and simulation pipelines for RF neural models."
+      }
+    }
+  }
+}
