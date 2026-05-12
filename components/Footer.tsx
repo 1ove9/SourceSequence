@@ -1,6 +1,7 @@
 "use client"
 
-import {useTranslations} from "next-intl"
+import {useLocale, useTranslations} from "next-intl"
+import {cn} from "@/lib/utils"
 
 const navKeys = ["research", "lab", "applications", "about", "careers"] as const
 
@@ -14,6 +15,8 @@ const socialItems = [
 export default function Footer() {
   const t = useTranslations("footer")
   const tNav = useTranslations("nav")
+  const locale = useLocale()
+  const isZh = locale === "zh"
 
   return (
     <footer className="relative pb-10 pt-12">
@@ -66,13 +69,15 @@ export default function Footer() {
         </div>
 
         {/* Large italic signature */}
-        <div className="-mx-5 overflow-hidden md:-mx-8">
+        <div className="overflow-hidden w-full max-w-full">
           <div
-            className="select-none whitespace-nowrap px-5 font-display italic leading-[0.95] tracking-[-0.02em] md:px-8"
-            style={{
-              color: "#1a2238",
-              fontSize: "clamp(2.75rem, 11vw, 11rem)",
-            }}
+            className={cn(
+              "select-none whitespace-nowrap font-display italic leading-[0.95] tracking-[-0.02em]",
+              isZh
+                ? "text-[clamp(28px,6vw,90px)]"
+                : "text-[clamp(40px,9vw,150px)]"
+            )}
+            style={{ color: "#1a2238" }}
           >
             {t("signature")}
           </div>

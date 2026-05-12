@@ -1,7 +1,8 @@
 "use client"
 
 import {motion} from "framer-motion"
-import {useTranslations} from "next-intl"
+import {useLocale, useTranslations} from "next-intl"
+import {cn} from "@/lib/utils"
 
 type ContactKey = "general" | "research" | "press" | "careers"
 
@@ -14,6 +15,8 @@ const contacts: {key: ContactKey; email: string}[] = [
 
 export default function Contact() {
   const t = useTranslations("contact")
+  const locale = useLocale()
+  const isZh = locale === "zh"
 
   return (
     <section id="contact" className="relative py-24 md:py-32">
@@ -30,7 +33,12 @@ export default function Contact() {
             <div className="mb-5 font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
               {t("label")}
             </div>
-            <h2 className="font-display text-[clamp(3rem,7vw,6rem)] leading-[0.98] tracking-[-0.03em] text-foreground">
+            <h2 className={cn(
+              "font-display leading-[0.98] tracking-[-0.03em] text-foreground",
+              isZh
+                ? "text-5xl md:text-6xl lg:text-7xl"
+                : "text-[clamp(3rem,7vw,6rem)]"
+            )}>
               {t("heading")}
             </h2>
           </motion.div>

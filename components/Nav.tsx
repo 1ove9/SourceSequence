@@ -10,6 +10,7 @@ const itemKeys = ["research", "lab", "applications", "about", "careers", "contac
 
 export default function Nav() {
   const t = useTranslations("nav")
+  const tBrand = useTranslations("brand")
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -44,7 +45,7 @@ export default function Nav() {
             <span className="absolute h-1.5 w-1.5 rounded-full bg-foreground" />
           </span>
           <span className="text-[15px] font-semibold lowercase tracking-tight text-foreground">
-            yuanxu
+            {tBrand("name")}
           </span>
         </Link>
 

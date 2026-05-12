@@ -3,7 +3,9 @@
 import {motion} from "framer-motion"
 import type {ReactNode} from "react"
 import {useTranslations} from "next-intl"
+import {ArrowUpRight} from "lucide-react"
 import GlassCard from "./GlassCard"
+import {Link} from "@/i18n/navigation"
 
 function FactorySVG() {
   return (
@@ -77,10 +79,10 @@ function HangarSVG() {
 
 type ScenarioKey = "factory" | "immersive" | "hangar"
 
-const scenarios: {num: string; key: ScenarioKey; svg: ReactNode}[] = [
-  {num: "01", key: "factory", svg: <FactorySVG />},
-  {num: "02", key: "immersive", svg: <ImmersiveSVG />},
-  {num: "03", key: "hangar", svg: <HangarSVG />},
+const scenarios: {num: string; key: ScenarioKey; svg: ReactNode; href: string}[] = [
+  {num: "01", key: "factory",   svg: <FactorySVG />,   href: "/applications/smart-factory"},
+  {num: "02", key: "immersive", svg: <ImmersiveSVG />, href: "/applications/immersive-spaces"},
+  {num: "03", key: "hangar",    svg: <HangarSVG />,    href: "/applications/low-altitude-vertiports"},
 ]
 
 export default function Applications() {
@@ -118,7 +120,7 @@ function ScenarioCard({
   s,
   idx,
 }: {
-  s: {num: string; key: ScenarioKey; svg: ReactNode}
+  s: {num: string; key: ScenarioKey; svg: ReactNode; href: string}
   idx: number
 }) {
   const t = useTranslations("applications")
@@ -131,49 +133,61 @@ function ScenarioCard({
       viewport={{once: true, margin: "-80px"}}
       transition={{duration: 0.75, delay: idx * 0.05, ease: [0.4, 0, 0.2, 1]}}
     >
-      <GlassCard className="overflow-hidden p-6 md:p-10" style={{minHeight: 320}}>
-        <div className="grid grid-cols-12 items-center gap-x-8 gap-y-8">
-          {/* Illustration */}
-          <div
-            className={[
-              "col-span-12 md:col-span-5",
-              reverse ? "md:order-2" : "md:order-1",
-            ].join(" ")}
-          >
+      <Link href={s.href} className="group block">
+        <GlassCard
+          hover
+          className="overflow-hidden p-6 transition-transform duration-300 group-hover:-translate-y-0.5 md:p-10"
+          style={{minHeight: 320, cursor: "pointer"}}
+        >
+          <div className="grid grid-cols-12 items-center gap-x-8 gap-y-8">
+            {/* Illustration */}
             <div
-              className="glass-thin relative aspect-[4/3] w-full overflow-hidden p-5"
-              style={{borderRadius: 20}}
+              className={[
+                "col-span-12 md:col-span-5",
+                reverse ? "md:order-2" : "md:order-1",
+              ].join(" ")}
             >
-              <div className="mb-3 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground/60">
-                <span>FIG. {s.num}</span>
-                <span style={{color: "#4d7cff"}}>{t(`scenarios.${s.key}.tag`)}</span>
+              <div
+                className="glass-thin relative aspect-[4/3] w-full overflow-hidden p-5"
+                style={{borderRadius: 20}}
+              >
+                <div className="mb-3 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground/60">
+                  <span>FIG. {s.num}</span>
+                  <span style={{color: "#4d7cff"}}>{t(`scenarios.${s.key}.tag`)}</span>
+                </div>
+                <div className="h-[calc(100%-1.75rem)]">{s.svg}</div>
               </div>
-              <div className="h-[calc(100%-1.75rem)]">{s.svg}</div>
             </div>
-          </div>
 
-          {/* Text */}
-          <div
-            className={[
-              "col-span-12 md:col-span-7",
-              reverse ? "md:order-1" : "md:order-2",
-            ].join(" ")}
-          >
+            {/* Text */}
             <div
-              className="mb-3 font-display text-[64px] leading-none md:text-[80px]"
-              style={{color: "#4d7cff"}}
+              className={[
+                "col-span-12 md:col-span-7",
+                reverse ? "md:order-1" : "md:order-2",
+              ].join(" ")}
             >
-              {s.num}
+              <div
+                className="mb-3 font-display text-[64px] leading-none md:text-[80px]"
+                style={{color: "#4d7cff"}}
+              >
+                {s.num}
+              </div>
+              <h3 className="mb-5 max-w-xl font-display text-[26px] leading-[1.1] tracking-[-0.01em] text-foreground md:text-[36px]">
+                {t(`scenarios.${s.key}.title`)}
+              </h3>
+              <p className="max-w-xl text-[15px] leading-[1.65] text-muted-foreground md:text-[16px]">
+                {t(`scenarios.${s.key}.desc`)}
+              </p>
+
+              {/* Learn more indicator */}
+              <div className="mt-6 inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground/50 transition-colors duration-300 group-hover:text-[#4d7cff]">
+                {t("learn_more")}
+                <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </div>
             </div>
-            <h3 className="mb-5 max-w-xl font-display text-[26px] leading-[1.1] tracking-[-0.01em] text-foreground md:text-[36px]">
-              {t(`scenarios.${s.key}.title`)}
-            </h3>
-            <p className="max-w-xl text-[15px] leading-[1.65] text-muted-foreground md:text-[16px]">
-              {t(`scenarios.${s.key}.desc`)}
-            </p>
           </div>
-        </div>
-      </GlassCard>
+        </GlassCard>
+      </Link>
     </motion.div>
   )
 }

@@ -12,6 +12,7 @@ import {
 import type {LucideIcon} from "lucide-react"
 import {useTranslations} from "next-intl"
 import GlassCard from "./GlassCard"
+import {Link} from "@/i18n/navigation"
 
 type DirectionKey = "pass" | "control" | "generative" | "isac" | "aircomp"
 
@@ -20,14 +21,15 @@ type Direction = {
   key: DirectionKey
   icon: LucideIcon
   horizon?: boolean
+  href: string
 }
 
 const directions: Direction[] = [
-  {num: "01", key: "pass", icon: Antenna},
-  {num: "02", key: "control", icon: Brain},
-  {num: "03", key: "generative", icon: Sparkles},
-  {num: "04", key: "isac", icon: Radar},
-  {num: "05", key: "aircomp", icon: Network, horizon: true},
+  {num: "01", key: "pass", icon: Antenna, href: "/research/pinching-antenna-systems"},
+  {num: "02", key: "control", icon: Brain, href: "/research/ai-control-plane"},
+  {num: "03", key: "generative", icon: Sparkles, href: "/research/generative-rf-design"},
+  {num: "04", key: "isac", icon: Radar, href: "/research/integrated-sensing-communication"},
+  {num: "05", key: "aircomp", icon: Network, horizon: true, href: "/research/aircomp-wireless-ai-compute"},
 ]
 
 export default function Research() {
@@ -91,75 +93,74 @@ function DirectionCard({
         ease: [0.4, 0, 0.2, 1],
       }}
     >
-      <GlassCard
-        hover
-        className="flex h-full flex-col gap-6 p-7"
-        style={{minHeight: fullWidth ? 240 : 320}}
-      >
-        {/* Top row: icon tile + optional horizon badge */}
-        <div className="flex items-start justify-between gap-4">
-          <div
-            className="relative flex h-14 w-14 items-center justify-center rounded-2xl"
-            style={{
-              background: "rgba(255,255,255,0.06)",
-              border: "1px solid rgba(255,255,255,0.08)",
-              boxShadow:
-                "inset 0 1px 0 rgba(255,255,255,0.1), 0 0 24px rgba(77,124,255,0.13)",
-            }}
-          >
-            <Icon className="h-6 w-6 text-foreground/70" strokeWidth={1.5} />
-          </div>
-
-          {d.horizon && (
-            <span
-              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em]"
+      <Link href={d.href} className="group block h-full">
+        <GlassCard
+          hover
+          className="flex h-full flex-col gap-6 p-7 transition-transform duration-300 group-hover:-translate-y-0.5"
+          style={{minHeight: fullWidth ? 240 : 320, cursor: "pointer"}}
+        >
+          {/* Top row: icon tile + optional horizon badge */}
+          <div className="flex items-start justify-between gap-4">
+            <div
+              className="relative flex h-14 w-14 items-center justify-center rounded-2xl"
               style={{
-                background: "rgba(77,124,255,0.08)",
-                border: "1px solid rgba(77,124,255,0.2)",
-                color: "#4d7cff",
+                background: "rgba(255,255,255,0.06)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                boxShadow:
+                  "inset 0 1px 0 rgba(255,255,255,0.1), 0 0 24px rgba(77,124,255,0.13)",
               }}
             >
+              <Icon className="h-6 w-6 text-foreground/70" strokeWidth={1.5} />
+            </div>
+
+            {d.horizon && (
               <span
-                className="block h-1.5 w-1.5 rounded-full"
-                style={{backgroundColor: "#4d7cff"}}
-              />
-              {t("horizonBadge")}
-            </span>
-          )}
-        </div>
+                className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em]"
+                style={{
+                  background: "rgba(77,124,255,0.08)",
+                  border: "1px solid rgba(77,124,255,0.2)",
+                  color: "#4d7cff",
+                }}
+              >
+                <span
+                  className="block h-1.5 w-1.5 rounded-full"
+                  style={{backgroundColor: "#4d7cff"}}
+                />
+                {t("horizonBadge")}
+              </span>
+            )}
+          </div>
 
-        {/* Number */}
-        <div
-          className="font-mono text-[12px] tracking-[0.18em]"
-          style={{color: "#4d7cff"}}
-        >
-          {d.num}.
-        </div>
+          {/* Number */}
+          <div
+            className="font-mono text-[12px] tracking-[0.18em]"
+            style={{color: "#4d7cff"}}
+          >
+            {d.num}.
+          </div>
 
-        {/* Title */}
-        <h3 className="font-display text-[26px] leading-[1.1] tracking-[-0.01em] text-foreground">
-          {t(`directions.${d.key}.title`)}
-        </h3>
+          {/* Title */}
+          <h3 className="font-display text-[26px] leading-[1.1] tracking-[-0.01em] text-foreground">
+            {t(`directions.${d.key}.title`)}
+          </h3>
 
-        {/* Description */}
-        <p
-          className={[
-            "text-[14.5px] leading-relaxed text-muted-foreground",
-            fullWidth ? "max-w-3xl" : "",
-          ].join(" ")}
-        >
-          {t(`directions.${d.key}.desc`)}
-        </p>
+          {/* Description */}
+          <p
+            className={[
+              "text-[14.5px] leading-relaxed text-muted-foreground",
+              fullWidth ? "max-w-3xl" : "",
+            ].join(" ")}
+          >
+            {t(`directions.${d.key}.desc`)}
+          </p>
 
-        {/* Footer thread link */}
-        <a
-          href="#"
-          className="group/link mt-auto inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground transition-colors hover:text-[#4d7cff]"
-        >
-          {t("thread")}
-          <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
-        </a>
-      </GlassCard>
+          {/* Footer thread link — now a styled span since whole card is the Link */}
+          <span className="group/arrow mt-auto inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground transition-colors duration-300 group-hover:text-[#4d7cff]">
+            {t("learn_more")}
+            <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </span>
+        </GlassCard>
+      </Link>
     </motion.div>
   )
 }
