@@ -5,7 +5,10 @@ const withNextIntl = createNextIntlPlugin("./i18n/request.ts")
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    unoptimized: true,
+    remotePatterns: [
+      {protocol: "https", hostname: "cdn.sanity.io"},
+    ],
+    formats: ["image/avif", "image/webp"],
   },
 }
 

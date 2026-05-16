@@ -11,6 +11,7 @@ import {Analytics} from "@vercel/analytics/next"
 import {NextIntlClientProvider, hasLocale} from "next-intl"
 import {getMessages, setRequestLocale} from "next-intl/server"
 import {routing} from "@/i18n/routing"
+import {organizationJsonLd} from "@/lib/jsonld"
 import "../globals.css"
 
 const instrumentSerif = Instrument_Serif({
@@ -48,19 +49,65 @@ const notoSansSC = Noto_Sans_SC({
   display: "swap",
 })
 
-export const metadata: Metadata = {
-  title: "Source Sequence — AI-Native Radio Systems",
-  description:
-    "A research company building the physical layer of 6G. AI-native radio architectures, founded in Hangzhou.",
-  keywords: [
-    "6G",
-    "Pinching Antenna",
-    "PASS",
-    "AI-Native Radio",
-    "Wireless",
-    "Physical Layer",
-    "Source Sequence",
-  ],
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+
+const TITLE_BY_LOCALE: Record<string, string> = {
+  en: "Source Sequence — AI-Native Radio Systems",
+  zh: "源序 — AI 原生无线系统",
+}
+
+const DESCRIPTION_BY_LOCALE: Record<string, string> = {
+  en: "A research company building the physical layer of 6G. AI-native radio architectures, founded in Hangzhou.",
+  zh: "一家构建 6G 物理层的研究公司。AI 原生无线架构，源自杭州。",
+}
+
+const OG_LOCALE: Record<string, string> = {en: "en_US", zh: "zh_CN"}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{locale: string}>
+}): Promise<Metadata> {
+  const {locale} = await params
+  const title = TITLE_BY_LOCALE[locale] ?? TITLE_BY_LOCALE.en
+  const description = DESCRIPTION_BY_LOCALE[locale] ?? DESCRIPTION_BY_LOCALE.en
+
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: {default: title, template: "%s · Source Sequence"},
+    description,
+    keywords: [
+      "6G",
+      "Pinching Antenna",
+      "PASS",
+      "AI-Native Radio",
+      "Wireless",
+      "Physical Layer",
+      "Source Sequence",
+    ],
+    alternates: {
+      canonical: `/${locale}`,
+      languages: {
+        en: "/en",
+        zh: "/zh",
+        "x-default": "/en",
+      },
+    },
+    openGraph: {
+      type: "website",
+      siteName: "Source Sequence",
+      title,
+      description,
+      url: `/${locale}`,
+      locale: OG_LOCALE[locale] ?? "en_US",
+      alternateLocale: locale === "en" ? "zh_CN" : "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+  }
 }
 
 export const viewport: Viewport = {
@@ -89,9 +136,14 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
+      suppressHydrationWarning
       className={`${instrumentSerif.variable} ${geist.variable} ${jetbrainsMono.variable} ${notoSerifSC.variable} ${notoSansSC.variable} bg-background`}
     >
       <body className="font-sans antialiased bg-background text-foreground">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{__html: JSON.stringify(organizationJsonLd())}}
+        />
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>
