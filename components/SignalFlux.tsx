@@ -22,12 +22,8 @@ export default function SignalFlux() {
         {bars.map((h, i) => (
           <span
             key={i}
-            className="block w-[2px] rounded-full transition-all duration-150 ease-out"
-            style={{
-              height: h,
-              backgroundColor: "#4d7cff",
-              opacity: 0.85,
-            }}
+            className="block w-[2px] rounded-full bg-accent opacity-85 transition-all duration-150 ease-out"
+            style={{height: h}}
           />
         ))}
       </div>

@@ -31,7 +31,7 @@ export default function LanguageSwitcher() {
         className={[
           baseBtn,
           locale === "en"
-            ? "text-[#4d7cff]"
+            ? "text-accent"
             : "text-muted-foreground hover:text-foreground",
         ].join(" ")}
       >
@@ -46,7 +46,7 @@ export default function LanguageSwitcher() {
         className={[
           baseBtn,
           locale === "zh"
-            ? "text-[#4d7cff]"
+            ? "text-accent"
             : "text-muted-foreground hover:text-foreground",
         ].join(" ")}
       >
