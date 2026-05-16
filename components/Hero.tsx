@@ -1,10 +1,24 @@
 "use client"
 
+import dynamic from "next/dynamic"
 import {motion} from "framer-motion"
 import {ArrowRight} from "lucide-react"
 import {useTranslations} from "next-intl"
-import PinchingAntennaModel from "./PinchingAntennaModel"
 import SignalFlux from "./SignalFlux"
+
+// Code-split the WebGL scene so it doesn't block initial paint or get bundled
+// into the SSR HTML. The scene is purely decorative; not having it during SSR
+// is fine and yields a much smaller initial JS payload.
+const PinchingAntennaModel = dynamic(() => import("./PinchingAntennaModel"), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground/40">
+        Initializing antenna system…
+      </span>
+    </div>
+  ),
+})
 
 const lineVariants = {
   hidden: {opacity: 0, y: 16},
@@ -33,8 +47,7 @@ export default function Hero() {
               <span className="glass-pill inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[12.5px] font-medium text-muted-foreground">
                 <span
                   aria-hidden
-                  className="text-[14px] leading-none"
-                  style={{color: "#4d7cff"}}
+                  className="text-[14px] leading-none text-accent"
                 >
                   &#x22B9;
                 </span>
@@ -101,10 +114,7 @@ export default function Hero() {
             <div className="pointer-events-none absolute inset-x-5 top-5 z-10 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em]">
               <span className="text-foreground">PASS-001</span>
               <span className="flex items-center gap-1.5 text-muted-foreground/80">
-                <span
-                  className="block h-[6px] w-[6px] animate-pulse rounded-full"
-                  style={{backgroundColor: "#4d7cff"}}
-                />
+                <span className="block h-[6px] w-[6px] animate-pulse rounded-full bg-accent" />
                 LIVE
               </span>
               <span className="text-muted-foreground">

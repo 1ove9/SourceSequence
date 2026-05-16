@@ -4,6 +4,7 @@ import { Suspense, forwardRef, useEffect, useRef, useState } from "react"
 import { Canvas } from "@react-three/fiber"
 import { useProgress } from "@react-three/drei"
 import { Bloom, EffectComposer, SMAA } from "@react-three/postprocessing"
+import { useReducedMotion } from "framer-motion"
 import * as THREE from "three"
 
 import Scene from "./three/Scene"
@@ -26,6 +27,7 @@ const PinchingAntennaModel = forwardRef<HTMLDivElement, { className?: string }>(
     const [isMobile, setIsMobile] = useState(false)
     const [inView, setInView] = useState(true)
     const [docVisible, setDocVisible] = useState(true)
+    const prefersReducedMotion = useReducedMotion()
 
     useEffect(() => {
       const mq = window.matchMedia("(max-width: 767px)")
@@ -52,8 +54,15 @@ const PinchingAntennaModel = forwardRef<HTMLDivElement, { className?: string }>(
       return () => document.removeEventListener("visibilitychange", onVis)
     }, [])
 
-    const shouldRender = inView && docVisible
-    const enablePost = !isMobile
+    // If the user prefers reduced motion, render the scene once (frameloop:
+    // "demand" → one render pass on mount, then idle). Otherwise drive it
+    // continuously while in view and the tab is visible.
+    const frameloop: "always" | "never" | "demand" = prefersReducedMotion
+      ? "demand"
+      : inView && docVisible
+        ? "always"
+        : "never"
+    const enablePost = !isMobile && !prefersReducedMotion
 
     return (
       <div
@@ -76,7 +85,7 @@ const PinchingAntennaModel = forwardRef<HTMLDivElement, { className?: string }>(
             toneMappingExposure: 0.7,
           }}
           camera={{ position: [3, 1.6, 4], fov: 35, near: 0.1, far: 100 }}
-          frameloop={shouldRender ? "always" : "never"}
+          frameloop={frameloop}
           style={{ background: "transparent" }}
         >
           <Suspense fallback={null}>

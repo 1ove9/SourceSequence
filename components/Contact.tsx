@@ -3,15 +3,11 @@
 import {motion} from "framer-motion"
 import {useLocale, useTranslations} from "next-intl"
 import {cn} from "@/lib/utils"
+import {BRAND, type BrandEmailKey} from "@/lib/brand"
 
-type ContactKey = "general" | "research" | "press" | "careers"
-
-const contacts: {key: ContactKey; email: string}[] = [
-  {key: "general", email: "hello@yuanxu.tech"},
-  {key: "research", email: "research@yuanxu.tech"},
-  {key: "press", email: "press@yuanxu.tech"},
-  {key: "careers", email: "careers@yuanxu.tech"},
-]
+const contacts: {key: BrandEmailKey; email: string}[] = (
+  Object.keys(BRAND.emails) as BrandEmailKey[]
+).map((key) => ({key, email: BRAND.emails[key]}))
 
 export default function Contact() {
   const t = useTranslations("contact")

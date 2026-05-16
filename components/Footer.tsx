@@ -1,7 +1,6 @@
-"use client"
-
-import {useLocale, useTranslations} from "next-intl"
+import {getLocale, getTranslations} from "next-intl/server"
 import {cn} from "@/lib/utils"
+import {BRAND} from "@/lib/brand"
 
 const navKeys = ["research", "lab", "applications", "about", "careers"] as const
 
@@ -12,10 +11,10 @@ const socialItems = [
   {label: "WeChat", href: "#"},
 ]
 
-export default function Footer() {
-  const t = useTranslations("footer")
-  const tNav = useTranslations("nav")
-  const locale = useLocale()
+export default async function Footer() {
+  const t = await getTranslations("footer")
+  const tNav = await getTranslations("nav")
+  const locale = await getLocale()
   const isZh = locale === "zh"
 
   return (
@@ -69,15 +68,15 @@ export default function Footer() {
         </div>
 
         {/* Large italic signature */}
-        <div className="overflow-hidden w-full max-w-full">
+        <div className="@container w-full max-w-full">
           <div
             className={cn(
-              "select-none whitespace-nowrap font-display italic leading-[0.95] tracking-[-0.02em]",
+              "select-none whitespace-nowrap font-display italic tracking-[-0.02em] text-canvas-deep",
               isZh
-                ? "text-[clamp(28px,6vw,90px)]"
-                : "text-[clamp(40px,9vw,150px)]"
+                ? "text-[clamp(28px,8cqi,90px)]"
+                : "text-[clamp(20px,5.4cqi,64px)]",
+              "leading-[0.95] pb-[0.15em]",
             )}
-            style={{ color: "#1a2238" }}
           >
             {t("signature")}
           </div>
@@ -88,10 +87,10 @@ export default function Footer() {
           {t("pressLabel")}
           {" · "}
           <a
-            href="mailto:press@yuanxu.tech"
+            href={`mailto:${BRAND.emails.press}`}
             className="transition-colors hover:text-muted-foreground"
           >
-            press@yuanxu.tech
+            {BRAND.emails.press}
           </a>
         </div>
       </div>
