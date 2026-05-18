@@ -15,6 +15,7 @@ interface Props {
   label: string
   heading: string
   horizonBadge: string
+  serviceBadge: string
   learnMore: string
 }
 
@@ -24,6 +25,7 @@ export default function ResearchView({
   label,
   heading,
   horizonBadge,
+  serviceBadge,
   learnMore,
 }: Props) {
   const regular = items.filter((d) => !d.isLongHorizon)
@@ -43,6 +45,7 @@ export default function ResearchView({
               locale={locale}
               learnMore={learnMore}
               horizonBadge={horizonBadge}
+              serviceBadge={serviceBadge}
             />
           ))}
         </div>
@@ -55,6 +58,7 @@ export default function ResearchView({
               locale={locale}
               learnMore={learnMore}
               horizonBadge={horizonBadge}
+              serviceBadge={serviceBadge}
               fullWidth
             />
           </div>
@@ -70,6 +74,7 @@ function DirectionCard({
   locale,
   learnMore,
   horizonBadge,
+  serviceBadge,
   fullWidth = false,
 }: {
   item: ResearchTopicCard
@@ -77,6 +82,7 @@ function DirectionCard({
   locale: Locale
   learnMore: string
   horizonBadge: string
+  serviceBadge: string
   fullWidth?: boolean
 }) {
   const Icon = resolveIcon(item.cardIcon, item.slug)
@@ -89,9 +95,15 @@ function DirectionCard({
       <Link href={`/research/${item.slug}`} className="group block h-full">
         <GlassCard
           hover
-          className="flex h-full flex-col gap-6 p-7 transition-transform duration-300 group-hover:-translate-y-0.5"
+          className="relative flex h-full flex-col gap-6 p-7 transition-transform duration-300 group-hover:-translate-y-0.5"
           style={{minHeight: fullWidth ? 240 : 320, cursor: "pointer"}}
         >
+          {item.isService && (
+            <span className="absolute right-4 top-4 z-10 rounded-full border border-accent/30 bg-accent/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-accent">
+              {serviceBadge}
+            </span>
+          )}
+
           <div className="flex items-start justify-between gap-4">
             <div
               className="relative flex h-14 w-14 items-center justify-center rounded-2xl"
@@ -105,7 +117,7 @@ function DirectionCard({
               <Icon className="h-6 w-6 text-foreground/70" strokeWidth={1.5} />
             </div>
 
-            {item.isLongHorizon && (
+            {item.isLongHorizon && !item.isService && (
               <span
                 className="inline-flex items-center gap-1.5 rounded-full border border-accent/20 bg-accent/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-accent"
               >

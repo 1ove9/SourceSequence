@@ -19,6 +19,7 @@ export default async function Research() {
       label={t("label")}
       heading={t("heading")}
       horizonBadge={t("horizonBadge")}
+      serviceBadge={t("serviceBadge")}
       learnMore={t("learn_more")}
     />
   )

@@ -37,6 +37,13 @@ export const researchTopic = defineType({
       initialValue: false,
     }),
     defineField({
+      name: "isService",
+      title: "Available as Service? / 可作为商业化设计服务",
+      type: "boolean",
+      description: '勾选后在 Research section 卡片右上角显示"可作为服务"徽章',
+      initialValue: false,
+    }),
+    defineField({
       name: "titleEn",
       title: "Title (EN)",
       type: "string",
