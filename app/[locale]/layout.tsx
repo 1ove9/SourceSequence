@@ -8,6 +8,7 @@ import {
   Noto_Sans_SC,
 } from "next/font/google"
 import {Analytics} from "@vercel/analytics/next"
+import {SpeedInsights} from "@vercel/speed-insights/next"
 import {NextIntlClientProvider, hasLocale} from "next-intl"
 import {getMessages, setRequestLocale} from "next-intl/server"
 import {routing} from "@/i18n/routing"
@@ -147,7 +148,12 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>
-        {process.env.NODE_ENV === "production" && <Analytics />}
+        {process.env.NODE_ENV === "production" && (
+          <>
+            <Analytics />
+            <SpeedInsights />
+          </>
+        )}
       </body>
     </html>
   )
