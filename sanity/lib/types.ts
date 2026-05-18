@@ -50,8 +50,8 @@ interface DetailBase extends CardBase {
   references?: string[]
 }
 
-export type ResearchTopicCard = CardBase & {isLongHorizon?: boolean}
-export type ResearchTopicDetail = DetailBase & {isLongHorizon?: boolean}
+export type ResearchTopicCard = CardBase & {isLongHorizon?: boolean; isService?: boolean}
+export type ResearchTopicDetail = DetailBase & {isLongHorizon?: boolean; isService?: boolean}
 
 export type LabCapabilityCard = CardBase & {locationTag?: string}
 export type LabCapabilityDetail = DetailBase & {locationTag?: string}
@@ -93,4 +93,26 @@ export interface JobPosting {
   descriptionEn?: string
   descriptionZh?: string
   applyEmail?: string
+}
+
+export interface ModelShowcaseCard {
+  _id: string
+  slug: string
+  order?: number
+  code?: string
+  sceneKey: string
+  titleEn: string
+  titleZh: string
+  cardDescriptionEn?: string
+  cardDescriptionZh?: string
+  tagsEn?: string[]
+  tagsZh?: string[]
+  isFeatured?: boolean
+}
+
+export interface ModelShowcaseDetail extends ModelShowcaseCard {
+  subtitleEn?: string
+  subtitleZh?: string
+  descriptionEn?: string
+  descriptionZh?: string
 }

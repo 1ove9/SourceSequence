@@ -2,7 +2,7 @@ import {getLocale, getTranslations} from "next-intl/server"
 import {cn} from "@/lib/utils"
 import {BRAND} from "@/lib/brand"
 
-const navKeys = ["research", "lab", "applications", "about", "careers"] as const
+const navKeys = ["research", "lab", "applications", "models", "about", "careers"] as const
 
 const socialItems = [
   {label: "GitHub", href: "#"},

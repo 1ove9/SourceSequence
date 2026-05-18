@@ -4,6 +4,7 @@ import {labCapability} from "./labCapability"
 import {application} from "./application"
 import {publication} from "./publication"
 import {jobPosting} from "./jobPosting"
+import {modelShowcase} from "./modelShowcase"
 
 export const schemaTypes: SchemaTypeDefinition[] = [
   researchTopic,
@@ -11,4 +12,5 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   application,
   publication,
   jobPosting,
+  modelShowcase,
 ]

@@ -13,12 +13,14 @@ import Connector from "./Connector"
 
 export interface SceneProps {
   isMobile?: boolean
+  /** Showcase mode wants users to zoom in on details; Hero locks zoom off. */
+  enableZoom?: boolean
 }
 
 const WAVEGUIDE_LENGTH = 5.6
 const PINCH_OFFSETS: number[] = [-1.6, 0, 1.6]
 
-const Scene = forwardRef<Group, SceneProps>(function Scene({ isMobile = false }, ref) {
+const Scene = forwardRef<Group, SceneProps>(function Scene({ isMobile = false, enableZoom = false }, ref) {
   const controlsRef = useRef<OrbitControlsImpl | null>(null)
   const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -106,7 +108,7 @@ const Scene = forwardRef<Group, SceneProps>(function Scene({ isMobile = false },
       {/* Controls */}
       <OrbitControls
         ref={controlsRef}
-        enableZoom={false}
+        enableZoom={enableZoom}
         enablePan={false}
         autoRotate={!isMobile}
         autoRotateSpeed={0.4}

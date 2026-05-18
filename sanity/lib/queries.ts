@@ -9,6 +9,7 @@ export const RESEARCH_TOPICS_QUERY = groq`
     order,
     code,
     isLongHorizon,
+    isService,
     titleEn,
     titleZh,
     cardDescriptionEn,
@@ -191,4 +192,47 @@ export const JOB_POSTINGS_QUERY = groq`
     descriptionZh,
     applyEmail
   }
+`
+
+// ---------- Model Showcases ----------
+
+export const MODEL_SHOWCASES_QUERY = groq`
+  *[_type == "modelShowcase"] | order(order asc) {
+    _id,
+    "slug": slug.current,
+    order,
+    code,
+    sceneKey,
+    titleEn,
+    titleZh,
+    cardDescriptionEn,
+    cardDescriptionZh,
+    tagsEn,
+    tagsZh,
+    isFeatured
+  }
+`
+
+export const MODEL_SHOWCASE_BY_SLUG_QUERY = groq`
+  *[_type == "modelShowcase" && slug.current == $slug][0] {
+    _id,
+    "slug": slug.current,
+    code,
+    sceneKey,
+    titleEn,
+    titleZh,
+    subtitleEn,
+    subtitleZh,
+    cardDescriptionEn,
+    cardDescriptionZh,
+    descriptionEn,
+    descriptionZh,
+    tagsEn,
+    tagsZh,
+    isFeatured
+  }
+`
+
+export const MODEL_SHOWCASE_SLUGS_QUERY = groq`
+  *[_type == "modelShowcase" && defined(slug.current)][].slug.current
 `

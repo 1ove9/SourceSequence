@@ -3,18 +3,20 @@ import {sanityFetch} from "@/sanity/lib/fetch"
 import {
   APPLICATION_SLUGS_QUERY,
   LAB_CAPABILITY_SLUGS_QUERY,
+  MODEL_SHOWCASE_SLUGS_QUERY,
   RESEARCH_TOPIC_SLUGS_QUERY,
 } from "@/sanity/lib/queries"
 import {routing} from "@/i18n/routing"
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
 
-type Section = "research" | "lab" | "applications"
+type Section = "research" | "lab" | "applications" | "models"
 
-const SECTION_QUERY: Record<Section, string> = {
-  research: RESEARCH_TOPIC_SLUGS_QUERY,
-  lab: LAB_CAPABILITY_SLUGS_QUERY,
-  applications: APPLICATION_SLUGS_QUERY,
+const SECTION_CONFIG: Record<Section, {query: string; tag: string}> = {
+  research: {query: RESEARCH_TOPIC_SLUGS_QUERY, tag: "researchTopic"},
+  lab: {query: LAB_CAPABILITY_SLUGS_QUERY, tag: "labCapability"},
+  applications: {query: APPLICATION_SLUGS_QUERY, tag: "application"},
+  models: {query: MODEL_SHOWCASE_SLUGS_QUERY, tag: "modelShowcase"},
 }
 
 function buildAlternates(path: string): Record<string, string> {
@@ -41,12 +43,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   }
 
-  // Detail pages per section × locale
-  for (const section of Object.keys(SECTION_QUERY) as Section[]) {
-    const slugs = await sanityFetch<string[]>({
-      query: SECTION_QUERY[section],
-      tags: [section === "research" ? "researchTopic" : section === "lab" ? "labCapability" : "application"],
+  // Models gallery page per locale
+  for (const locale of routing.locales) {
+    entries.push({
+      url: `${SITE_URL}/${locale}/models`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+      alternates: {languages: buildAlternates("/models")},
     })
+  }
+
+  // Detail pages per section × locale
+  for (const section of Object.keys(SECTION_CONFIG) as Section[]) {
+    const {query, tag} = SECTION_CONFIG[section]
+    const slugs = await sanityFetch<string[]>({query, tags: [tag]})
     for (const slug of slugs) {
       const path = `/${section}/${slug}`
       for (const locale of routing.locales) {

@@ -4,10 +4,24 @@
     "research": "Research",
     "lab": "Lab",
     "applications": "Applications",
+    "models": "Models",
     "about": "About",
     "careers": "Careers",
     "contact": "Contact",
     "cta": "Get in Touch"
+  },
+  "modelsPage": {
+    "label": "Showcase",
+    "heading": "Interactive 3D models.",
+    "intro": "Procedural visualizations of the systems we're building — runnable in your browser, no plugin required. Drag to orbit, scroll to zoom.",
+    "empty": "Models coming soon.",
+    "view": "View model",
+    "metaTitle": "3D Models — Source Sequence",
+    "metaDescription": "Interactive 3D showcases of antenna, radio, and AI-native wireless systems built by Source Sequence."
+  },
+  "modelDetail": {
+    "back": "Back to models",
+    "interactionHint": "Drag to orbit · Scroll to zoom"
   },
   "hero": {
     "pill": "A research company building the physical layer of 6G",
@@ -28,6 +42,7 @@
     "thread": "Research thread",
     "learn_more": "Read research",
     "horizonBadge": "Long-horizon research",
+    "serviceBadge": "Available as Service",
     "directions": {
       "pass": {
         "title": "Pinching Antenna Systems",

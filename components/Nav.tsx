@@ -6,7 +6,17 @@ import {useTranslations} from "next-intl"
 import {Link} from "@/i18n/navigation"
 import LanguageSwitcher from "./LanguageSwitcher"
 
-const itemKeys = ["research", "lab", "applications", "about", "careers", "contact"] as const
+type NavItem = {key: string; href: string; isRoute: boolean}
+
+const navItems: NavItem[] = [
+  {key: "research", href: "#research", isRoute: false},
+  {key: "lab", href: "#lab", isRoute: false},
+  {key: "applications", href: "#applications", isRoute: false},
+  {key: "models", href: "/models", isRoute: true},
+  {key: "about", href: "#about", isRoute: false},
+  {key: "careers", href: "#careers", isRoute: false},
+  {key: "contact", href: "#contact", isRoute: false},
+]
 
 export default function Nav() {
   const t = useTranslations("nav")
@@ -51,14 +61,23 @@ export default function Nav() {
 
         {/* Desktop nav */}
         <ul className="hidden items-center gap-7 md:flex">
-          {itemKeys.map((key) => (
-            <li key={key}>
-              <a
-                href={`#${key}`}
-                className="text-[13px] font-medium text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {t(key)}
-              </a>
+          {navItems.map((item) => (
+            <li key={item.key}>
+              {item.isRoute ? (
+                <Link
+                  href={item.href}
+                  className="text-[13px] font-medium text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {t(item.key)}
+                </Link>
+              ) : (
+                <a
+                  href={item.href}
+                  className="text-[13px] font-medium text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {t(item.key)}
+                </a>
+              )}
             </li>
           ))}
         </ul>
