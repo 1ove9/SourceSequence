@@ -87,6 +87,7 @@ export default async function ResearchTopicPage({
           cta: t("cta"),
         }}
         heroAsideSlot={slug === "generative-rf-design" ? <GenerativeRFMount /> : undefined}
+        ctaHref={slug === "generative-rf-design" ? "/?service=generative-rf#contact" : "/#contact"}
       />
       <Footer />
     </main>

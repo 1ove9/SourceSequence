@@ -47,6 +47,12 @@ export interface DetailPageLayoutProps {
    * below is skipped — the aside slot is the visual lead.
    */
   heroAsideSlot?: ReactNode
+  /**
+   * Override the bottom CTA destination. Defaults to "/#contact". Pass a
+   * deep-link with query string (e.g. "/?service=generative-rf#contact") to
+   * pre-fill the inquiry form's service field on arrival.
+   */
+  ctaHref?: string
 }
 
 const APPLE_EASE = [0.4, 0, 0.2, 1] as const
@@ -75,6 +81,7 @@ export default function DetailPageLayout({
   backHref,
   labels,
   heroAsideSlot,
+  ctaHref = "/#contact",
 }: DetailPageLayoutProps) {
   const title = pick(data.titleEn, data.titleZh, locale) ?? ""
   const subtitle = pick(data.subtitleEn, data.subtitleZh, locale)
@@ -293,7 +300,7 @@ export default function DetailPageLayout({
 
       <RevealOnScroll className="text-center" duration={0.6} viewportMargin="0px">
         <Link
-          href="/#contact"
+          href={ctaHref}
           className="group inline-flex items-center gap-2 font-mono text-[13px] uppercase tracking-[0.22em] text-foreground transition-colors hover:text-accent"
         >
           {labels.cta}
