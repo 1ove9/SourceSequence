@@ -5,6 +5,7 @@ import Nav from "@/components/Nav"
 import Footer from "@/components/Footer"
 import BackgroundLayer from "@/components/BackgroundLayer"
 import DetailPageLayout from "@/components/DetailPageLayout"
+import GenerativeRFMount from "@/components/three/GenerativeRFMount"
 import {sanityFetch} from "@/sanity/lib/fetch"
 import {
   RESEARCH_TOPIC_BY_SLUG_QUERY,
@@ -85,6 +86,7 @@ export default async function ResearchTopicPage({
           references: t("references"),
           cta: t("cta"),
         }}
+        heroAsideSlot={slug === "generative-rf-design" ? <GenerativeRFMount /> : undefined}
       />
       <Footer />
     </main>

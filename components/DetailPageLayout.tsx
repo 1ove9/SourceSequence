@@ -1,5 +1,6 @@
 "use client"
 
+import type {ReactNode} from "react"
 import Image from "next/image"
 import {motion} from "framer-motion"
 import {ArrowLeft, ArrowUpRight} from "lucide-react"
@@ -8,6 +9,7 @@ import RevealOnScroll from "./RevealOnScroll"
 import {Link} from "@/i18n/navigation"
 import {urlFor} from "@/sanity/lib/image"
 import {pick} from "@/sanity/lib/locale"
+import {cn} from "@/lib/utils"
 import type {
   DetailConcept,
   DetailSection,
@@ -39,22 +41,48 @@ export interface DetailPageLayoutProps {
     references: string
     cta: string
   }
+  /**
+   * Optional 3D scene / illustration. When provided, the hero is rendered as
+   * a 2-column grid (text left, slot right) and the gradient hero image area
+   * below is skipped — the aside slot is the visual lead.
+   */
+  heroAsideSlot?: ReactNode
 }
 
 const APPLE_EASE = [0.4, 0, 0.2, 1] as const
+
+/**
+ * Render plain text with inline **bold** markdown. Used inside section
+ * bodies so editors can highlight phase names, terms etc. without needing
+ * full portable-text.
+ */
+function renderInlineBold(text: string): ReactNode[] {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return (
+        <strong key={i} className="font-medium text-foreground">
+          {part.slice(2, -2)}
+        </strong>
+      )
+    }
+    return part
+  })
+}
 
 export default function DetailPageLayout({
   data,
   locale,
   backHref,
   labels,
+  heroAsideSlot,
 }: DetailPageLayoutProps) {
   const title = pick(data.titleEn, data.titleZh, locale) ?? ""
   const subtitle = pick(data.subtitleEn, data.subtitleZh, locale)
   const abstract = pick(data.abstractEn, data.abstractZh, locale)
+  const hasAside = Boolean(heroAsideSlot)
 
   return (
-    <div className="mx-auto max-w-4xl px-5 pb-32 pt-32 md:px-8">
+    <div className={cn("mx-auto px-5 pb-32 pt-32 md:px-8", hasAside ? "max-w-6xl" : "max-w-4xl")}>
       {/* Back link — uses initial-animate (not scroll-triggered) */}
       <motion.div
         initial={{opacity: 0, x: -12}}
@@ -71,61 +99,86 @@ export default function DetailPageLayout({
         </Link>
       </motion.div>
 
-      {/* Hero — initial-animate */}
+      {/* Hero — initial-animate. Two-column when an aside slot is provided. */}
       <motion.div
         initial={{opacity: 0, y: 20}}
         animate={{opacity: 1, y: 0}}
         transition={{duration: 0.7, delay: 0.05, ease: APPLE_EASE}}
         className="mb-16"
       >
-        {data.code && (
-          <div className="mb-5 font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
-            {data.code}
+        {hasAside ? (
+          <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-12">
+            <div>
+              {data.code && (
+                <div className="mb-5 font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+                  {data.code}
+                </div>
+              )}
+              <h1 className="mb-6 font-display text-[clamp(2rem,4.5vw,3.6rem)] leading-[1.04] tracking-[-0.02em] text-foreground">
+                {title}
+              </h1>
+              {subtitle && (
+                <p className="text-[16px] leading-[1.65] text-muted-foreground">
+                  {subtitle}
+                </p>
+              )}
+            </div>
+            <div>{heroAsideSlot}</div>
           </div>
-        )}
-        <h1 className="mb-6 font-display text-[clamp(2.2rem,5.5vw,4.2rem)] leading-[1.02] tracking-[-0.02em] text-foreground">
-          {title}
-        </h1>
-        {subtitle && (
-          <p className="max-w-2xl text-[17px] leading-[1.6] text-muted-foreground">
-            {subtitle}
-          </p>
+        ) : (
+          <>
+            {data.code && (
+              <div className="mb-5 font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+                {data.code}
+              </div>
+            )}
+            <h1 className="mb-6 font-display text-[clamp(2.2rem,5.5vw,4.2rem)] leading-[1.02] tracking-[-0.02em] text-foreground">
+              {title}
+            </h1>
+            {subtitle && (
+              <p className="max-w-2xl text-[17px] leading-[1.6] text-muted-foreground">
+                {subtitle}
+              </p>
+            )}
+          </>
         )}
       </motion.div>
 
-      {/* Hero image — initial-animate */}
-      <motion.div
-        initial={{opacity: 0, y: 16}}
-        animate={{opacity: 1, y: 0}}
-        transition={{duration: 0.8, delay: 0.12, ease: APPLE_EASE}}
-        className="mb-16"
-      >
-        {data.heroImage?.asset ? (
-          <div
-            className="relative aspect-[16/9] w-full overflow-hidden"
-            style={{borderRadius: 24}}
-          >
-            <Image
-              src={urlFor(data.heroImage).width(1920).height(1080).url()}
-              alt={title}
-              width={1920}
-              height={1080}
-              priority
-              className="h-full w-full object-cover"
+      {/* Hero image — skipped when an aside slot is provided (the slot is the visual lead). */}
+      {!hasAside && (
+        <motion.div
+          initial={{opacity: 0, y: 16}}
+          animate={{opacity: 1, y: 0}}
+          transition={{duration: 0.8, delay: 0.12, ease: APPLE_EASE}}
+          className="mb-16"
+        >
+          {data.heroImage?.asset ? (
+            <div
+              className="relative aspect-[16/9] w-full overflow-hidden"
+              style={{borderRadius: 24}}
+            >
+              <Image
+                src={urlFor(data.heroImage).width(1920).height(1080).url()}
+                alt={title}
+                width={1920}
+                height={1080}
+                priority
+                className="h-full w-full object-cover"
+              />
+            </div>
+          ) : (
+            <div
+              className="relative aspect-[16/9] w-full overflow-hidden border border-white/[0.06]"
+              style={{
+                borderRadius: 24,
+                background:
+                  "linear-gradient(135deg, rgba(77,124,255,0.14), rgba(167,139,250,0.08) 60%, rgba(255,255,255,0.02))",
+              }}
+              aria-hidden
             />
-          </div>
-        ) : (
-          <div
-            className="relative aspect-[16/9] w-full overflow-hidden border border-white/[0.06]"
-            style={{
-              borderRadius: 24,
-              background:
-                "linear-gradient(135deg, rgba(77,124,255,0.14), rgba(167,139,250,0.08) 60%, rgba(255,255,255,0.02))",
-            }}
-            aria-hidden
-          />
-        )}
-      </motion.div>
+          )}
+        </motion.div>
+      )}
 
       <div className="hairline mb-16" />
 
@@ -163,8 +216,8 @@ export default function DetailPageLayout({
                 </div>
                 <div className="md:col-span-8">
                   {body && (
-                    <p className="text-[14.5px] leading-[1.75] text-muted-foreground">
-                      {body}
+                    <p className="whitespace-pre-line text-[14.5px] leading-[1.75] text-muted-foreground">
+                      {renderInlineBold(body)}
                     </p>
                   )}
                 </div>
