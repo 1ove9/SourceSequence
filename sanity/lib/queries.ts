@@ -172,6 +172,7 @@ export const PUBLICATIONS_QUERY = groq`
     isFeatured,
     summaryEn,
     summaryZh,
+    coverImage,
     externalUrl
   }
 `
@@ -191,6 +192,49 @@ export const JOB_POSTINGS_QUERY = groq`
     descriptionEn,
     descriptionZh,
     applyEmail
+  }
+`
+
+// ---------- Lab Shots (实景 gallery) ----------
+
+export const LAB_SHOTS_QUERY = groq`
+  *[_type == "labShot" && defined(image)] | order(order asc) {
+    _id,
+    image,
+    subjectEn,
+    subjectZh,
+    captionEn,
+    captionZh,
+    order,
+    isFeatured
+  }
+`
+
+// ---------- Partners (Trusted by) ----------
+
+export const PARTNERS_QUERY = groq`
+  *[_type == "partner" && defined(logo)] | order(order asc) {
+    _id,
+    name,
+    logo,
+    website,
+    category,
+    monochrome,
+    order
+  }
+`
+
+// ---------- Press Mentions ----------
+
+export const PRESS_MENTIONS_QUERY = groq`
+  *[_type == "pressMention"] | order(publishedAt desc, order asc) {
+    _id,
+    mediaName,
+    mediaLogo,
+    headlineEn,
+    headlineZh,
+    url,
+    publishedAt
   }
 `
 

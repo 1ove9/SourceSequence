@@ -34,6 +34,15 @@
     "ctaSecondary": "Get in Touch",
     "modelCaption": "Pinching Antenna Systems · One of our active research lines"
   },
+  "trustedBy": {
+    "label": "Trusted by",
+    "heading": "Researchers, hardware teams, and institutions we work with."
+  },
+  "insideTheLab": {
+    "label": "Inside the Lab",
+    "heading": "What it actually looks like.",
+    "intro": "Real benches, real measurements, real fabrication. The lab behind the work — not a stock photo set."
+  },
   "vision": {
     "label": "01 / Vision",
     "body": "For decades, antennas have been static—fixed shapes radiating fixed patterns. We believe that as wireless systems enter the 6G era, the physical layer itself must become intelligent, adaptive, and software-defined.",

@@ -78,7 +78,39 @@ export interface Publication {
   isFeatured?: boolean
   summaryEn?: string
   summaryZh?: string
+  coverImage?: SanityImageRef
   externalUrl?: string
+}
+
+export interface LabShot {
+  _id: string
+  image: SanityImageRef
+  subjectEn: string
+  subjectZh: string
+  captionEn?: string
+  captionZh?: string
+  order?: number
+  isFeatured?: boolean
+}
+
+export interface Partner {
+  _id: string
+  name: string
+  logo: SanityImageRef
+  website?: string
+  category?: "customer" | "research" | "industry" | "investor" | "academic"
+  monochrome?: boolean
+  order?: number
+}
+
+export interface PressMention {
+  _id: string
+  mediaName: string
+  mediaLogo?: SanityImageRef
+  headlineEn?: string
+  headlineZh?: string
+  url: string
+  publishedAt?: string
 }
 
 export interface JobPosting {

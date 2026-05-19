@@ -66,6 +66,13 @@ export const publication = defineType({
     }),
     defineField({name: "summaryZh", title: "Summary (ZH) / 摘要", type: "text", rows: 4}),
     defineField({
+      name: "coverImage",
+      title: "Cover Image (optional)",
+      type: "image",
+      options: {hotspot: true},
+      description: "Featured Position Paper 大卡片或论文卡左侧可显示的封面图",
+    }),
+    defineField({
       name: "externalUrl",
       title: "External URL (optional)",
       type: "url",
