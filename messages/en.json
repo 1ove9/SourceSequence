@@ -8,7 +8,10 @@
     "about": "About",
     "careers": "Careers",
     "contact": "Contact",
-    "cta": "Get in Touch"
+    "cta": "Get in Touch",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu",
+    "menuLabel": "Site navigation"
   },
   "modelsPage": {
     "label": "Showcase",
