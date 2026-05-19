@@ -10,6 +10,10 @@ type FounderKey = "f1" | "f2"
 const factKeys: FactKey[] = ["founded", "team", "focus", "stage"]
 const founderKeys: FounderKey[] = ["f1", "f2"]
 
+// Toggle on once real founder bios + photos are ready. Messages.json keeps
+// the placeholder content so flipping this to true restores the block.
+const SHOW_FOUNDERS = false
+
 export default function About() {
   const t = useTranslations("about")
 
@@ -74,58 +78,60 @@ export default function About() {
           </div>
         </div>
 
-        {/* From the Founders */}
-        <div className="mt-24">
-          <div className="hairline mb-16" />
-          <motion.div
-            initial={{opacity: 0, y: 20}}
-            whileInView={{opacity: 1, y: 0}}
-            viewport={{once: true, margin: "-80px"}}
-            transition={{duration: 0.7, ease: [0.4, 0, 0.2, 1]}}
-            className="mb-10 max-w-2xl"
-          >
-            <div className="mb-5 font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
-              {t("founders.label")}
-            </div>
-            <p className="text-[15px] leading-[1.72] text-muted-foreground">
-              {t("founders.intro")}
-            </p>
-          </motion.div>
+        {/* From the Founders — hidden until real bios are ready */}
+        {SHOW_FOUNDERS && (
+          <div className="mt-24">
+            <div className="hairline mb-16" />
+            <motion.div
+              initial={{opacity: 0, y: 20}}
+              whileInView={{opacity: 1, y: 0}}
+              viewport={{once: true, margin: "-80px"}}
+              transition={{duration: 0.7, ease: [0.4, 0, 0.2, 1]}}
+              className="mb-10 max-w-2xl"
+            >
+              <div className="mb-5 font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+                {t("founders.label")}
+              </div>
+              <p className="text-[15px] leading-[1.72] text-muted-foreground">
+                {t("founders.intro")}
+              </p>
+            </motion.div>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {founderKeys.map((key, idx) => (
-              <motion.div
-                key={key}
-                initial={{opacity: 0, y: 24, scale: 0.97}}
-                whileInView={{opacity: 1, y: 0, scale: 1}}
-                viewport={{once: true, margin: "-60px"}}
-                transition={{
-                  duration: 0.7,
-                  delay: idx * 0.08,
-                  ease: [0.4, 0, 0.2, 1],
-                }}
-              >
-                <GlassCard
-                  hover
-                  className="flex h-full flex-col gap-3 p-7"
-                  style={{minHeight: 200}}
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              {founderKeys.map((key, idx) => (
+                <motion.div
+                  key={key}
+                  initial={{opacity: 0, y: 24, scale: 0.97}}
+                  whileInView={{opacity: 1, y: 0, scale: 1}}
+                  viewport={{once: true, margin: "-60px"}}
+                  transition={{
+                    duration: 0.7,
+                    delay: idx * 0.08,
+                    ease: [0.4, 0, 0.2, 1],
+                  }}
                 >
-                  <div className="flex flex-col gap-1">
-                    <span className="font-display text-[20px] leading-[1.2] tracking-[-0.01em] text-foreground">
-                      {t(`founders.list.${key}.name`)}
-                    </span>
-                    <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">
-                      {t(`founders.list.${key}.title`)}
-                    </span>
-                  </div>
-                  <p className="text-[14px] leading-[1.72] text-muted-foreground">
-                    {t(`founders.list.${key}.bio`)}
-                  </p>
-                </GlassCard>
-              </motion.div>
-            ))}
+                  <GlassCard
+                    hover
+                    className="flex h-full flex-col gap-3 p-7"
+                    style={{minHeight: 200}}
+                  >
+                    <div className="flex flex-col gap-1">
+                      <span className="font-display text-[20px] leading-[1.2] tracking-[-0.01em] text-foreground">
+                        {t(`founders.list.${key}.name`)}
+                      </span>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">
+                        {t(`founders.list.${key}.title`)}
+                      </span>
+                    </div>
+                    <p className="text-[14px] leading-[1.72] text-muted-foreground">
+                      {t(`founders.list.${key}.bio`)}
+                    </p>
+                  </GlassCard>
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   )

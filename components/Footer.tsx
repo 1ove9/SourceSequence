@@ -4,12 +4,10 @@ import {BRAND} from "@/lib/brand"
 
 const navKeys = ["research", "lab", "applications", "models", "about", "careers"] as const
 
-const socialItems = [
-  {label: "GitHub", href: "#"},
-  {label: "LinkedIn", href: "#"},
-  {label: "X", href: "#"},
-  {label: "WeChat", href: "#"},
-]
+// Social channels stay empty until real accounts exist. Adding placeholder
+// "#" links signals "site isn't ready" to anyone who clicks. Restore items
+// here when GitHub / LinkedIn / X / WeChat profiles are live.
+const socialItems: Array<{label: string; href: string}> = []
 
 export default async function Footer() {
   const t = await getTranslations("footer")
@@ -22,8 +20,8 @@ export default async function Footer() {
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <div className="hairline mb-10" />
 
-        {/* 3-column row */}
-        <div className="mb-14 grid grid-cols-1 gap-y-10 md:grid-cols-3 md:gap-x-8">
+        {/* 2-column row: copyright (left) + nav/social (right) */}
+        <div className="mb-14 grid grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-8">
           {/* Left: copyright */}
           <div className="flex items-start">
             <p className="font-mono text-[11px] leading-[1.7] tracking-[0.15em] text-muted-foreground">
@@ -31,14 +29,7 @@ export default async function Footer() {
             </p>
           </div>
 
-          {/* Middle: investor placeholder */}
-          <div className="flex items-start md:justify-center">
-            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground/40">
-              {t("backedBy")}
-            </p>
-          </div>
-
-          {/* Right: nav + social */}
+          {/* Right: nav + (optional) social */}
           <div className="flex flex-col gap-5 md:items-end">
             <ul className="flex flex-wrap gap-x-5 gap-y-2">
               {navKeys.map((key) => (
@@ -52,18 +43,20 @@ export default async function Footer() {
                 </li>
               ))}
             </ul>
-            <ul className="flex flex-wrap gap-x-5 gap-y-2">
-              {socialItems.map((s) => (
-                <li key={s.label}>
-                  <a
-                    href={s.href}
-                    className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {s.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            {socialItems.length > 0 && (
+              <ul className="flex flex-wrap gap-x-5 gap-y-2">
+                {socialItems.map((s) => (
+                  <li key={s.label}>
+                    <a
+                      href={s.href}
+                      className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      {s.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
 
