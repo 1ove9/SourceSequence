@@ -41,11 +41,23 @@ export function detailPageMetadata({
       url: `/${locale}${path}`,
       locale: OG_LOCALE[locale] ?? "en_US",
       alternateLocale: locale === "en" ? "zh_CN" : "en_US",
+      // Next.js does not deep-merge openGraph from parent — child override
+      // replaces wholesale. Re-include the site-wide OG image so detail
+      // pages don't fall back to nothing when shared on social.
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: ["/og-image.png"],
     },
   }
 }

@@ -102,11 +102,20 @@ export async function generateMetadata({
       url: `/${locale}`,
       locale: OG_LOCALE[locale] ?? "en_US",
       alternateLocale: locale === "en" ? "zh_CN" : "en_US",
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: ["/og-image.png"],
     },
   }
 }
