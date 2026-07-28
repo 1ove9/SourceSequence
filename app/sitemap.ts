@@ -43,15 +43,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   }
 
-  // Models gallery page per locale
-  for (const locale of routing.locales) {
-    entries.push({
-      url: `${SITE_URL}/${locale}/models`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
-      alternates: {languages: buildAlternates("/models")},
-    })
+  // Top-level pages per locale: Solutions, YAF antenna platform, Models gallery
+  const topLevel: Array<{path: string; priority: number}> = [
+    {path: "/solutions", priority: 0.9},
+    {path: "/antenna", priority: 0.8},
+    {path: "/models", priority: 0.8},
+  ]
+  for (const {path, priority} of topLevel) {
+    for (const locale of routing.locales) {
+      entries.push({
+        url: `${SITE_URL}/${locale}${path}`,
+        lastModified: now,
+        changeFrequency: "weekly",
+        priority,
+        alternates: {languages: buildAlternates(path)},
+      })
+    }
   }
 
   // Detail pages per section × locale

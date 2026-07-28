@@ -1,8 +1,22 @@
 import {getLocale, getTranslations} from "next-intl/server"
-import {cn} from "@/lib/utils"
 import {BRAND} from "@/lib/brand"
+import {Link} from "@/i18n/navigation"
+import FooterSignature from "./FooterSignature"
 
-const navKeys = ["research", "lab", "applications", "models", "about", "careers"] as const
+type FooterNavItem = {key: string; href: string; external?: boolean}
+
+// Hash anchors are home-page sections; `solutions`, `yaf`, `models` are real
+// routes. `github` / `platform` are external and only appear once configured.
+// The locale-aware Link makes anchor clicks from a subpage navigate home and
+// then scroll to the section.
+const baseNavItems: ReadonlyArray<FooterNavItem> = [
+  {key: "capabilities", href: "/#capabilities"},
+  {key: "solutions", href: "/solutions"},
+  {key: "yaf", href: "/antenna"},
+  {key: "models", href: "/models"},
+  {key: "about", href: "/#about"},
+  {key: "careers", href: "/#careers"},
+]
 
 // Social channels stay empty until real accounts exist. Adding placeholder
 // "#" links signals "site isn't ready" to anyone who clicks. Restore items
@@ -14,6 +28,16 @@ export default async function Footer() {
   const tNav = await getTranslations("nav")
   const locale = await getLocale()
   const isZh = locale === "zh"
+
+  const navItems: FooterNavItem[] = [
+    ...baseNavItems,
+    ...(BRAND.repo.isLive
+      ? [{key: "github", href: BRAND.repo.url, external: true}]
+      : []),
+    ...(BRAND.platform.isLive
+      ? [{key: "platform", href: BRAND.platform.url, external: true}]
+      : []),
+  ]
 
   return (
     <footer className="relative pb-10 pt-12">
@@ -32,14 +56,25 @@ export default async function Footer() {
           {/* Right: nav + (optional) social */}
           <div className="flex flex-col gap-5 md:items-end">
             <ul className="flex flex-wrap gap-x-5 gap-y-2">
-              {navKeys.map((key) => (
-                <li key={key}>
-                  <a
-                    href={`#${key}`}
-                    className="text-[13px] text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {tNav(key)}
-                  </a>
+              {navItems.map((item) => (
+                <li key={item.key}>
+                  {item.external ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[13px] text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      {tNav(item.key)}
+                    </a>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="text-[13px] text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      {tNav(item.key)}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -62,17 +97,7 @@ export default async function Footer() {
 
         {/* Large italic signature */}
         <div className="@container w-full max-w-full">
-          <div
-            className={cn(
-              "select-none whitespace-nowrap font-display italic tracking-[-0.02em] text-canvas-deep",
-              isZh
-                ? "text-[clamp(28px,8cqi,90px)]"
-                : "text-[clamp(20px,5.4cqi,64px)]",
-              "leading-[0.95] pb-[0.15em]",
-            )}
-          >
-            {t("signature")}
-          </div>
+          <FooterSignature text={t("signature")} isZh={isZh} />
         </div>
 
         {/* Press email */}

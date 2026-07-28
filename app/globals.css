@@ -4,60 +4,111 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Deep space blue palette — Linear / Vercel inspired */
+  /* ---- Cold blue-grey misty palette — Noomo-inspired light skin ---- */
+  --bg-base: #ccd5e2;   /* primary background: cold blue-grey haze */
+  --bg-soft: #dde4ee;   /* brighter haze for sections / cards */
+
+  --background: var(--bg-base);
+  --background-deep: #0a0e1a;   /* retained for dark rhythm islands */
+  --canvas-deep: #15171c;       /* dark ink used for text on light footer */
+  --foreground: #15171c;        /* near-black, high contrast */
+
+  /* Ink scale */
+  --ink: #15171c;
+  --ink-2: #565b66;
+  --ink-3: #898f9b;
+
+  --muted: #dde4ee;
+  --muted-foreground: #565b66;
+
+  --border: rgba(21, 23, 28, 0.10);
+  --input: rgba(21, 23, 28, 0.10);
+  --hairline: rgba(21, 23, 28, 0.10);
+
+  --card: rgba(255, 255, 255, 0.62);
+  --card-foreground: #15171c;
+
+  --popover: #dde4ee;
+  --popover-foreground: #15171c;
+
+  /* Primary = neutral ink (controls stay neutral; color comes from the bg halos) */
+  --primary: #15171c;
+  --primary-foreground: #ffffff;
+
+  --secondary: #898f9b;
+  --secondary-foreground: #15171c;
+
+  /* The single, extremely sparing warm accent — taken from the reference's warm light */
+  --accent-warm: #e0a89a;
+  --accent: #e0a89a;
+  --accent-foreground: #15171c;
+
+  --destructive: #c0492f;
+  --destructive-foreground: #ffffff;
+
+  --ring: rgba(21, 23, 28, 0.35);
+
+  --radius: 1.25rem;
+
+  /* Button — dark ink pill (reference: VIEW PROJECT) */
+  --btn: #15171c;
+
+  /* Glass tokens — light variant (consumed by the .glass* mixins below) */
+  --glass-bg: rgba(255, 255, 255, 0.62);
+  --glass-bg-strong: rgba(255, 255, 255, 0.78);
+  --glass-bg-thin: rgba(255, 255, 255, 0.40);
+  --glass-border: rgba(21, 23, 28, 0.12);
+  --glass-shadow: rgba(21, 23, 28, 0.14);
+  --glass-highlight: rgba(255, 255, 255, 0.65);
+
+  /* Ambient glow — neutral/cool, near-invisible (most color is in the bg halos) */
+  --glow-cool: rgba(200, 205, 240, 0.55);
+  --glow-warm: rgba(240, 205, 195, 0.40);
+
+  /* Signature reveal easing — cubic-bezier(.2,.8,.2,1) */
+  --ease-apple: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ---------- Dark rhythm island ----------
+   Wrap any section in `.section-dark` to flip the semantic tokens back to the
+   white-on-dark scheme. All token-driven utilities (text-foreground,
+   text-muted-foreground, .glass*, borders) invert automatically — no per-element
+   recolor needed. The 3D vitrine `.showcase-inner` is dark by the same logic. */
+.section-dark {
   --background: #0a0e1a;
-  --background-deep: #131829;
-  --canvas-deep: #1a2238;
   --foreground: #f5f7fa;
+  --canvas-deep: #1a2238;
   --muted: #1a1f30;
   --muted-foreground: #8b92a8;
+  --ink: #f5f7fa;
+  --ink-2: #c5ccda;
+  --ink-3: #8b92a8;
 
   --border: rgba(255, 255, 255, 0.08);
   --input: rgba(255, 255, 255, 0.08);
+  --hairline: rgba(255, 255, 255, 0.08);
 
   --card: rgba(255, 255, 255, 0.06);
   --card-foreground: #f5f7fa;
 
-  --popover: #131829;
-  --popover-foreground: #f5f7fa;
+  --ring: rgba(255, 255, 255, 0.5);
 
-  /* Primary = electric blue */
-  --primary: #4d7cff;
-  --primary-foreground: #ffffff;
-
-  /* Secondary = muted purple, charts only */
-  --secondary: #a78bfa;
-  --secondary-foreground: #ffffff;
-
-  --accent: #4d7cff;
-  --accent-foreground: #ffffff;
-
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-
-  --ring: rgba(77, 124, 255, 0.5);
-
-  --radius: 1.25rem;
-
-  /* Glass tokens — dark variant */
   --glass-bg: rgba(255, 255, 255, 0.06);
-  --glass-bg-strong: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-shadow: rgba(0, 0, 0, 0.3);
+  --glass-bg-strong: rgba(255, 255, 255, 0.10);
+  --glass-bg-thin: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.10);
+  --glass-shadow: rgba(0, 0, 0, 0.30);
+  --glass-highlight: rgba(255, 255, 255, 0.10);
 
-  /* Glow colors */
-  --glow-blue: #3b82f6;
-  --glow-purple: #8b5cf6;
-  --glow-cyan: #06b6d4;
-
-  /* Apple-standard easing */
-  --ease-apple: cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--background);
+  color: var(--foreground);
 }
 
 @theme inline {
   --font-sans: var(--font-sans), 'Geist', var(--font-sans-cn), 'Noto Sans SC', ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono), 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-display: var(--font-display), 'Instrument Serif', var(--font-display-cn), 'Noto Serif SC', ui-serif, Georgia, serif;
+  /* Display = geometric sans (Geist), CJK falls back to Noto Sans SC (not serif) */
+  --font-display: var(--font-sans), 'Geist', var(--font-sans-cn), 'Noto Sans SC', ui-sans-serif, system-ui, sans-serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -87,6 +138,13 @@
   --radius-2xl: calc(var(--radius) + 16px);
 }
 
+/* Unified display letter-spacing — every H1 / H2 / big card title shares this
+   single token so tracking never drifts between headings (was -0.025 / -0.02 /
+   -0.01em scattered across components). */
+@utility tracking-display {
+  letter-spacing: -0.022em;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -94,7 +152,7 @@
 
   html {
     background: var(--background);
-    color-scheme: dark;
+    color-scheme: light;
   }
 
   body {
@@ -105,40 +163,39 @@
   }
 
   ::selection {
-    background: rgba(77, 124, 255, 0.25);
+    background: rgba(224, 168, 154, 0.35);
     color: var(--foreground);
   }
 }
 
 /* ---------- Page background system ---------- */
 .bg-canvas {
-  background: #0a0e1a;
+  background: var(--bg-base);
 }
 
-/* Layer 3: grain — stronger for dark scene to suppress banding */
+/* Layer 3: grain — subtle tooth on the light haze (multiply, very low opacity) */
 .bg-grain::after {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.04;
-  mix-blend-mode: screen;
-  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>");
+  opacity: 0.025;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.09  0 0 0 0 0.11  0 0 0 0.7 0'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>");
 }
 
-/* ---------- Dark glass mixin ---------- */
+/* ---------- Glass mixin (token-driven; inverts under .section-dark) ---------- */
 .glass {
-  background: rgba(255, 255, 255, 0.06);
-  -webkit-backdrop-filter: blur(40px) saturate(180%);
-  backdrop-filter: blur(40px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(40px) saturate(140%);
+  backdrop-filter: blur(40px) saturate(140%);
+  border: 1px solid var(--glass-border);
   border-radius: 24px;
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.1) inset,
-    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
-    0 8px 32px rgba(0, 0, 0, 0.3),
-    0 24px 80px rgba(0, 0, 0, 0.4);
+    0 1px 0 var(--glass-highlight) inset,
+    0 1px 2px var(--glass-shadow),
+    0 12px 40px var(--glass-shadow);
   transition:
     background 400ms var(--ease-apple),
     transform 400ms var(--ease-apple),
@@ -146,55 +203,56 @@
 }
 
 .glass-hover:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-2px);
+  background: var(--glass-bg-strong);
+  transform: translateY(-4px);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.14) inset,
-    0 0 0 1px rgba(255, 255, 255, 0.06) inset,
-    0 12px 40px rgba(0, 0, 0, 0.4),
-    0 32px 100px rgba(0, 0, 0, 0.5);
+    0 1px 0 var(--glass-highlight) inset,
+    0 2px 6px var(--glass-shadow),
+    0 24px 64px var(--glass-shadow);
 }
 
 .glass-thin {
-  background: rgba(255, 255, 255, 0.04);
-  -webkit-backdrop-filter: blur(28px) saturate(170%);
-  backdrop-filter: blur(28px) saturate(170%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--glass-bg-thin);
+  -webkit-backdrop-filter: blur(28px) saturate(130%);
+  backdrop-filter: blur(28px) saturate(130%);
+  border: 1px solid var(--glass-border);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.08) inset,
-    0 4px 16px rgba(0, 0, 0, 0.25);
+    0 1px 0 var(--glass-highlight) inset,
+    0 4px 16px var(--glass-shadow);
 }
 
 .glass-pill {
-  background: rgba(255, 255, 255, 0.06);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  backdrop-filter: blur(20px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(20px) saturate(130%);
+  backdrop-filter: blur(20px) saturate(130%);
+  border: 1px solid var(--glass-border);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.1) inset,
-    0 4px 12px rgba(0, 0, 0, 0.2);
+    0 1px 0 var(--glass-highlight) inset,
+    0 4px 12px var(--glass-shadow);
 }
 
-/* Electric blue CTA with glow */
+/* Primary CTA — dark ink pill (was electric blue; class name kept to avoid churn) */
 .btn-electric {
-  background: linear-gradient(135deg, #4d7cff 0%, #6366f1 100%);
+  background: var(--btn);
   color: #ffffff;
+  border-radius: 980px;
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.3) inset,
-    0 0 0 1px rgba(255, 255, 255, 0.15) inset,
-    0 4px 16px rgba(77, 124, 255, 0.4);
-  transition: all 400ms var(--ease-apple);
+    0 1px 2px rgba(21, 23, 28, 0.18),
+    0 8px 24px rgba(21, 23, 28, 0.12);
+  transition:
+    transform 400ms var(--ease-apple),
+    box-shadow 400ms var(--ease-apple),
+    background 400ms var(--ease-apple);
 }
 .btn-electric:hover {
   transform: translateY(-1px);
+  background: #000000;
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.35) inset,
-    0 0 0 1px rgba(255, 255, 255, 0.2) inset,
-    0 8px 28px rgba(77, 124, 255, 0.55),
-    0 2px 6px rgba(77, 124, 255, 0.6);
+    0 2px 4px rgba(21, 23, 28, 0.22),
+    0 12px 32px rgba(21, 23, 28, 0.18);
 }
 
-/* Showcase well — deep vitrine for 3D */
+/* Showcase well — deep vitrine for 3D (intentionally stays dark as a rhythm point) */
 .showcase-inner {
   background: radial-gradient(ellipse at center, #1a2238 0%, #0a0e1a 100%);
   box-shadow:
@@ -205,7 +263,7 @@
 
 /* Fine hairline */
 .hairline {
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08) 12%, rgba(255, 255, 255, 0.08) 88%, transparent);
+  background: linear-gradient(90deg, transparent, var(--hairline) 12%, var(--hairline) 88%, transparent);
   height: 1px;
   width: 100%;
 }
@@ -252,5 +310,23 @@
 
 /* Scrollbar */
 html {
-  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+  scrollbar-color: rgba(21, 23, 28, 0.25) transparent;
+}
+
+/* ---------- Lenis smooth scroll (recommended base styles) ---------- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }

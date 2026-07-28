@@ -1,10 +1,12 @@
 "use client"
 
 import dynamic from "next/dynamic"
+import {useRef} from "react"
 import {motion} from "framer-motion"
 import {ArrowRight} from "lucide-react"
 import {useTranslations} from "next-intl"
 import SignalFlux from "./SignalFlux"
+import {useHeroReveal} from "./useHeroReveal"
 
 // Code-split the WebGL scene so it doesn't block initial paint or get bundled
 // into the SSR HTML. The scene is purely decorative; not having it during SSR
@@ -20,30 +22,20 @@ const PinchingAntennaModel = dynamic(() => import("./PinchingAntennaModel"), {
   ),
 })
 
-const lineVariants = {
-  hidden: {opacity: 0, y: 16},
-  show: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: 0.1 * i,
-      duration: 0.8,
-      ease: [0.4, 0, 0.2, 1] as const,
-    },
-  }),
-}
-
 export default function Hero() {
   const t = useTranslations("hero")
+  const scope = useRef<HTMLDivElement>(null)
+  // Left text block — GSAP masked line reveal (P1; see ANIMATION.md).
+  useHeroReveal(scope)
 
   return (
     <section className="relative pt-28 pb-20 md:pt-36 md:pb-28">
       <div className="mx-auto grid max-w-6xl grid-cols-12 items-center gap-x-8 gap-y-16 px-5 md:px-8">
         {/* LEFT — text */}
         <div className="col-span-12 lg:col-span-7">
-          <motion.div initial="hidden" animate="show">
+          <div ref={scope}>
             {/* Pill — subtitle */}
-            <motion.div custom={0} variants={lineVariants}>
+            <div data-reveal="pill">
               <span className="glass-pill inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[12.5px] font-medium text-muted-foreground">
                 <span
                   aria-hidden
@@ -53,30 +45,27 @@ export default function Hero() {
                 </span>
                 {t("pill")}
               </span>
-            </motion.div>
+            </div>
 
             {/* Headline */}
-            <motion.h1
-              custom={1}
-              variants={lineVariants}
-              className="mt-7 font-display text-[clamp(2.5rem,6vw,5.5rem)] leading-[1.05] tracking-[-0.025em] text-balance text-foreground"
+            <h1
+              data-reveal="title"
+              className="mt-7 font-display text-[clamp(2.5rem,6vw,5.5rem)] leading-[1.06] tracking-display text-foreground"
             >
               {t("title")}
-            </motion.h1>
+            </h1>
 
             {/* Body */}
-            <motion.p
-              custom={2}
-              variants={lineVariants}
+            <p
+              data-reveal="body"
               className="mt-8 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground md:text-[17px] md:leading-[1.6]"
             >
               {t("body")}
-            </motion.p>
+            </p>
 
             {/* CTAs */}
-            <motion.div
-              custom={3}
-              variants={lineVariants}
+            <div
+              data-reveal="cta"
               className="mt-10 flex flex-wrap items-center gap-3"
             >
               <a
@@ -89,12 +78,12 @@ export default function Hero() {
 
               <a
                 href="#contact"
-                className="glass-pill inline-flex h-12 items-center gap-2 rounded-[14px] px-6 text-[14px] font-semibold text-foreground transition-all duration-300 hover:bg-white/[0.1]"
+                className="glass-pill inline-flex h-12 items-center gap-2 rounded-full px-6 text-[14px] font-semibold text-foreground transition-all duration-300 hover:bg-white/70"
               >
                 {t("ctaSecondary")}
               </a>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
 
         {/* RIGHT — 3D showcase */}
@@ -118,7 +107,7 @@ export default function Hero() {
                 LIVE
               </span>
               <span className="text-muted-foreground">
-                28.0 GHz <span className="text-white/[0.15]">/</span> Ch.2
+                28.0 GHz <span className="text-black/20">/</span> Ch.2
               </span>
             </div>
 

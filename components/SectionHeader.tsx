@@ -16,7 +16,7 @@ export interface SectionHeaderProps {
 }
 
 const DEFAULT_HEADING =
-  "font-display text-[clamp(2.5rem,6vw,5rem)] leading-[1.02] tracking-[-0.02em] text-foreground"
+  "font-display text-[clamp(2.5rem,6vw,5rem)] leading-[1.02] tracking-display text-foreground"
 
 /**
  * Eyebrow label + big serif heading + optional intro paragraph.

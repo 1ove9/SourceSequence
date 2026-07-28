@@ -3,7 +3,8 @@
 import type {ComponentProps} from "react"
 import {motion} from "framer-motion"
 
-const APPLE_EASE = [0.4, 0, 0.2, 1] as const
+// Signature reveal curve — kept in sync with --ease-apple and the GSAP CustomEase.
+const APPLE_EASE = [0.2, 0.8, 0.2, 1] as const
 
 type MotionDivProps = ComponentProps<typeof motion.div>
 

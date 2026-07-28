@@ -1,5 +1,74 @@
 import {groq} from "next-sanity"
 
+// ---------- Physics-Grounded AI: Capabilities ----------
+
+export const CAPABILITIES_QUERY = groq`
+  *[_type == "capability"] | order(order asc) {
+    _id,
+    "slug": slug.current,
+    order,
+    tagline,
+    titleEn,
+    titleZh,
+    descriptionEn,
+    descriptionZh,
+    cardIcon
+  }
+`
+
+// ---------- Physics-Grounded AI: Solutions ----------
+
+export const SOLUTION_GROUPS_QUERY = groq`
+  *[_type == "solutionGroup"] | order(order asc) {
+    _id,
+    key,
+    order,
+    tagline,
+    titleEn,
+    titleZh,
+    introEn,
+    introZh
+  }
+`
+
+export const SOLUTIONS_QUERY = groq`
+  *[_type == "solution"] | order(order asc) {
+    _id,
+    "slug": slug.current,
+    order,
+    group,
+    tagline,
+    titleEn,
+    titleZh,
+    descriptionEn,
+    descriptionZh,
+    highlightEn,
+    highlightZh,
+    cardIcon,
+    isFeatured
+  }
+`
+
+// ---------- Physics-Grounded AI: Case Studies ----------
+
+export const CASE_STUDIES_QUERY = groq`
+  *[_type == "caseStudy"] | order(order asc) {
+    _id,
+    "slug": slug.current,
+    order,
+    tagEn,
+    tagZh,
+    titleEn,
+    titleZh,
+    descriptionEn,
+    descriptionZh,
+    cardIcon,
+    href,
+    externalUrl,
+    isFlagship
+  }
+`
+
 // ---------- Research ----------
 
 export const RESEARCH_TOPICS_QUERY = groq`

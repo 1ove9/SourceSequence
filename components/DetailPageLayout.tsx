@@ -175,11 +175,11 @@ export default function DetailPageLayout({
             </div>
           ) : (
             <div
-              className="relative aspect-[16/9] w-full overflow-hidden border border-white/[0.06]"
+              className="relative aspect-[16/9] w-full overflow-hidden border border-[var(--hairline)]"
               style={{
                 borderRadius: 24,
                 background:
-                  "linear-gradient(135deg, rgba(77,124,255,0.14), rgba(167,139,250,0.08) 60%, rgba(255,255,255,0.02))",
+                  "linear-gradient(135deg, rgba(224,168,154,0.12), rgba(21,23,28,0.05) 60%, rgba(255,255,255,0.30))",
               }}
               aria-hidden
             />

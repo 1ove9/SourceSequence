@@ -14,7 +14,9 @@ export interface RadiationRipplesProps {
 }
 
 /**
- * Electric-blue radiation rings — the signature glow of the deep-space scene.
+ * Soft indigo-violet radiation rings — the signature glow of the deep-space
+ * scene (desaturated from the old electric blue to match the light skin's
+ * cool halo family).
  * Each ring has a slightly larger outer glow ring for the ambient light bleed.
  */
 const RadiationRipples = forwardRef<Group, RadiationRipplesProps>(function RadiationRipples(
@@ -63,7 +65,7 @@ const RadiationRipples = forwardRef<Group, RadiationRipplesProps>(function Radia
             <ringGeometry args={[0.96, 1.0, 96]} />
             <meshBasicMaterial
               ref={(el) => { matRefs.current[i] = el }}
-              color="#4d7cff"
+              color="#6f7bd4"
               transparent
               opacity={0}
               depthWrite={false}
@@ -77,7 +79,7 @@ const RadiationRipples = forwardRef<Group, RadiationRipplesProps>(function Radia
             <ringGeometry args={[0.88, 1.08, 96]} />
             <meshBasicMaterial
               ref={(el) => { glowMatRefs.current[i] = el }}
-              color="#60a5fa"
+              color="#9aa3de"
               transparent
               opacity={0}
               depthWrite={false}

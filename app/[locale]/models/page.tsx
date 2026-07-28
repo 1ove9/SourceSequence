@@ -2,7 +2,7 @@ import type {Metadata} from "next"
 import {getLocale, getTranslations, setRequestLocale} from "next-intl/server"
 import Nav from "@/components/Nav"
 import Footer from "@/components/Footer"
-import BackgroundLayer from "@/components/BackgroundLayer"
+import AuroraBackground from "@/components/AuroraBackground"
 import ModelsView from "@/components/showcase/ModelsView"
 import {sanityFetch} from "@/sanity/lib/fetch"
 import {MODEL_SHOWCASES_QUERY} from "@/sanity/lib/queries"
@@ -61,8 +61,8 @@ export default async function ModelsPage({
   ])
 
   return (
-    <main className="bg-canvas bg-grain relative min-h-screen overflow-x-hidden text-foreground">
-      <BackgroundLayer />
+    <main className="bg-canvas bg-grain relative isolate min-h-screen overflow-x-hidden text-foreground">
+      <AuroraBackground />
       <Nav />
       <ModelsView
         items={items}

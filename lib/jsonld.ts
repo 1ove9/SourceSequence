@@ -17,16 +17,17 @@ export function organizationJsonLd() {
     foundingDate: String(BRAND.org.foundingYear),
     foundingLocation: BRAND.org.foundingLocation,
     description:
-      "A research company building the physical layer of 6G. AI-native radio architectures.",
+      "A research company building physics-grounded AI — reliable, trustworthy prediction and decision systems for the data-scarce, noisy reality of industry.",
     email: BRAND.emails.general,
-    sameAs: [],
+    sameAs: BRAND.repo.isLive ? [BRAND.repo.url] : [],
     knowsAbout: [
-      "6G",
-      "Pinching Antenna",
-      "AI-Native Radio",
-      "Integrated Sensing and Communication",
-      "Over-the-Air Computation",
-      "Physical Layer Wireless",
+      "Physics-Grounded AI",
+      "Physics-Informed Machine Learning",
+      "Industrial AI",
+      "Predictive Maintenance",
+      "Prognostics and Health Management",
+      "High-Fidelity Simulation",
+      "Antenna Design",
     ],
   }
 }

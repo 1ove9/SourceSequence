@@ -5,6 +5,12 @@ import {motion} from "framer-motion"
 import {useTranslations} from "next-intl"
 import ContactForm from "./ContactForm"
 
+const DIRECT_CONTACTS = [
+  {key: "tech", email: "brucez@sourcesequence.cn"},
+  {key: "build", email: "Koi@sourcesequence.cn"},
+  {key: "feedback", email: "ruiSong@sourcesequence.cn"},
+] as const
+
 export default function Contact() {
   const t = useTranslations("contact")
 
@@ -29,6 +35,29 @@ export default function Contact() {
             <p className="max-w-sm text-[14px] leading-[1.7] text-muted-foreground/70">
               {t("intro")}
             </p>
+
+            {/* Direct contacts */}
+            <div className="mt-10 max-w-sm border-t border-[var(--hairline)] pt-8">
+              <div className="mb-5 font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+                {t("directLabel")}
+              </div>
+              <ul className="space-y-4">
+                {DIRECT_CONTACTS.map(({key, email}) => (
+                  <li key={key} className="group flex flex-col gap-1">
+                    <span className="text-[13px] leading-[1.5] text-muted-foreground/70">
+                      {t(`direct.${key}`)}
+                    </span>
+                    <a
+                      href={`mailto:${email}`}
+                      className="inline-flex w-fit items-center gap-2 font-mono text-[13px] text-foreground/85 transition-colors hover:text-accent"
+                    >
+                      <span className="h-1 w-1 rounded-full bg-accent/60 transition-colors group-hover:bg-accent" />
+                      {email}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </motion.div>
 
           {/* Right: form */}

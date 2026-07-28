@@ -20,7 +20,7 @@ export default function TrustedByView({items, label, heading}: Props) {
     <section
       id="trusted-by"
       aria-label={label}
-      className="relative border-t border-white/[0.04] py-16 md:py-20"
+      className="relative border-t border-[var(--hairline)] py-16 md:py-20"
     >
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <RevealOnScroll className="mb-10 text-center" duration={0.6}>

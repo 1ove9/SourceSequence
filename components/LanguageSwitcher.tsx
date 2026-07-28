@@ -37,7 +37,7 @@ export default function LanguageSwitcher() {
       >
         EN
       </button>
-      <span className="text-white/[0.15]">·</span>
+      <span className="text-black/20">·</span>
       <button
         type="button"
         onClick={() => switchTo("zh")}

@@ -78,10 +78,10 @@ function Spotlight({
   return (
     <RevealOnScroll y={28} scale={0.97} duration={0.85}>
       <div
-        className="relative overflow-hidden rounded-[24px] border border-accent/40 bg-white/[0.04] p-8 md:p-14"
+        className="relative overflow-hidden rounded-[24px] border border-accent/40 bg-white/60 p-8 md:p-14"
         style={{
           boxShadow:
-            "0 0 60px rgba(77,124,255,0.1), inset 0 1px 0 rgba(255,255,255,0.07)",
+            "0 0 60px rgba(224,168,154,0.10), inset 0 1px 0 rgba(255,255,255,0.07)",
         }}
       >
         {meta && (
@@ -112,7 +112,7 @@ function Spotlight({
           className="pointer-events-none absolute right-0 top-0 h-64 w-64 rounded-full"
           style={{
             background:
-              "radial-gradient(circle at center, rgba(77,124,255,0.18) 0%, transparent 70%)",
+              "radial-gradient(circle at center, rgba(224,168,154,0.16) 0%, transparent 70%)",
             transform: "translate(35%, -35%)",
           }}
         />
@@ -155,12 +155,12 @@ function PublicationRow({
           href={item.externalUrl}
           target="_blank"
           rel="noreferrer"
-          className="group flex items-center justify-between gap-6 border-b border-white/[0.06] py-5 transition-colors hover:border-white/20"
+          className="group flex items-center justify-between gap-6 border-b border-[var(--hairline)] py-5 transition-colors hover:border-black/20"
         >
           {content}
         </a>
       ) : (
-        <div className="flex items-center justify-between gap-6 border-b border-white/[0.06] py-5">
+        <div className="flex items-center justify-between gap-6 border-b border-[var(--hairline)] py-5">
           {content}
         </div>
       )}

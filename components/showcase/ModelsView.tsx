@@ -82,10 +82,10 @@ function ModelCard({
             <div
               className="relative flex h-14 w-14 items-center justify-center rounded-2xl"
               style={{
-                background: "rgba(255,255,255,0.06)",
-                border: "1px solid rgba(255,255,255,0.08)",
+                background: "rgba(21,23,28,0.04)",
+                border: "1px solid rgba(21,23,28,0.08)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.1), 0 0 24px rgba(77,124,255,0.13)",
+                  "inset 0 1px 0 rgba(255,255,255,0.6), 0 0 24px rgba(224,168,154,0.10)",
               }}
             >
               <Sparkles className="h-6 w-6 text-foreground/70" strokeWidth={1.5} />
@@ -118,7 +118,7 @@ function ModelCard({
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full border border-white/[0.08] bg-white/[0.04] px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground/70"
+                  className="rounded-full border border-[var(--hairline)] bg-white/60 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground/70"
                 >
                   {tag}
                 </span>

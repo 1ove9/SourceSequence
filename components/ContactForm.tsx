@@ -21,7 +21,7 @@ const SERVICE_KEYS: InquiryService[] = [
 ]
 
 const inputBase =
-  "w-full rounded-lg border border-white/[0.08] bg-white/[0.04] px-3.5 py-3 text-[14px] text-foreground placeholder:text-muted-foreground/40 transition-colors focus:border-accent/50 focus:bg-white/[0.06] focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+  "w-full rounded-lg border border-[var(--hairline)] bg-white/60 px-3.5 py-3 text-[14px] text-foreground placeholder:text-muted-foreground/40 transition-colors focus:border-accent/50 focus:bg-white/70 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
 
 export default function ContactForm() {
   const t = useTranslations("contact.form")

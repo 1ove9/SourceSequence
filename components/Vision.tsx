@@ -3,8 +3,8 @@
 import {motion} from "framer-motion"
 import {useTranslations} from "next-intl"
 
-export default function Vision() {
-  const t = useTranslations("vision")
+export default function Vision({ns = "vision"}: {ns?: string}) {
+  const t = useTranslations(ns)
 
   return (
     <section id="vision" className="relative py-24 md:py-32">

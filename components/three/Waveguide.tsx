@@ -10,7 +10,7 @@ export interface WaveguideProps {
 
 /**
  * Cold-blue dielectric waveguide for deep-space scene.
- * Outer translucent sheath transmits blue light; inner core emits #4d7cff.
+ * Outer translucent sheath transmits cool light; inner core emits soft indigo.
  */
 const Waveguide = forwardRef<Group, WaveguideProps>(function Waveguide(
   { length = 5.6, radius = 0.08 },
@@ -30,7 +30,7 @@ const Waveguide = forwardRef<Group, WaveguideProps>(function Waveguide(
           metalness={0}
           clearcoat={0.5}
           clearcoatRoughness={0.2}
-          attenuationColor="#4d7cff"
+          attenuationColor="#6f7bd4"
           attenuationDistance={2.5}
           transparent
           opacity={0.92}
@@ -42,7 +42,7 @@ const Waveguide = forwardRef<Group, WaveguideProps>(function Waveguide(
         <cylinderGeometry args={[radius * 0.45, radius * 0.45, length * 0.998, 32, 1, false]} />
         <meshStandardMaterial
           color="#3b6bcc"
-          emissive="#4d7cff"
+          emissive="#6f7bd4"
           emissiveIntensity={0.4}
           roughness={0.4}
           metalness={0}

@@ -7,19 +7,19 @@ import {useTranslations} from "next-intl"
 import {Link} from "@/i18n/navigation"
 import LanguageSwitcher from "./LanguageSwitcher"
 
-type NavItem = {key: string; href: string; isRoute: boolean}
+type NavItem = {key: string; href: string; external?: boolean}
 
+// Internal items use Next.js Link (via i18n/navigation) so hash anchors
+// work from subpages too (they navigate home, then scroll). YAF is a real
+// route; the antenna research depth lives under it.
 const navItems: NavItem[] = [
-  {key: "research", href: "#research", isRoute: false},
-  {key: "lab", href: "#lab", isRoute: false},
-  {key: "applications", href: "#applications", isRoute: false},
-  {key: "models", href: "/models", isRoute: true},
-  {key: "about", href: "#about", isRoute: false},
-  {key: "careers", href: "#careers", isRoute: false},
-  {key: "contact", href: "#contact", isRoute: false},
+  {key: "capabilities", href: "/#capabilities"},
+  {key: "solutions", href: "/solutions"},
+  {key: "yaf", href: "/antenna"},
+  {key: "about", href: "/#about"},
 ]
 
-const APPLE_EASE = [0.4, 0, 0.2, 1] as const
+const APPLE_EASE = [0.2, 0.8, 0.2, 1] as const
 
 export default function Nav() {
   const t = useTranslations("nav")
@@ -66,12 +66,12 @@ export default function Nav() {
             "mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-3 pl-5 pr-3",
             "rounded-full border transition-[background,box-shadow,border-color] duration-500",
             scrolled
-              ? "border-white/[0.1] bg-[rgba(10,14,26,0.78)] shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
-              : "border-white/[0.06] bg-[rgba(10,14,26,0.6)]",
+              ? "border-[var(--hairline)] bg-[rgba(255,255,255,0.78)] shadow-[0_8px_32px_rgba(21,23,28,0.10)]"
+              : "border-[var(--hairline)] bg-[rgba(255,255,255,0.5)]",
           ].join(" ")}
           style={{
-            backdropFilter: "blur(20px) saturate(180%)",
-            WebkitBackdropFilter: "blur(20px) saturate(180%)",
+            backdropFilter: "blur(20px) saturate(160%)",
+            WebkitBackdropFilter: "blur(20px) saturate(160%)",
           }}
         >
           {/* Logo */}
@@ -79,7 +79,7 @@ export default function Nav() {
             <span className="relative grid h-5 w-5 place-items-center">
               <span
                 className="block h-[2px] w-3.5 rounded-full"
-                style={{background: "linear-gradient(90deg,#4d7cff,#60a5fa)"}}
+                style={{background: "linear-gradient(90deg,#15171c,#e0a89a)"}}
               />
               <span className="absolute h-1.5 w-1.5 rounded-full bg-foreground" />
             </span>
@@ -92,20 +92,22 @@ export default function Nav() {
           <ul className="hidden items-center gap-7 md:flex">
             {navItems.map((item) => (
               <li key={item.key}>
-                {item.isRoute ? (
+                {item.external ? (
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[13px] font-medium text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {t(item.key)}
+                  </a>
+                ) : (
                   <Link
                     href={item.href}
                     className="text-[13px] font-medium text-muted-foreground transition-colors hover:text-foreground"
                   >
                     {t(item.key)}
                   </Link>
-                ) : (
-                  <a
-                    href={item.href}
-                    className="text-[13px] font-medium text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {t(item.key)}
-                  </a>
                 )}
               </li>
             ))}
@@ -116,13 +118,13 @@ export default function Nav() {
             <LanguageSwitcher />
 
             {/* Desktop CTA */}
-            <a
-              href="#contact"
+            <Link
+              href="/#contact"
               className="btn-electric group ml-1 hidden h-9 items-center gap-1.5 rounded-full px-4 text-[12.5px] font-medium md:inline-flex"
             >
               {t("cta")}
               <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
-            </a>
+            </Link>
 
             {/* Mobile hamburger */}
             <button
@@ -131,7 +133,7 @@ export default function Nav() {
               aria-label={t("menuOpen")}
               aria-expanded={mobileOpen}
               aria-controls="mobile-menu"
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/[0.1] text-foreground transition-colors hover:bg-white/[0.08] md:hidden"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--hairline)] text-foreground transition-colors hover:bg-black/[0.05] md:hidden"
             >
               <Menu className="h-4 w-4" strokeWidth={1.8} />
             </button>
@@ -152,7 +154,7 @@ export default function Nav() {
             animate={{opacity: 1}}
             exit={{opacity: 0}}
             transition={{duration: 0.25, ease: APPLE_EASE}}
-            className="bg-grain fixed inset-0 z-[60] flex flex-col bg-[rgba(10,14,26,0.96)] md:hidden"
+            className="bg-grain fixed inset-0 z-[60] flex flex-col bg-[rgba(221,228,238,0.94)] md:hidden"
             style={{
               backdropFilter: "blur(20px) saturate(160%)",
               WebkitBackdropFilter: "blur(20px) saturate(160%)",
@@ -164,7 +166,7 @@ export default function Nav() {
                 <span className="relative grid h-5 w-5 place-items-center">
                   <span
                     className="block h-[2px] w-3.5 rounded-full"
-                    style={{background: "linear-gradient(90deg,#4d7cff,#60a5fa)"}}
+                    style={{background: "linear-gradient(90deg,#15171c,#e0a89a)"}}
                   />
                   <span className="absolute h-1.5 w-1.5 rounded-full bg-foreground" />
                 </span>
@@ -176,7 +178,7 @@ export default function Nav() {
                 type="button"
                 onClick={close}
                 aria-label={t("menuClose")}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.1] text-foreground transition-colors hover:bg-white/[0.08]"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--hairline)] text-foreground transition-colors hover:bg-black/[0.05]"
               >
                 <X className="h-5 w-5" strokeWidth={1.8} />
               </button>
@@ -196,7 +198,17 @@ export default function Nav() {
                       ease: APPLE_EASE,
                     }}
                   >
-                    {item.isRoute ? (
+                    {item.external ? (
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={close}
+                        className="block py-2.5 font-display text-[clamp(2rem,9vw,3.25rem)] leading-[1.1] tracking-[-0.02em] text-foreground transition-colors hover:text-accent"
+                      >
+                        {t(item.key)}
+                      </a>
+                    ) : (
                       <Link
                         href={item.href}
                         onClick={close}
@@ -204,14 +216,6 @@ export default function Nav() {
                       >
                         {t(item.key)}
                       </Link>
-                    ) : (
-                      <a
-                        href={item.href}
-                        onClick={close}
-                        className="block py-2.5 font-display text-[clamp(2rem,9vw,3.25rem)] leading-[1.1] tracking-[-0.02em] text-foreground transition-colors hover:text-accent"
-                      >
-                        {t(item.key)}
-                      </a>
                     )}
                   </motion.li>
                 ))}
@@ -229,14 +233,14 @@ export default function Nav() {
               }}
               className="px-7 pb-10 pt-6"
             >
-              <a
-                href="#contact"
+              <Link
+                href="/#contact"
                 onClick={close}
                 className="btn-electric group inline-flex h-12 w-full items-center justify-center gap-2 rounded-full px-6 text-[14px] font-semibold"
               >
                 {t("cta")}
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-              </a>
+              </Link>
             </motion.div>
           </motion.div>
         )}

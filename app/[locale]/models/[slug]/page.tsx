@@ -3,7 +3,7 @@ import {notFound} from "next/navigation"
 import {getTranslations, setRequestLocale} from "next-intl/server"
 import Nav from "@/components/Nav"
 import Footer from "@/components/Footer"
-import BackgroundLayer from "@/components/BackgroundLayer"
+import AuroraBackground from "@/components/AuroraBackground"
 import ModelDetailView from "@/components/showcase/ModelDetailView"
 import {sanityFetch} from "@/sanity/lib/fetch"
 import {
@@ -101,12 +101,12 @@ export default async function ModelDetailPage({
   }
 
   return (
-    <main className="bg-canvas bg-grain relative min-h-screen overflow-x-hidden text-foreground">
+    <main className="bg-canvas bg-grain relative isolate min-h-screen overflow-x-hidden text-foreground">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}
       />
-      <BackgroundLayer />
+      <AuroraBackground />
       <Nav />
       <ModelDetailView
         data={doc}

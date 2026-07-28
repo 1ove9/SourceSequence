@@ -7,7 +7,7 @@ import {NextResponse, type NextRequest} from "next/server"
  * Configure in manage.sanity.io → API → Webhooks:
  *   URL:    https://<your-domain>/api/revalidate
  *   Trigger: Create, Update, Delete (published)
- *   Filter: _type in ["researchTopic", "labCapability", "application", "publication", "jobPosting"]
+ *   Filter: _type in ["researchTopic", "labCapability", "application", "publication", "jobPosting", "capability", "solution", "solutionGroup", "caseStudy"]
  *   Projection: {"_type": _type, "slug": slug.current}
  *   Secret: set SANITY_REVALIDATE_SECRET to the same value in your env
  *
@@ -22,6 +22,12 @@ const TYPE_TO_SECTION: Record<string, string | null> = {
   application: "applications",
   publication: null,
   jobPosting: null,
+  // Physics-Grounded AI content — homepage + /solutions aggregate these; the
+  // "/[locale]" layout revalidation below covers them, so section is null.
+  capability: null,
+  solution: null,
+  solutionGroup: null,
+  caseStudy: null,
 }
 
 function verifySecret(req: NextRequest): boolean {
