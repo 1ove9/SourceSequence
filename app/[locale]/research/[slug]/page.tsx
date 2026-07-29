@@ -36,6 +36,7 @@ export async function generateMetadata({
   const doc = await sanityFetch<ResearchTopicDetail | null>({
     query: RESEARCH_TOPIC_BY_SLUG_QUERY,
     params: {slug},
+    fallback: null,
   })
   if (!doc) return {}
   const title = (locale === "zh" ? doc.titleZh ?? doc.titleEn : doc.titleEn) ?? ""
@@ -55,6 +56,7 @@ export default async function ResearchTopicPage({
   const doc = await sanityFetch<ResearchTopicDetail | null>({
     query: RESEARCH_TOPIC_BY_SLUG_QUERY,
     params: {slug},
+    fallback: null,
   })
 
   if (!doc) notFound()

@@ -35,6 +35,7 @@ export async function generateMetadata({
   const doc = await sanityFetch<ApplicationDetail | null>({
     query: APPLICATION_BY_SLUG_QUERY,
     params: {slug},
+    fallback: null,
   })
   if (!doc) return {}
   const title = (locale === "zh" ? doc.titleZh ?? doc.titleEn : doc.titleEn) ?? ""
@@ -54,6 +55,7 @@ export default async function ApplicationPage({
   const doc = await sanityFetch<ApplicationDetail | null>({
     query: APPLICATION_BY_SLUG_QUERY,
     params: {slug},
+    fallback: null,
   })
 
   if (!doc) notFound()

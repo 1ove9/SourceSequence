@@ -1,4 +1,5 @@
 import {client} from "../client"
+import {hasSanityConfig} from "../env"
 
 /**
  * Marketing content changes infrequently. We default to 1 hour ISR and rely
@@ -13,12 +14,18 @@ export async function sanityFetch<T>({
   params = {},
   revalidate = DEFAULT_REVALIDATE_SECONDS,
   tags,
+  fallback = [] as unknown as T,
 }: {
   query: string
   params?: Record<string, unknown>
   revalidate?: number
   tags?: string[]
+  fallback?: T
 }): Promise<T> {
+  if (!hasSanityConfig) {
+    return fallback
+  }
+
   return client.fetch<T>(query, params, {
     next: {revalidate, tags},
   })

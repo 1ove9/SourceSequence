@@ -13,7 +13,7 @@ import {
 import {routing} from "@/i18n/routing"
 import type {Locale, ModelShowcaseDetail} from "@/sanity/lib/types"
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
 const OG_LOCALE: Record<string, string> = {en: "en_US", zh: "zh_CN"}
 
 type PageParams = {locale: string; slug: string}
@@ -36,6 +36,7 @@ export async function generateMetadata({
   const doc = await sanityFetch<ModelShowcaseDetail | null>({
     query: MODEL_SHOWCASE_BY_SLUG_QUERY,
     params: {slug},
+    fallback: null,
   })
   if (!doc) return {}
   const title = (locale === "zh" ? doc.titleZh ?? doc.titleEn : doc.titleEn) ?? ""
@@ -77,6 +78,7 @@ export default async function ModelDetailPage({
   const doc = await sanityFetch<ModelShowcaseDetail | null>({
     query: MODEL_SHOWCASE_BY_SLUG_QUERY,
     params: {slug},
+    fallback: null,
   })
 
   if (!doc) notFound()
