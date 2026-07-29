@@ -9,7 +9,7 @@ import {organizationJsonLd} from "@/lib/jsonld"
 import SmoothScroll from "@/components/SmoothScroll"
 import "../globals.css"
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
 
 const TITLE_BY_LOCALE: Record<string, string> = {
   en: "Source Sequence — Physics-Grounded AI",
