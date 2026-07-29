@@ -64,7 +64,8 @@
     "label": "03 / 实证",
     "heading": "实证实绩",
     "learnMore": "了解详情",
-    "github": "在 GitHub 查看"
+    "github": "在 GitHub 查看",
+    "evidence": "查看证据"
   },
   "antenna": {
     "eyebrow": "YAF · 天线设计",
@@ -180,6 +181,8 @@
         "name": "请填写姓名。",
         "email": "请填写有效邮箱地址。",
         "message": "信息内容至少 10 个字符。",
+        "verification": "人机验证失败，请重新完成验证后提交。",
+        "rateLimit": "该邮箱短时间内提交次数过多，请等待 10 分钟或直接发送邮件联系我们。",
         "generic": "服务端遇到问题，请稍后重试，或直接通过 hello 邮箱联系我们。"
       }
     }

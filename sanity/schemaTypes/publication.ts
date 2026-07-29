@@ -78,6 +78,29 @@ export const publication = defineType({
       type: "url",
       description: "可选，外部论文链接 (arXiv / PDF)",
     }),
+    defineField({
+      name: "doi",
+      title: "DOI",
+      type: "string",
+      description: "仅填写 DOI 标识，例如 10.1109/TAP.2026.1234567；前端会链接到 doi.org",
+      validation: (Rule) =>
+        Rule.regex(/^10\.\d{4,9}\/\S+$/i, {
+          name: "DOI",
+          invert: false,
+        }).warning("DOI 应形如 10.xxxx/xxxxx"),
+    }),
+    defineField({
+      name: "venue",
+      title: "Venue / Journal / Conference",
+      type: "string",
+      description: "期刊、会议、预印本平台或技术报告发布机构",
+    }),
+    defineField({
+      name: "peerReviewed",
+      title: "Peer reviewed? / 是否经过同行评审",
+      type: "boolean",
+      initialValue: false,
+    }),
   ],
   preview: {
     select: {title: "titleEn", subtitle: "date"},

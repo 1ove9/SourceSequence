@@ -43,8 +43,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   }
 
-  // Top-level pages per locale: Solutions, YAF antenna platform, Models gallery
+  // Top-level pages per locale
   const topLevel: Array<{path: string; priority: number}> = [
+    {path: "/capabilities", priority: 0.9},
     {path: "/solutions", priority: 0.9},
     {path: "/antenna", priority: 0.8},
     {path: "/models", priority: 0.8},

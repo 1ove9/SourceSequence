@@ -2,14 +2,12 @@
 
 import {useEffect} from "react"
 import Lenis from "lenis"
-import {gsap, ScrollTrigger} from "@/lib/gsap"
 
 /**
  * Global smooth scroll (Lenis) — the main source of the "premium" scroll feel.
  *
- * - Driven by GSAP's ticker and synced to ScrollTrigger so pinned/scrub reveals
- *   stay in lockstep. Framer Motion's whileInView (IntersectionObserver) keeps
- *   working unchanged.
+ * - Driven by requestAnimationFrame. Framer Motion's whileInView
+ *   (IntersectionObserver) works independently.
  * - Fully disabled under prefers-reduced-motion → native scroll.
  * - Same-page hash links scroll smoothly via lenis.scrollTo (offset clears the
  *   fixed nav); cross-page links are untouched.
@@ -21,11 +19,12 @@ export default function SmoothScroll() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
 
     const lenis = new Lenis()
-
-    lenis.on("scroll", ScrollTrigger.update)
-    const onTick = (time: number) => lenis.raf(time * 1000)
-    gsap.ticker.add(onTick)
-    gsap.ticker.lagSmoothing(0)
+    let animationFrame = 0
+    const onFrame = (time: number) => {
+      lenis.raf(time)
+      animationFrame = window.requestAnimationFrame(onFrame)
+    }
+    animationFrame = window.requestAnimationFrame(onFrame)
 
     // Smooth same-page anchor jumps (Nav → #vision / #contact, etc.).
     const onClick = (e: MouseEvent) => {
@@ -45,7 +44,7 @@ export default function SmoothScroll() {
 
     return () => {
       document.removeEventListener("click", onClick)
-      gsap.ticker.remove(onTick)
+      window.cancelAnimationFrame(animationFrame)
       lenis.destroy()
     }
   }, [])

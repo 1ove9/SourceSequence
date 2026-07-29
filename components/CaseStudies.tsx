@@ -12,16 +12,27 @@ export default async function CaseStudies() {
     tags: ["caseStudy"],
   })
 
-  if (items.length === 0) return null
+  // The homepage is an evidence path, not a claims carousel. Keep flagship
+  // demonstrations and records with a source; hide unsupported case copy.
+  const evidencedItems = items.filter(
+    (item) =>
+      item.isFlagship ||
+      item.externalUrl ||
+      item.evidenceUrl ||
+      item.metrics?.some((metric) => metric.sourceUrl),
+  )
+
+  if (evidencedItems.length === 0) return null
 
   return (
     <CaseStudiesView
-      items={items}
+      items={evidencedItems}
       locale={locale}
       label={t("label")}
       heading={t("heading")}
       learnMore={t("learnMore")}
       githubLabel={t("github")}
+      evidenceLabel={t("evidence")}
     />
   )
 }

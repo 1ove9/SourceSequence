@@ -15,7 +15,6 @@ const baseNavItems: ReadonlyArray<FooterNavItem> = [
   {key: "yaf", href: "/antenna"},
   {key: "models", href: "/models"},
   {key: "about", href: "/#about"},
-  {key: "careers", href: "/#careers"},
 ]
 
 // Social channels stay empty until real accounts exist. Adding placeholder

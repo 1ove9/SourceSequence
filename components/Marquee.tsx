@@ -1,5 +1,3 @@
-"use client"
-
 const ANTENNA_ITEMS = [
   "PASS",
   "PINCHING ANTENNA SYSTEMS",

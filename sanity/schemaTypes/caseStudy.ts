@@ -37,6 +37,54 @@ export const caseStudy = defineType({
       description: "GitHub 或线上平台地址（可选）",
     }),
     defineField({
+      name: "evidenceUrl",
+      title: "Evidence URL / 证据链接",
+      type: "url",
+      description: "实验报告、客户确认页、论文、数据集或可复现实验仓库",
+    }),
+    defineField({
+      name: "metrics",
+      title: "Verified Metrics / 可验证指标",
+      type: "array",
+      description: "仅填写有可追溯来源的指标；没有证据时保持为空",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({
+              name: "value",
+              title: "Value / 数值",
+              type: "string",
+              validation: (Rule) => Rule.required().max(40),
+            }),
+            defineField({
+              name: "labelEn",
+              title: "Label (EN)",
+              type: "string",
+              validation: (Rule) => Rule.required().max(100),
+            }),
+            defineField({
+              name: "labelZh",
+              title: "Label (ZH)",
+              type: "string",
+              validation: (Rule) => Rule.required().max(100),
+            }),
+            defineField({
+              name: "sourceUrl",
+              title: "Metric source URL",
+              type: "url",
+              description: "该指标的公开或可验证来源",
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+          preview: {
+            select: {title: "value", subtitle: "labelEn"},
+          },
+        },
+      ],
+      validation: (Rule) => Rule.max(4),
+    }),
+    defineField({
       name: "isFlagship",
       title: "Flagship / 旗舰案例",
       type: "boolean",

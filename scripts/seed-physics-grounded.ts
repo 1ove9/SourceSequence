@@ -34,12 +34,12 @@ loadEnv(".env.local")
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET
-const token = process.env.SANITY_API_TOKEN
+const token = process.env.SANITY_API_WRITE_TOKEN
 const githubUrl = process.env.NEXT_PUBLIC_GITHUB_URL
 
 if (!projectId || !dataset || !token) {
   console.error(
-    "Missing env: NEXT_PUBLIC_SANITY_PROJECT_ID / NEXT_PUBLIC_SANITY_DATASET / SANITY_API_TOKEN",
+    "Missing env: NEXT_PUBLIC_SANITY_PROJECT_ID / NEXT_PUBLIC_SANITY_DATASET / SANITY_API_WRITE_TOKEN",
   )
   process.exit(1)
 }

@@ -1,6 +1,4 @@
-"use client"
-
-import Link from "next/link"
+import {Link} from "@/i18n/navigation"
 import GlassCard from "./GlassCard"
 import {resolveIcon} from "./icons"
 import {pick} from "@/sanity/lib/locale"
@@ -66,7 +64,7 @@ export default function CapabilitiesView({items, locale, label, heading}: Props)
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <SectionHeader label={label} heading={heading} />
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+        <div className="mobile-card-rail md:grid md:grid-cols-3">
           {items.map((item, idx) => {
             const num = item.order != null ? String(item.order).padStart(2, "0") : ""
 

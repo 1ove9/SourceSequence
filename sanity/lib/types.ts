@@ -63,6 +63,14 @@ export interface CaseStudy {
   cardIcon?: string
   href?: string
   externalUrl?: string
+  evidenceUrl?: string
+  metrics?: Array<{
+    _key?: string
+    value: string
+    labelEn: string
+    labelZh: string
+    sourceUrl: string
+  }>
   isFlagship?: boolean
 }
 
@@ -140,6 +148,9 @@ export interface Publication {
   summaryZh?: string
   coverImage?: SanityImageRef
   externalUrl?: string
+  doi?: string
+  venue?: string
+  peerReviewed?: boolean
 }
 
 export interface LabShot {

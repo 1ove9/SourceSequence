@@ -5,7 +5,6 @@ import Footer from "@/components/Footer"
 import Contact from "@/components/Contact"
 import AuroraBackground from "@/components/AuroraBackground"
 import RevealOnScroll from "@/components/RevealOnScroll"
-import SectionHeader from "@/components/SectionHeader"
 import {routing} from "@/i18n/routing"
 import {Link} from "@/i18n/navigation"
 

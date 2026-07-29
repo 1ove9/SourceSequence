@@ -105,10 +105,15 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-sans), 'Geist', var(--font-sans-cn), 'Noto Sans SC', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-mono), 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-  /* Display = geometric sans (Geist), CJK falls back to Noto Sans SC (not serif) */
-  --font-display: var(--font-sans), 'Geist', var(--font-sans-cn), 'Noto Sans SC', ui-sans-serif, system-ui, sans-serif;
+  /*
+   * Deliberately use the platform font stack. This keeps production builds
+   * deterministic in restricted/offline CI and avoids a build-time request to
+   * Google Fonts while retaining high-quality native CJK glyphs.
+   */
+  --font-sans: 'Aptos', 'Segoe UI Variable', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Cascadia Mono', 'SFMono-Regular', Consolas, Menlo, ui-monospace, monospace;
+  --font-display: 'Aptos Display', 'Segoe UI Variable Display', 'PingFang SC', 'Microsoft YaHei', ui-sans-serif, system-ui, sans-serif;
+  --font-pressure: 'Iowan Old Style', 'Baskerville', 'Times New Roman', serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -136,6 +141,77 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 8px);
   --radius-2xl: calc(var(--radius) + 16px);
+}
+
+@keyframes hero-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-reveal {
+  animation: hero-reveal 800ms var(--ease-apple) both;
+}
+
+.hero-reveal-pill {
+  animation-delay: 40ms;
+}
+
+.hero-reveal-title {
+  animation-delay: 120ms;
+}
+
+.hero-reveal-body {
+  animation-delay: 260ms;
+}
+
+.hero-reveal-cta {
+  animation-delay: 380ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-reveal {
+    animation: none;
+  }
+}
+
+.mobile-card-rail {
+  display: flex;
+  gap: 1.25rem;
+  margin-inline: -1.25rem;
+  overflow-x: auto;
+  padding-inline: 1.25rem;
+  padding-bottom: 0.75rem;
+  scroll-padding-inline: 1.25rem;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.mobile-card-rail::-webkit-scrollbar {
+  display: none;
+}
+
+.mobile-card-rail > * {
+  flex: 0 0 min(84vw, 22rem);
+  scroll-snap-align: start;
+}
+
+@media (min-width: 48rem) {
+  .mobile-card-rail {
+    display: grid;
+    margin-inline: 0;
+    overflow: visible;
+    padding: 0;
+  }
+
+  .mobile-card-rail > * {
+    min-width: 0;
+  }
 }
 
 /* Unified display letter-spacing — every H1 / H2 / big card title shares this

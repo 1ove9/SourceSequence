@@ -1,5 +1,3 @@
-"use client"
-
 import {ArrowUpRight} from "lucide-react"
 import {Link} from "@/i18n/navigation"
 import GlassCard from "./GlassCard"
@@ -38,7 +36,7 @@ export default function SolutionsView({
         <div className="mx-auto max-w-6xl px-5 md:px-8">
           <SectionHeader label={label} heading={heading} />
 
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mobile-card-rail md:grid md:grid-cols-2 lg:grid-cols-3">
             {shown.map((item, idx) => (
               <SolutionCard key={item._id} item={item} idx={idx} locale={locale} />
             ))}

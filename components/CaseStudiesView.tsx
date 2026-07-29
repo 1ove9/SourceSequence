@@ -1,6 +1,4 @@
-"use client"
-
-import {ArrowUpRight, Github} from "lucide-react"
+import {ArrowUpRight, BookOpenCheck, Github} from "lucide-react"
 import {Link} from "@/i18n/navigation"
 import GlassCard from "./GlassCard"
 import {resolveIcon} from "./icons"
@@ -16,6 +14,7 @@ interface Props {
   heading: string
   learnMore: string
   githubLabel: string
+  evidenceLabel: string
 }
 
 export default function CaseStudiesView({
@@ -25,6 +24,7 @@ export default function CaseStudiesView({
   heading,
   learnMore,
   githubLabel,
+  evidenceLabel,
 }: Props) {
   const flagship = items.filter((c) => c.isFlagship)
   const rest = items.filter((c) => !c.isFlagship)
@@ -61,12 +61,13 @@ export default function CaseStudiesView({
               locale={locale}
               learnMore={learnMore}
               githubLabel={githubLabel}
+              evidenceLabel={evidenceLabel}
               fullWidth
             />
           ))}
 
           {rest.length > 0 && (
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+            <div className="mobile-card-rail md:grid md:grid-cols-2">
               {rest.map((item, idx) => (
                 <CaseCard
                   key={item._id}
@@ -75,6 +76,7 @@ export default function CaseStudiesView({
                   locale={locale}
                   learnMore={learnMore}
                   githubLabel={githubLabel}
+                  evidenceLabel={evidenceLabel}
                 />
               ))}
             </div>
@@ -91,6 +93,7 @@ function CaseCard({
   locale,
   learnMore,
   githubLabel,
+  evidenceLabel,
   fullWidth = false,
 }: {
   item: CaseStudy
@@ -98,6 +101,7 @@ function CaseCard({
   locale: Locale
   learnMore: string
   githubLabel: string
+  evidenceLabel: string
   fullWidth?: boolean
 }) {
   const Icon = resolveIcon(item.cardIcon, item.slug)
@@ -159,7 +163,29 @@ function CaseCard({
             <p className="text-[14.5px] leading-relaxed text-muted-foreground">{desc}</p>
           )}
 
-          {(item.href || item.externalUrl) && (
+          {item.metrics && item.metrics.length > 0 && (
+            <dl className="grid grid-cols-2 gap-3 border-t border-white/10 pt-4">
+              {item.metrics.map((metric) => (
+                <div key={metric._key ?? `${metric.value}-${metric.labelEn}`}>
+                  <dt className="text-[11px] leading-snug text-muted-foreground">
+                    {pick(metric.labelEn, metric.labelZh, locale)}
+                  </dt>
+                  <dd className="mt-1 font-mono text-[16px] text-foreground">
+                    <a
+                      href={metric.sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-colors hover:text-accent"
+                    >
+                      {metric.value}
+                    </a>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          )}
+
+          {(item.href || item.externalUrl || item.evidenceUrl) && (
             <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-2 pt-1">
               {item.href && (
                 <Link
@@ -179,6 +205,17 @@ function CaseCard({
                 >
                   <Github className="h-3.5 w-3.5" strokeWidth={1.6} />
                   {githubLabel}
+                </a>
+              )}
+              {item.evidenceUrl && (
+                <a
+                  href={item.evidenceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground transition-colors duration-300 hover:text-accent"
+                >
+                  <BookOpenCheck className="h-3.5 w-3.5" strokeWidth={1.6} />
+                  {evidenceLabel}
                 </a>
               )}
             </div>

@@ -1,5 +1,6 @@
 import type {Metadata} from "next"
 import {setRequestLocale} from "next-intl/server"
+import ClientMessages from "@/i18n/ClientMessages"
 import Nav from "@/components/Nav"
 import AntennaIntro from "@/components/AntennaIntro"
 import Hero from "@/components/Hero"
@@ -93,7 +94,9 @@ export default async function AntennaPage({
       <AntennaIntro />
       <Hero />
       <Marquee />
-      <Vision />
+      <ClientMessages namespaces={["vision"]}>
+        <Vision />
+      </ClientMessages>
       <Research />
       <Lab />
       <InsideTheLab />

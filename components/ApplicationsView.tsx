@@ -1,5 +1,3 @@
-"use client"
-
 import type {ReactNode} from "react"
 import {ArrowUpRight} from "lucide-react"
 import GlassCard from "./GlassCard"

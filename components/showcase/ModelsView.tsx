@@ -1,5 +1,3 @@
-"use client"
-
 import {ArrowUpRight, Sparkles} from "lucide-react"
 import GlassCard from "@/components/GlassCard"
 import {Link} from "@/i18n/navigation"

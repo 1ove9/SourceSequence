@@ -54,7 +54,7 @@
 | 动画 | 技术 | 出现位置 | 描述 |
 |------|------|----------|------|
 | **Aurora 极光背景** | WebGL / OGL shader | **全站所有页面**（AuroraBackground）| 全屏流动的极光渐变着色器背景 |
-| **Hero 入场揭示** | GSAP (`useHeroReveal`) | 首页 / antenna 标题 | 字体加载后触发的标题逐行揭示（带 2s 超时兜底）|
+| **Hero 入场揭示** | CSS `hero-reveal` | 首页 / antenna 标题 | 服务端渲染文本，首屏使用轻量渐入并尊重 reduced motion |
 | **TextPressure** | 自定义 | 全局 layout、FooterSignature | 鼠标位置驱动字重/字宽变化的可变字体文字 |
 | **ShinyText** | Framer Motion | FooterSignature | 文字高光扫光效果 |
 | **Marquee 跑马灯** | CSS/组件 | 首页、antenna | 横向无限滚动的术语条 |

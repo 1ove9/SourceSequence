@@ -64,7 +64,8 @@
     "label": "03 / Evidence",
     "heading": "Proof already in the field.",
     "learnMore": "Explore",
-    "github": "View on GitHub"
+    "github": "View on GitHub",
+    "evidence": "View evidence"
   },
   "antenna": {
     "eyebrow": "YAF · Antenna Design",
@@ -180,6 +181,8 @@
         "name": "Please enter your name.",
         "email": "Please enter a valid email address.",
         "message": "Message should be at least 10 characters.",
+        "verification": "Verification failed. Please retry the check and submit again.",
+        "rateLimit": "Too many recent submissions from this email. Please wait 10 minutes or email us directly.",
         "generic": "Something went wrong on our end. Please try again, or email hello directly."
       }
     }

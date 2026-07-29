@@ -1,6 +1,3 @@
-"use client"
-
-import {motion} from "framer-motion"
 import {ArrowUpRight} from "lucide-react"
 import {pick} from "@/sanity/lib/locale"
 import type {Locale, Publication} from "@/sanity/lib/types"
@@ -11,7 +8,6 @@ interface Props {
   locale: Locale
   label: string
   cta: string
-  comingSoon: string
 }
 
 export default function PublicationsView({
@@ -19,7 +15,6 @@ export default function PublicationsView({
   locale,
   label,
   cta,
-  comingSoon,
 }: Props) {
   const featured = items.find((p) => p.isFeatured)
   const others = items.filter((p) => !p.isFeatured)
@@ -42,18 +37,6 @@ export default function PublicationsView({
             ))}
           </div>
         )}
-
-        {!featured && others.length === 0 && (
-          <motion.p
-            initial={{opacity: 0}}
-            whileInView={{opacity: 1}}
-            viewport={{once: true}}
-            transition={{duration: 0.6, delay: 0.3}}
-            className="mt-7 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground/40"
-          >
-            {comingSoon}
-          </motion.p>
-        )}
       </div>
     </section>
   )
@@ -70,11 +53,8 @@ function Spotlight({
 }) {
   const title = pick(item.titleEn, item.titleZh, locale) ?? ""
   const summary = pick(item.summaryEn, item.summaryZh, locale)
-  const meta = [item.date, item.type].filter(Boolean).join(" · ")
-  const linkProps = item.externalUrl
-    ? {href: item.externalUrl, target: "_blank", rel: "noreferrer"}
-    : {href: "#"}
-
+  const publicationUrl = getPublicationUrl(item)
+  const meta = [item.date, item.type, item.venue].filter(Boolean).join(" · ")
   return (
     <RevealOnScroll y={28} scale={0.97} duration={0.85}>
       <div
@@ -100,13 +80,23 @@ function Spotlight({
           </p>
         )}
 
-        <a
-          {...linkProps}
-          className="group inline-flex items-center gap-2 font-mono text-[13px] uppercase tracking-[0.18em] text-accent transition-opacity hover:opacity-70"
-        >
-          {cta}
-          <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-        </a>
+        {item.doi && (
+          <p className="mb-5 font-mono text-[11px] tracking-[0.08em] text-muted-foreground">
+            DOI {item.doi}
+          </p>
+        )}
+
+        {publicationUrl && (
+          <a
+            href={publicationUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="group inline-flex items-center gap-2 font-mono text-[13px] uppercase tracking-[0.18em] text-accent transition-opacity hover:opacity-70"
+          >
+            {cta}
+            <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </a>
+        )}
 
         <div
           className="pointer-events-none absolute right-0 top-0 h-64 w-64 rounded-full"
@@ -131,7 +121,8 @@ function PublicationRow({
   locale: Locale
 }) {
   const title = pick(item.titleEn, item.titleZh, locale) ?? ""
-  const meta = [item.date, item.type].filter(Boolean).join(" · ")
+  const publicationUrl = getPublicationUrl(item)
+  const meta = [item.date, item.type, item.venue].filter(Boolean).join(" · ")
   const content = (
     <>
       <div className="flex min-w-0 flex-col gap-1">
@@ -142,7 +133,7 @@ function PublicationRow({
         )}
         <span className="truncate text-[15px] text-foreground/85">{title}</span>
       </div>
-      {item.externalUrl && (
+      {publicationUrl && (
         <ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground transition-colors group-hover:text-accent" />
       )}
     </>
@@ -150,9 +141,9 @@ function PublicationRow({
 
   return (
     <RevealOnScroll y={8} delay={idx * 0.04} duration={0.5} viewportMargin="0px">
-      {item.externalUrl ? (
+      {publicationUrl ? (
         <a
-          href={item.externalUrl}
+          href={publicationUrl}
           target="_blank"
           rel="noreferrer"
           className="group flex items-center justify-between gap-6 border-b border-[var(--hairline)] py-5 transition-colors hover:border-black/20"
@@ -166,4 +157,9 @@ function PublicationRow({
       )}
     </RevealOnScroll>
   )
+}
+
+function getPublicationUrl(item: Publication): string | undefined {
+  if (item.doi) return `https://doi.org/${item.doi}`
+  return item.externalUrl
 }

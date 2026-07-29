@@ -1,6 +1,5 @@
 import type {Metadata, Viewport} from "next"
 import {notFound} from "next/navigation"
-import {Geist, JetBrains_Mono, Noto_Sans_SC, Fraunces} from "next/font/google"
 import {Analytics} from "@vercel/analytics/next"
 import {SpeedInsights} from "@vercel/speed-insights/next"
 import {NextIntlClientProvider, hasLocale} from "next-intl"
@@ -9,37 +8,6 @@ import {routing} from "@/i18n/routing"
 import {organizationJsonLd} from "@/lib/jsonld"
 import SmoothScroll from "@/components/SmoothScroll"
 import "../globals.css"
-
-const geist = Geist({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-})
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  variable: "--font-mono",
-  display: "swap",
-})
-
-const notoSansSC = Noto_Sans_SC({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "700"],
-  variable: "--font-sans-cn",
-  display: "swap",
-})
-
-// Variable italic serif used by the EN Footer-signature TextPressure effect.
-// Loaded with style: italic and a variable wght axis so each character can
-// respond to mouse proximity via `font-variation-settings: 'wght' N`.
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  style: ["italic"],
-  weight: "variable",
-  variable: "--font-pressure",
-  display: "swap",
-})
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
 
@@ -108,6 +76,10 @@ export async function generateMetadata({
       description,
       images: ["/og-image.png"],
     },
+    icons: {
+      icon: [{url: "/icon.svg", type: "image/svg+xml"}],
+      apple: "/apple-icon.png",
+    },
   }
 }
 
@@ -132,13 +104,19 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) notFound()
   setRequestLocale(locale)
 
-  const messages = await getMessages()
+  const allMessages = await getMessages()
+  // Nav is the only translated Client Component shared by every route. Route
+  // sections opt into their own namespaces via i18n/ClientMessages.
+  const messages = {
+    nav: allMessages.nav,
+    brand: allMessages.brand,
+  }
 
   return (
     <html
       lang={locale}
       suppressHydrationWarning
-      className={`${geist.variable} ${jetbrainsMono.variable} ${notoSansSC.variable} ${fraunces.variable} bg-background`}
+      className="bg-background"
     >
       <body className="font-sans antialiased bg-background text-foreground">
         <script
@@ -149,7 +127,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>
-        {process.env.NODE_ENV === "production" && (
+        {process.env.VERCEL === "1" && (
           <>
             <Analytics />
             <SpeedInsights />

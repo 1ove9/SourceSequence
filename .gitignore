@@ -16,6 +16,9 @@ node_modules
 
 # Build artifacts
 tsconfig.tsbuildinfo
+playwright-report/
+test-results/
+.npm-cache/
 
 # IDE / local tooling
 .deepseek/

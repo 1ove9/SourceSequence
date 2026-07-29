@@ -66,6 +66,14 @@ export const CASE_STUDIES_QUERY = groq`
     cardIcon,
     href,
     externalUrl,
+    evidenceUrl,
+    metrics[] {
+      _key,
+      value,
+      labelEn,
+      labelZh,
+      sourceUrl
+    },
     isFlagship
   }
 `
@@ -243,7 +251,10 @@ export const PUBLICATIONS_QUERY = groq`
     summaryEn,
     summaryZh,
     coverImage,
-    externalUrl
+    externalUrl,
+    doi,
+    venue,
+    peerReviewed
   }
 `
 

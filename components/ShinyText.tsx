@@ -3,7 +3,7 @@
 // Third-party component copied in from reactbits.dev. Kept as upstream;
 // any rule relaxations are inline within the file.
 import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { motion, useMotionValue, useAnimationFrame, useTransform } from 'motion/react';
+import { motion, useMotionValue, useAnimationFrame, useTransform } from 'framer-motion';
 
 interface ShinyTextProps {
   text: string;
