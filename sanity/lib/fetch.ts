@@ -5,7 +5,8 @@ import {client} from "../client"
  * on the Sanity webhook at /api/revalidate to invalidate immediately when
  * editors publish changes. See app/api/revalidate/route.ts.
  */
-const DEFAULT_REVALIDATE_SECONDS = 60 * 60
+const DEFAULT_REVALIDATE_SECONDS =
+  process.env.NODE_ENV === "development" ? 0 : 60 * 60
 
 export async function sanityFetch<T>({
   query,
