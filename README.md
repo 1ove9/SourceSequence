@@ -47,10 +47,13 @@ Create a local `.env.local` and the same set in Vercel for `Production` + `Previ
 |---|---|---|
 | `NEXT_PUBLIC_SANITY_PROJECT_ID` | yes | Sanity project ID |
 | `NEXT_PUBLIC_SANITY_DATASET` | yes | typically `production` |
-| `SANITY_API_TOKEN` | yes | Viewer-scoped token; needed because the dataset is private. Server-side only (guarded by `import "server-only"`) |
+| `SANITY_API_READ_TOKEN` | yes | Read-only Viewer token for the private published dataset. Server-side only |
+| `SANITY_API_WRITE_TOKEN` | yes (for contact form) | Dedicated, narrowly scoped token used only to create and rate-limit `inquiry` documents |
 | `NEXT_PUBLIC_SITE_URL` | yes | Canonical site URL, e.g. `https://sourcesequence.cn`. Used by sitemap, `metadataBase`, JSON-LD, and OG URLs |
 | `SANITY_REVALIDATE_SECRET` | yes (for webhook) | Shared secret for `/api/revalidate`. Configure in Sanity Studio → API → Webhooks |
-| `NEXT_PUBLIC_BRAND_EMAIL_DOMAIN` | optional | Override the email domain (`lib/brand.ts`). Defaults to `yuanxu.tech` legacy; set to `sourcesequence.cn` once email infrastructure is configured |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | optional | Cloudflare Turnstile public site key. Configure together with `TURNSTILE_SECRET_KEY` |
+| `TURNSTILE_SECRET_KEY` | optional | Server-only Turnstile secret used to validate contact submissions |
+| `NEXT_PUBLIC_BRAND_EMAIL_DOMAIN` | optional | Override the email domain (`lib/brand.ts`). Defaults to `sourcesequence.cn` |
 
 ## Content Editing
 
@@ -86,7 +89,7 @@ For instant content updates without waiting for ISR, configure a Sanity webhook:
 URL:        https://<your-domain>/api/revalidate
 Method:     POST
 Trigger:    On create / Update / Delete
-Filter:     _type in ["researchTopic","labCapability","application","publication","jobPosting","modelShowcase"]
+Filter:     _type in ["researchTopic","labCapability","application","publication","jobPosting","modelShowcase","capability","solution","solutionGroup","caseStudy","labShot","partner","pressMention"]
 Projection: {"_type": _type, "slug": slug.current}
 Secret:     same value as SANITY_REVALIDATE_SECRET env var
 ```

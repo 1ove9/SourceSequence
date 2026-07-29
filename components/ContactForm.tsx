@@ -1,9 +1,8 @@
 "use client"
 
-import {useActionState, useState} from "react"
+import {useActionState, useEffect, useState} from "react"
 import {useFormStatus} from "react-dom"
 import {useSearchParams, usePathname} from "next/navigation"
-import {useLocale, useTranslations} from "next-intl"
 import {ArrowRight, CheckCircle2} from "lucide-react"
 import {cn} from "@/lib/utils"
 import {submitInquiry} from "@/app/actions/contact"
@@ -21,13 +20,42 @@ const SERVICE_KEYS: InquiryService[] = [
 ]
 
 const inputBase =
-  "w-full rounded-lg border border-white/[0.08] bg-white/[0.04] px-3.5 py-3 text-[14px] text-foreground placeholder:text-muted-foreground/40 transition-colors focus:border-accent/50 focus:bg-white/[0.06] focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+  "w-full rounded-lg border border-[var(--hairline)] bg-white/60 px-3.5 py-3 text-[14px] text-foreground placeholder:text-muted-foreground/40 transition-colors focus:border-accent/50 focus:bg-white/70 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
 
-export default function ContactForm() {
-  const t = useTranslations("contact.form")
-  const locale = useLocale()
+declare global {
+  interface Window {
+    turnstile?: {reset: () => void}
+  }
+}
+
+export interface ContactFormCopy {
+  name: string
+  namePlaceholder: string
+  email: string
+  emailPlaceholder: string
+  company: string
+  companyPlaceholder: string
+  service: string
+  servicePlaceholder: string
+  services: Record<InquiryService, string>
+  message: string
+  messagePlaceholder: string
+  submit: string
+  submitting: string
+  success: string
+  errors: Record<"name" | "email" | "message" | "verification" | "rateLimit" | "generic", string>
+}
+
+export default function ContactForm({
+  copy,
+  locale,
+}: {
+  copy: ContactFormCopy
+  locale: string
+}) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
 
   const [state, formAction] = useActionState(submitInquiry, initialInquiryState)
   // Lazy init from URL ?service= — only on mount; deep-link to fresh page
@@ -35,12 +63,16 @@ export default function ContactForm() {
   // not re-sync (rare flow; would force-reset their typing).
   const [service, setService] = useState(() => searchParams.get("service") ?? "")
 
+  useEffect(() => {
+    if (state.status === "error") window.turnstile?.reset()
+  }, [state])
+
   if (state.status === "success") {
     return (
       <div className="rounded-lg border border-accent/20 bg-accent/5 p-7 text-center">
         <CheckCircle2 className="mx-auto mb-4 h-8 w-8 text-accent" strokeWidth={1.5} />
         <p className="font-display text-[18px] leading-[1.4] text-foreground">
-          {t("success")}
+          {copy.success}
         </p>
       </div>
     )
@@ -68,15 +100,15 @@ export default function ContactForm() {
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <Field
-          label={t("name")}
+          label={copy.name}
           required
           error={state.errors.name}
-          errorText={t("errors.name")}
+          errorText={copy.errors.name}
         >
           <input
             type="text"
             name="name"
-            placeholder={t("namePlaceholder")}
+            placeholder={copy.namePlaceholder}
             autoComplete="name"
             required
             className={inputBase}
@@ -84,15 +116,15 @@ export default function ContactForm() {
         </Field>
 
         <Field
-          label={t("email")}
+          label={copy.email}
           required
           error={state.errors.email}
-          errorText={t("errors.email")}
+          errorText={copy.errors.email}
         >
           <input
             type="email"
             name="email"
-            placeholder={t("emailPlaceholder")}
+            placeholder={copy.emailPlaceholder}
             autoComplete="email"
             required
             className={inputBase}
@@ -101,17 +133,17 @@ export default function ContactForm() {
       </div>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <Field label={t("company")}>
+        <Field label={copy.company}>
           <input
             type="text"
             name="company"
-            placeholder={t("companyPlaceholder")}
+            placeholder={copy.companyPlaceholder}
             autoComplete="organization"
             className={inputBase}
           />
         </Field>
 
-        <Field label={t("service")}>
+        <Field label={copy.service}>
           <select
             name="service"
             value={service}
@@ -122,10 +154,10 @@ export default function ContactForm() {
                 "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%238b92a8' stroke-width='1.5'><path d='M1 1l5 5 5-5'/></svg>\")",
             }}
           >
-            <option value="">{t("servicePlaceholder")}</option>
+            <option value="">{copy.servicePlaceholder}</option>
             {SERVICE_KEYS.map((s) => (
               <option key={s} value={s}>
-                {t(`services.${s}`)}
+                {copy.services[s]}
               </option>
             ))}
           </select>
@@ -133,14 +165,14 @@ export default function ContactForm() {
       </div>
 
       <Field
-        label={t("message")}
+        label={copy.message}
         required
         error={state.errors.message}
-        errorText={t("errors.message")}
+        errorText={copy.errors.message}
       >
         <textarea
           name="message"
-          placeholder={t("messagePlaceholder")}
+          placeholder={copy.messagePlaceholder}
           rows={5}
           required
           minLength={10}
@@ -149,11 +181,28 @@ export default function ContactForm() {
         />
       </Field>
 
-      {state.errors.generic && (
-        <p className="text-[13px] text-destructive">{t("errors.generic")}</p>
+      {turnstileSiteKey && (
+        <div
+          className="cf-turnstile"
+          data-sitekey={turnstileSiteKey}
+          data-action="contact"
+          data-theme="light"
+        />
       )}
 
-      <SubmitButton submitText={t("submit")} submittingText={t("submitting")} />
+      {state.errors.verification && (
+        <p className="text-[13px] text-destructive">{copy.errors.verification}</p>
+      )}
+
+      {state.errors.rateLimit && (
+        <p className="text-[13px] text-destructive">{copy.errors.rateLimit}</p>
+      )}
+
+      {state.errors.generic && (
+        <p className="text-[13px] text-destructive">{copy.errors.generic}</p>
+      )}
+
+      <SubmitButton submitText={copy.submit} submittingText={copy.submitting} />
     </form>
   )
 }

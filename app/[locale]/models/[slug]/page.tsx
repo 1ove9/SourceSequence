@@ -3,7 +3,7 @@ import {notFound} from "next/navigation"
 import {getTranslations, setRequestLocale} from "next-intl/server"
 import Nav from "@/components/Nav"
 import Footer from "@/components/Footer"
-import BackgroundLayer from "@/components/BackgroundLayer"
+import AuroraBackground from "@/components/AuroraBackground"
 import ModelDetailView from "@/components/showcase/ModelDetailView"
 import {sanityFetch} from "@/sanity/lib/fetch"
 import {
@@ -13,7 +13,7 @@ import {
 import {routing} from "@/i18n/routing"
 import type {Locale, ModelShowcaseDetail} from "@/sanity/lib/types"
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
 const OG_LOCALE: Record<string, string> = {en: "en_US", zh: "zh_CN"}
 
 type PageParams = {locale: string; slug: string}
@@ -36,6 +36,7 @@ export async function generateMetadata({
   const doc = await sanityFetch<ModelShowcaseDetail | null>({
     query: MODEL_SHOWCASE_BY_SLUG_QUERY,
     params: {slug},
+    fallback: null,
   })
   if (!doc) return {}
   const title = (locale === "zh" ? doc.titleZh ?? doc.titleEn : doc.titleEn) ?? ""
@@ -77,6 +78,7 @@ export default async function ModelDetailPage({
   const doc = await sanityFetch<ModelShowcaseDetail | null>({
     query: MODEL_SHOWCASE_BY_SLUG_QUERY,
     params: {slug},
+    fallback: null,
   })
 
   if (!doc) notFound()
@@ -101,12 +103,12 @@ export default async function ModelDetailPage({
   }
 
   return (
-    <main className="bg-canvas bg-grain relative min-h-screen overflow-x-hidden text-foreground">
+    <main className="bg-canvas bg-grain relative isolate min-h-screen overflow-x-hidden text-foreground">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}
       />
-      <BackgroundLayer />
+      <AuroraBackground />
       <Nav />
       <ModelDetailView
         data={doc}

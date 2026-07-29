@@ -16,7 +16,7 @@ async function main() {
   // Authenticated, raw perspective — shows all docs incl. drafts
   const authClient = createClient({
     ...baseConfig,
-    token: process.env.SANITY_API_TOKEN!,
+    token: process.env.SANITY_API_READ_TOKEN ?? process.env.SANITY_API_TOKEN!,
     useCdn: false,
     perspective: "raw",
   })
@@ -25,7 +25,7 @@ async function main() {
   console.dir(all.slice(0, 30), {depth: 2})
 
   // Published perspective
-  const pubClient = createClient({...baseConfig, token: process.env.SANITY_API_TOKEN, useCdn: false, perspective: "published"})
+  const pubClient = createClient({...baseConfig, token: process.env.SANITY_API_READ_TOKEN ?? process.env.SANITY_API_TOKEN, useCdn: false, perspective: "published"})
   const pub = await pubClient.fetch('*[_type in ["researchTopic","labCapability","application","publication","jobPosting"]]{_id, _type, "slug": slug.current}')
   console.log("\nPUBLISHED (auth):", pub.length)
 

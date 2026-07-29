@@ -67,8 +67,8 @@ const Scene = forwardRef<Group, SceneProps>(function Scene({ isMobile = false, e
         shadow-camera-bottom={-4}
       />
 
-      {/* Blue fill — brand color */}
-      <directionalLight position={[-4, 2, -3]} intensity={0.4} color="#4d7cff" />
+      {/* Cool indigo fill — desaturated from the old electric brand blue */}
+      <directionalLight position={[-4, 2, -3]} intensity={0.4} color="#9aa3de" />
 
       {/* Purple rim light — edge glow */}
       <directionalLight position={[0, 3, -5]} intensity={0.5} color="#a78bfa" />

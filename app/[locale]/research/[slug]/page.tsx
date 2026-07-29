@@ -3,7 +3,7 @@ import {notFound} from "next/navigation"
 import {getTranslations, setRequestLocale} from "next-intl/server"
 import Nav from "@/components/Nav"
 import Footer from "@/components/Footer"
-import BackgroundLayer from "@/components/BackgroundLayer"
+import AuroraBackground from "@/components/AuroraBackground"
 import DetailPageLayout from "@/components/DetailPageLayout"
 import GenerativeRFMount from "@/components/three/GenerativeRFMount"
 import {sanityFetch} from "@/sanity/lib/fetch"
@@ -36,6 +36,7 @@ export async function generateMetadata({
   const doc = await sanityFetch<ResearchTopicDetail | null>({
     query: RESEARCH_TOPIC_BY_SLUG_QUERY,
     params: {slug},
+    fallback: null,
   })
   if (!doc) return {}
   const title = (locale === "zh" ? doc.titleZh ?? doc.titleEn : doc.titleEn) ?? ""
@@ -55,6 +56,7 @@ export default async function ResearchTopicPage({
   const doc = await sanityFetch<ResearchTopicDetail | null>({
     query: RESEARCH_TOPIC_BY_SLUG_QUERY,
     params: {slug},
+    fallback: null,
   })
 
   if (!doc) notFound()
@@ -65,7 +67,7 @@ export default async function ResearchTopicPage({
     locale === "zh" ? doc.subtitleZh ?? doc.abstractZh : doc.subtitleEn ?? doc.abstractEn
 
   return (
-    <main className="bg-canvas bg-grain relative min-h-screen overflow-x-hidden text-foreground">
+    <main className="bg-canvas bg-grain relative isolate min-h-screen overflow-x-hidden text-foreground">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -74,12 +76,12 @@ export default async function ResearchTopicPage({
           ),
         }}
       />
-      <BackgroundLayer />
+      <AuroraBackground />
       <Nav />
       <DetailPageLayout
         data={doc}
         locale={locale as Locale}
-        backHref="/#research"
+        backHref="/antenna#research"
         labels={{
           back: t("backLabel"),
           keyConcepts: t("keyConcepts"),

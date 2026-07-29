@@ -17,6 +17,8 @@ export interface InquiryFormState {
     name: boolean
     email: boolean
     message: boolean
+    verification: boolean
+    rateLimit: boolean
     generic: boolean
   }>
 }

@@ -1,65 +1,24 @@
 import type {Metadata, Viewport} from "next"
 import {notFound} from "next/navigation"
-import {
-  Instrument_Serif,
-  Geist,
-  JetBrains_Mono,
-  Noto_Serif_SC,
-  Noto_Sans_SC,
-} from "next/font/google"
 import {Analytics} from "@vercel/analytics/next"
 import {SpeedInsights} from "@vercel/speed-insights/next"
 import {NextIntlClientProvider, hasLocale} from "next-intl"
 import {getMessages, setRequestLocale} from "next-intl/server"
 import {routing} from "@/i18n/routing"
 import {organizationJsonLd} from "@/lib/jsonld"
+import SmoothScroll from "@/components/SmoothScroll"
 import "../globals.css"
 
-const instrumentSerif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: ["400"],
-  style: ["normal", "italic"],
-  variable: "--font-display",
-  display: "swap",
-})
-
-const geist = Geist({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-})
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  variable: "--font-mono",
-  display: "swap",
-})
-
-const notoSerifSC = Noto_Serif_SC({
-  subsets: ["latin"],
-  weight: ["400", "600"],
-  variable: "--font-display-cn",
-  display: "swap",
-})
-
-const notoSansSC = Noto_Sans_SC({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "700"],
-  variable: "--font-sans-cn",
-  display: "swap",
-})
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
 
 const TITLE_BY_LOCALE: Record<string, string> = {
-  en: "Source Sequence — AI-Native Radio Systems",
-  zh: "源序 — AI 原生无线系统",
+  en: "Source Sequence — Physics-Grounded AI",
+  zh: "源序 — 物理增强 AI",
 }
 
 const DESCRIPTION_BY_LOCALE: Record<string, string> = {
-  en: "A research company building the physical layer of 6G. AI-native radio architectures, founded in Hangzhou.",
-  zh: "一家构建 6G 物理层的研究公司。AI 原生无线架构，源自杭州。",
+  en: "Physics-grounded AI for the data-scarce, noisy reality of industry — reliable prediction, physical validation, and high-fidelity simulation. Founded in Hangzhou.",
+  zh: "面向数据稀缺、噪声严重的真实工业世界的物理增强人工智能:可靠预测、物理验证与高保真仿真。源自杭州。",
 }
 
 const OG_LOCALE: Record<string, string> = {en: "en_US", zh: "zh_CN"}
@@ -78,13 +37,13 @@ export async function generateMetadata({
     title: {default: title, template: "%s · Source Sequence"},
     description,
     keywords: [
-      "6G",
-      "Pinching Antenna",
-      "PASS",
-      "AI-Native Radio",
-      "Wireless",
-      "Physical Layer",
+      "Physics-Grounded AI",
+      "Physics-Informed Machine Learning",
+      "Industrial AI",
+      "Predictive Maintenance",
+      "PHM",
       "Source Sequence",
+      "物理增强 AI",
     ],
     alternates: {
       canonical: `/${locale}`,
@@ -117,11 +76,15 @@ export async function generateMetadata({
       description,
       images: ["/og-image.png"],
     },
+    icons: {
+      icon: [{url: "/icon.svg", type: "image/svg+xml"}],
+      apple: "/apple-icon.png",
+    },
   }
 }
 
 export const viewport: Viewport = {
-  themeColor: "#0a0e1a",
+  themeColor: "#ccd5e2",
   width: "device-width",
   initialScale: 1,
 }
@@ -141,23 +104,30 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) notFound()
   setRequestLocale(locale)
 
-  const messages = await getMessages()
+  const allMessages = await getMessages()
+  // Nav is the only translated Client Component shared by every route. Route
+  // sections opt into their own namespaces via i18n/ClientMessages.
+  const messages = {
+    nav: allMessages.nav,
+    brand: allMessages.brand,
+  }
 
   return (
     <html
       lang={locale}
       suppressHydrationWarning
-      className={`${instrumentSerif.variable} ${geist.variable} ${jetbrainsMono.variable} ${notoSerifSC.variable} ${notoSansSC.variable} bg-background`}
+      className="bg-background"
     >
       <body className="font-sans antialiased bg-background text-foreground">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{__html: JSON.stringify(organizationJsonLd())}}
         />
+        <SmoothScroll />
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>
-        {process.env.NODE_ENV === "production" && (
+        {process.env.VERCEL === "1" && (
           <>
             <Analytics />
             <SpeedInsights />

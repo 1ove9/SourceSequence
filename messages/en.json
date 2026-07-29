@@ -1,17 +1,79 @@
 {
-  "brand": { "name": "source sequence" },
+  "brand": { "name": "Source Sequence" },
+  "capabilitiesPage": {
+    "label": "Core Capabilities",
+    "heading": "Three Pillars of Physics-Grounded AI",
+    "intro": "Each capability corresponds to a core technology card on our homepage. Explore each direction below for detailed descriptions, technical pathways, and application scenarios.",
+    "metaTitle": "Core Capabilities — Source Sequence",
+    "metaDescription": "Source Sequence's three core capabilities: Physics-Informed AI Modeling, Physical Validation for AI, and High-Fidelity Simulation & Data.",
+    "cap1Title": "Physics-Informed AI Modeling",
+    "cap1Desc": "Reliable prediction and uncertainty quantification on small, low-quality industrial datasets. We inject physical laws—differential equations, conservation laws, boundary conditions—as hard constraints into neural network architectures and loss functions. Models are not merely data-driven black boxes; they carry an innate understanding of the physical world. In fault diagnosis scenarios with only dozens of valid samples, our models still deliver predictions with confidence intervals, avoiding the overfitting and misjudgment that data scarcity normally causes.",
+    "cap2Title": "Physical Validation for AI",
+    "cap2Desc": "AI needs to know where its boundaries lie. We build an independent physical-consistency review layer that evaluates model outputs across multiple dimensions of trustworthiness: Does it violate conservation laws? Does it exceed physically feasible ranges? Does it remain reasonable under extreme operating conditions? This layer does not rely on training data but on known physical laws and engineering common sense, acting as a gatekeeper for the physical world. In reliability engineering, this means you won't erroneously shut down—or fail to shut down—because of a hallucinated prediction.",
+    "cap3Title": "High-Fidelity Simulation & Synthetic Data",
+    "cap3Desc": "Built on real solvers and mechanistic models, we construct physically consistent simulation environments and synthetic data generation pipelines. Full-wave solvers like HFSS, CST, and openEMS work in tandem with neural surrogate models, completing electromagnetic simulations in seconds that would otherwise take hours. Synthetic data follows physical laws rather than statistical distributions, serving as training corpora for AI models and bridging the natural scarcity of real fault data in industrial settings. This is the bridge between simulation and reality, and the technical foundation of our 'Physics-Grounded' philosophy.",
+    "back": "← Back to home"
+  },
   "nav": {
+    "capabilities": "Capabilities",
+    "solutions": "Solutions",
+    "cases": "Evidence",
+    "yaf": "YAF Antenna Platform",
     "research": "Research",
     "lab": "Lab",
     "applications": "Applications",
     "models": "Models",
+    "platform": "Platform",
     "about": "About",
     "careers": "Careers",
     "contact": "Contact",
     "cta": "Get in Touch",
+    "github": "GitHub",
     "menuOpen": "Open menu",
     "menuClose": "Close menu",
     "menuLabel": "Site navigation"
+  },
+  "home": {
+    "hero": {
+      "pill": "Physics-Grounded AI",
+      "title": "Making AI understand the physical world.",
+      "body": "Source Sequence builds physics-grounded artificial intelligence — reliable, trustworthy, and interpretable prediction and decision systems for the noisy, data-scarce reality of industry.",
+      "ctaPrimary": "Industry Solutions",
+      "ctaSecondary": "Get in Touch"
+    },
+    "vision": {
+      "label": "05 / Vision",
+      "body": "From reliable prediction, to autonomous decision-making, to embodied intelligence.",
+      "quote": "AI that truly understands the physical world is the only AI that can truly enter it."
+    }
+  },
+  "capabilities": {
+    "label": "01 / Capabilities",
+    "heading": "What we do."
+  },
+  "solutions": {
+    "label": "Industry Solutions",
+    "heading": "Different industries, one core: in a data-scarce real world, physical constraints make AI accurate — and aware of its own limits.",
+    "teaserLabel": "02 / Solutions",
+    "teaserHeading": "Where physics-grounded AI lands.",
+    "viewAll": "View all solutions",
+    "metaTitle": "Industry Solutions — Source Sequence",
+    "metaDescription": "Eight industrial directions across equipment reliability, assets & efficiency, and process & quality — physics-grounded AI for data-scarce industry."
+  },
+  "cases": {
+    "label": "03 / Evidence",
+    "heading": "Proof already in the field.",
+    "learnMore": "Explore",
+    "github": "View on GitHub",
+    "evidence": "View evidence"
+  },
+  "antenna": {
+    "eyebrow": "YAF · Antenna Design",
+    "intro": "Antenna design is one application of Source Sequence's Physics-Grounded AI — and our first open-source proof of it.",
+    "ctaGithub": "View on GitHub",
+    "ctaPlatform": "Launch platform",
+    "platformSoon": "Online platform coming soon",
+    "back": "Back to Source Sequence"
   },
   "modelsPage": {
     "label": "Showcase",
@@ -27,12 +89,12 @@
     "interactionHint": "Drag to orbit · Scroll to zoom"
   },
   "hero": {
-    "pill": "A research company building the physical layer of 6G",
-    "title": "We build wireless systems that think.",
-    "body": "Source Sequence is a deep-tech research company developing AI-native radio architectures for the 6G era. Founded in Hangzhou by researchers trained at leading universities across China, the UK, and the US.",
-    "ctaPrimary": "Our Research",
+    "pill": "An open-source antenna-design effort, powered by Physics-Grounded AI",
+    "title": "Antenna design, rebuilt on real physics + AI.",
+    "body": "YAF applies Source Sequence's Physics-Grounded AI to one hard problem — antenna design: real electromagnetic solvers in the loop with AI optimization, open-sourced as proof the approach works.",
+    "ctaPrimary": "Explore YAF",
     "ctaSecondary": "Get in Touch",
-    "modelCaption": "Pinching Antenna Systems · One of our active research lines"
+    "modelCaption": "Pinching Antenna Systems · A YAF research line"
   },
   "trustedBy": {
     "label": "Trusted by",
@@ -46,11 +108,11 @@
   "vision": {
     "label": "01 / Vision",
     "body": "For decades, antennas have been static—fixed shapes radiating fixed patterns. We believe that as wireless systems enter the 6G era, the physical layer itself must become intelligent, adaptive, and software-defined.",
-    "quote": "We build radio systems where every photon is placed by an algorithm."
+    "quote": "An antenna where every radiating point is placed by an algorithm."
   },
   "research": {
     "label": "02 / Research",
-    "heading": "What we're building.",
+    "heading": "What YAF is building.",
     "thread": "Research thread",
     "learn_more": "Read research",
     "horizonBadge": "Long-horizon research",
@@ -80,7 +142,7 @@
   },
   "footer": {
     "copyright": "© 2026 Source Sequence Technology · Hangzhou · All rights reserved",
-    "signature": "Building the physical layer of 6G.",
+    "signature": "Making AI understand the physical world.",
     "pressLabel": "Press inquiries"
   },
   "contact": {
@@ -88,6 +150,12 @@
     "heading": "Let's talk.",
     "intro": "Hardware project, research collaboration, or just a curious question — drop us a line and we'll respond within two business days.",
     "address": "Source Sequence Technology · Hangzhou, China",
+    "directLabel": "Direct lines",
+    "direct": {
+      "tech": "Talk tech",
+      "build": "Let's make something beautiful",
+      "feedback": "Report an issue"
+    },
     "form": {
       "name": "Name",
       "namePlaceholder": "Your name",
@@ -113,13 +181,15 @@
         "name": "Please enter your name.",
         "email": "Please enter a valid email address.",
         "message": "Message should be at least 10 characters.",
+        "verification": "Verification failed. Please retry the check and submit again.",
+        "rateLimit": "Too many recent submissions from this email. Please wait 10 minutes or email us directly.",
         "generic": "Something went wrong on our end. Please try again, or email hello directly."
       }
     }
   },
   "careers": {
     "label": "07 / Careers",
-    "quote": "We're building an unusual company. If you want to build the physical layer of 6G, talk to us.",
+    "quote": "We're building an unusual company. If you want to build AI that truly understands the physical world, talk to us.",
     "intro": "We hire researchers, engineers, and operators who care about doing fundamental work. Open positions are posted as we grow—but we're always open to talking with exceptional people.",
     "apply": "Apply",
     "roles": {
@@ -141,24 +211,24 @@
     }
   },
   "publications": {
-    "label": "06 / Publications — We publish what we build.",
+    "label": "06 / Publications — What YAF publishes.",
     "paper": {
       "meta": "Source Sequence · Position Paper · 2026",
-      "title": "Core Views on AI-Native Radio",
-      "abstract": "Why we believe the physical layer of wireless communication is the next frontier for AI—and why the 6G era requires us to rebuild radio systems from first principles.",
+      "title": "Core Views on AI-Native Antenna Design",
+      "abstract": "Why antenna design — the electromagnetic front line of wireless — is where Physics-Grounded AI proves itself, and how real solvers plus AI optimization rebuild it from first principles.",
       "cta": "Read the essay"
     },
     "comingSoon": "More papers and technical notes coming soon."
   },
   "about": {
     "label": "05 / About",
-    "heading": "A small research company with global roots.",
-    "para1": "Source Sequence was founded in Hangzhou in 2025 by a group of researchers and engineers trained at leading universities across China, the United Kingdom, and the United States. We came together around a simple thesis: that the physical layer of wireless communication—long treated as fixed, passive infrastructure—is the next frontier for AI.",
-    "para2": "We are a research-first company. We publish what we build. We collaborate with universities and standards bodies. We believe the path to 6G runs through new physics, not just new software.",
+    "heading": "A research company putting physics inside AI.",
+    "para1": "Source Sequence was founded in Hangzhou in 2025 by a group of researchers and engineers trained at leading universities across China, the United Kingdom, and the United States. We came together around a simple thesis: the way to make AI reliable in the physical world is to ground it in physics—not to feed it ever more data.",
+    "para2": "We build physics-grounded AI for the data-scarce, noisy reality of industry: reliable prediction, independent physical validation, and high-fidelity simulation. We are research-first—we publish what we build and collaborate with universities. Our flagship open-source proof, YAF, reimagines antenna design with real electromagnetic solvers and AI.",
     "facts": {
       "founded": {"label": "Founded", "value": "2025 · Hangzhou"},
       "team": {"label": "Team", "value": "Master's & PhD researchers from China, UK & US"},
-      "focus": {"label": "Focus", "value": "AI-Native Radio Systems"},
+      "focus": {"label": "Focus", "value": "Physics-Grounded AI"},
       "stage": {"label": "Stage", "value": "Research preview"}
     },
     "founders": {
@@ -180,7 +250,7 @@
   },
   "applications": {
     "label": "04 / Applications",
-    "heading": "Where the research lands.",
+    "heading": "Where antenna design lands.",
     "learn_more": "Explore application",
     "scenarios": {
       "factory": {
@@ -202,8 +272,8 @@
   },
   "lab": {
     "label": "03 / Lab",
-    "heading": "How we work.",
-    "intro": "We operate a lean wireless research lab in Hangzhou, combining in-house prototyping with simulation, open hardware, and university partnerships.",
+    "heading": "How the YAF lab works.",
+    "intro": "The YAF effort runs a lean wireless lab in Hangzhou — in-house prototyping, EM simulation, open hardware, and university partnerships.",
     "cardBadge": "Hangzhou · Distributed",
     "learnMore": "Learn more →",
     "learn_more": "Explore capability",

@@ -1,5 +1,6 @@
 "use client"
 
+import {useState} from "react"
 import Image from "next/image"
 import {motion} from "framer-motion"
 import {urlFor} from "@/sanity/lib/image"
@@ -52,6 +53,14 @@ function ShotCard({
   const caption = pick(shot.captionEn, shot.captionZh, locale)
   const fullWidth = shot.isFeatured
 
+  // Guard against a missing image ref, and fall back if the asset URL 404s at
+  // runtime — otherwise next/image surfaces the raw alt text over the gradient.
+  const src = shot.image
+    ? urlFor(shot.image).width(1200).height(900).fit("crop").url()
+    : null
+  const [broken, setBroken] = useState(false)
+  const showImage = Boolean(src) && !broken
+
   return (
     <motion.li
       initial={{opacity: 0, y: 20, scale: 0.97}}
@@ -64,15 +73,30 @@ function ShotCard({
       }}
       className={fullWidth ? "sm:col-span-2 lg:col-span-2" : ""}
     >
-      <figure className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02]">
+      <figure className="group relative overflow-hidden rounded-2xl border border-[var(--hairline)] bg-white/60">
         <div className="relative aspect-[4/3] w-full">
-          <Image
-            src={urlFor(shot.image).width(1200).height(900).fit("crop").url()}
-            alt={subject}
-            fill
-            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-          />
+          {showImage ? (
+            <Image
+              src={src as string}
+              alt={subject}
+              fill
+              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              onError={() => setBroken(true)}
+            />
+          ) : (
+            // Graceful placeholder — no raw broken-image alt, on-palette vitrine
+            // gradient with a centred label.
+            <div
+              aria-hidden
+              className="absolute inset-0 flex items-center justify-center"
+              style={{background: "linear-gradient(135deg, #1a2238 0%, #0a0e1a 100%)"}}
+            >
+              <span className="px-6 text-center font-mono text-[10px] uppercase tracking-[0.24em] text-white/40">
+                {subject}
+              </span>
+            </div>
+          )}
           {/* Bottom-fade gradient for caption legibility */}
           <div
             className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2"

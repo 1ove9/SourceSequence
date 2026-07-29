@@ -1,5 +1,3 @@
-"use client"
-
 import {ArrowUpRight} from "lucide-react"
 import GlassCard from "./GlassCard"
 import {Link} from "@/i18n/navigation"
@@ -108,10 +106,10 @@ function DirectionCard({
             <div
               className="relative flex h-14 w-14 items-center justify-center rounded-2xl"
               style={{
-                background: "rgba(255,255,255,0.06)",
-                border: "1px solid rgba(255,255,255,0.08)",
+                background: "rgba(21,23,28,0.04)",
+                border: "1px solid rgba(21,23,28,0.08)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.1), 0 0 24px rgba(77,124,255,0.13)",
+                  "inset 0 1px 0 rgba(255,255,255,0.6), 0 0 24px rgba(224,168,154,0.10)",
               }}
             >
               <Icon className="h-6 w-6 text-foreground/70" strokeWidth={1.5} />

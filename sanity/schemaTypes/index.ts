@@ -9,8 +9,16 @@ import {inquiry} from "./inquiry"
 import {labShot} from "./labShot"
 import {partner} from "./partner"
 import {pressMention} from "./pressMention"
+import {capability} from "./capability"
+import {solutionGroup} from "./solutionGroup"
+import {solution} from "./solution"
+import {caseStudy} from "./caseStudy"
 
 export const schemaTypes: SchemaTypeDefinition[] = [
+  capability,
+  solutionGroup,
+  solution,
+  caseStudy,
   researchTopic,
   labCapability,
   application,

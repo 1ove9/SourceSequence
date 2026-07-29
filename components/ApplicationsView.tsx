@@ -1,5 +1,3 @@
-"use client"
-
 import type {ReactNode} from "react"
 import {ArrowUpRight} from "lucide-react"
 import GlassCard from "./GlassCard"
@@ -21,24 +19,24 @@ function FactorySVG() {
   return (
     <svg viewBox="0 0 320 220" className="h-full w-full" aria-hidden>
       {Array.from({length: 12}).map((_, i) => (
-        <line key={`h${i}`} x1="20" y1={40 + i * 14} x2="300" y2={40 + i * 14} stroke="rgba(255,255,255,0.04)" strokeWidth="0.5" />
+        <line key={`h${i}`} x1="20" y1={40 + i * 14} x2="300" y2={40 + i * 14} stroke="rgba(21,23,28,0.06)" strokeWidth="0.5" />
       ))}
       {Array.from({length: 18}).map((_, i) => (
-        <line key={`v${i}`} x1={20 + i * 16} y1="40" x2={20 + i * 16} y2="194" stroke="rgba(255,255,255,0.04)" strokeWidth="0.5" />
+        <line key={`v${i}`} x1={20 + i * 16} y1="40" x2={20 + i * 16} y2="194" stroke="rgba(21,23,28,0.06)" strokeWidth="0.5" />
       ))}
-      <line x1="20" y1="60" x2="300" y2="60" stroke="#4d7cff" strokeWidth="1.2" />
-      <line x1="20" y1="180" x2="300" y2="180" stroke="#4d7cff" strokeWidth="1.2" strokeOpacity="0.4" />
+      <line x1="20" y1="60" x2="300" y2="60" stroke="#565b66" strokeWidth="1.2" />
+      <line x1="20" y1="180" x2="300" y2="180" stroke="#565b66" strokeWidth="1.2" strokeOpacity="0.4" />
       {[80, 160, 240].map((x) => (
         <g key={x}>
-          <circle cx={x} cy="60" r="3" fill="#4d7cff" />
-          <circle cx={x} cy="60" r="14" fill="none" stroke="#4d7cff" strokeOpacity="0.4" />
-          <circle cx={x} cy="60" r="26" fill="none" stroke="#4d7cff" strokeOpacity="0.15" />
+          <circle cx={x} cy="60" r="3" fill="#e0a89a" />
+          <circle cx={x} cy="60" r="14" fill="none" stroke="#565b66" strokeOpacity="0.4" />
+          <circle cx={x} cy="60" r="26" fill="none" stroke="#565b66" strokeOpacity="0.15" />
         </g>
       ))}
       {[[70, 130], [150, 150], [230, 120]].map(([x, y]) => (
         <g key={`${x}-${y}`}>
-          <rect x={x - 7} y={y - 5} width="14" height="10" fill="none" stroke="#a78bfa" strokeWidth="1" />
-          <line x1={x} y1={y - 5} x2={x} y2="60" stroke="#a78bfa" strokeOpacity="0.3" strokeDasharray="2 3" />
+          <rect x={x - 7} y={y - 5} width="14" height="10" fill="none" stroke="#898f9b" strokeWidth="1" />
+          <line x1={x} y1={y - 5} x2={x} y2="60" stroke="#898f9b" strokeOpacity="0.3" strokeDasharray="2 3" />
         </g>
       ))}
     </svg>
@@ -49,17 +47,17 @@ function ImmersiveSVG() {
   return (
     <svg viewBox="0 0 320 220" className="h-full w-full" aria-hidden>
       {[40, 70, 100, 130].map((r, i) => (
-        <ellipse key={r} cx="160" cy="160" rx={r * 1.6} ry={r * 0.6} fill="none" stroke="rgba(255,255,255,0.06)" strokeOpacity={0.25 + i * 0.08} />
+        <ellipse key={r} cx="160" cy="160" rx={r * 1.6} ry={r * 0.6} fill="none" stroke="rgba(21,23,28,0.07)" strokeOpacity={0.25 + i * 0.08} />
       ))}
-      <ellipse cx="160" cy="160" rx="220" ry="80" fill="none" stroke="#4d7cff" strokeWidth="1.3" />
+      <ellipse cx="160" cy="160" rx="220" ry="80" fill="none" stroke="#565b66" strokeWidth="1.3" />
       {[
         [380, 160], [350.5, 200.0], [270.3, 229.3], [160, 240],
         [49.7, 229.3], [-30.5, 200.0], [-60, 160], [-30.5, 120.0],
         [49.7, 90.7], [160, 80], [270.3, 90.7], [350.5, 120.0],
       ].map(([cx, cy], i) => (
-        <circle key={i} cx={cx} cy={cy} r="2.4" fill="#4d7cff" />
+        <circle key={i} cx={cx} cy={cy} r="2.4" fill="#e0a89a" />
       ))}
-      <rect x="140" y="150" width="40" height="20" fill="none" stroke="#a78bfa" strokeWidth="1" />
+      <rect x="140" y="150" width="40" height="20" fill="none" stroke="#898f9b" strokeWidth="1" />
     </svg>
   )
 }
@@ -67,19 +65,19 @@ function ImmersiveSVG() {
 function HangarSVG() {
   return (
     <svg viewBox="0 0 320 220" className="h-full w-full" aria-hidden>
-      <line x1="20" y1="190" x2="300" y2="190" stroke="rgba(255,255,255,0.12)" />
-      <path d="M30 190 Q160 30 290 190" fill="none" stroke="#4d7cff" strokeWidth="1.3" />
+      <line x1="20" y1="190" x2="300" y2="190" stroke="rgba(21,23,28,0.14)" />
+      <path d="M30 190 Q160 30 290 190" fill="none" stroke="#565b66" strokeWidth="1.3" />
       {[[80, 130], [120, 80], [160, 60], [200, 80], [240, 130]].map(([x, y]) => (
         <g key={`${x}-${y}`}>
-          <circle cx={x} cy={y} r="2.6" fill="#4d7cff" />
-          <line x1={x} y1={y} x2={x} y2={y + 12} stroke="#4d7cff" strokeOpacity="0.35" />
+          <circle cx={x} cy={y} r="2.6" fill="#e0a89a" />
+          <line x1={x} y1={y} x2={x} y2={y + 12} stroke="#565b66" strokeOpacity="0.35" />
         </g>
       ))}
-      <g stroke="#a78bfa" strokeWidth="1" fill="none">
+      <g stroke="#898f9b" strokeWidth="1" fill="none">
         <circle cx="100" cy="170" r="6" />
         <line x1="94" y1="170" x2="106" y2="170" />
       </g>
-      <g stroke="#a78bfa" strokeWidth="1" fill="none">
+      <g stroke="#898f9b" strokeWidth="1" fill="none">
         <circle cx="220" cy="172" r="6" />
         <line x1="214" y1="172" x2="226" y2="172" />
       </g>
@@ -91,9 +89,9 @@ function GenericSVG() {
   return (
     <svg viewBox="0 0 320 220" className="h-full w-full" aria-hidden>
       {[40, 70, 100, 130].map((r, i) => (
-        <circle key={r} cx="160" cy="110" r={r} fill="none" stroke="#4d7cff" strokeOpacity={0.1 + i * 0.05} />
+        <circle key={r} cx="160" cy="110" r={r} fill="none" stroke="#565b66" strokeOpacity={0.1 + i * 0.05} />
       ))}
-      <circle cx="160" cy="110" r="4" fill="#4d7cff" />
+      <circle cx="160" cy="110" r="4" fill="#e0a89a" />
     </svg>
   )
 }

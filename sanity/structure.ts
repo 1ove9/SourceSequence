@@ -13,7 +13,22 @@ export const structure = (S: StructureBuilder) =>
   S.list()
     .title("Content / 内容")
     .items([
-      // ---- Core marketing content ----
+      // ---- Physics-Grounded AI (homepage + solutions) ----
+      S.listItem()
+        .title("Core Capabilities / 核心能力")
+        .child(S.documentTypeList("capability").title("Core Capabilities")),
+      S.listItem()
+        .title("Solution Groups / 解决方案主题组")
+        .child(S.documentTypeList("solutionGroup").title("Solution Groups")),
+      S.listItem()
+        .title("Industry Solutions / 行业解决方案")
+        .child(S.documentTypeList("solution").title("Industry Solutions")),
+      S.listItem()
+        .title("Case Studies / 实证案例")
+        .child(S.documentTypeList("caseStudy").title("Case Studies")),
+      S.divider(),
+
+      // ---- Antenna / YAF research content ----
       S.listItem()
         .title("Research Topics / 研究方向")
         .child(S.documentTypeList("researchTopic").title("Research Topics")),

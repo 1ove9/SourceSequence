@@ -85,7 +85,7 @@ export default function ModelDetailView({data, locale, labels}: Props) {
             {tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground/80"
+                className="rounded-full border border-[var(--hairline)] bg-white/60 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground/80"
               >
                 {tag}
               </span>

@@ -6,6 +6,74 @@
 
 export type Locale = "en" | "zh"
 
+// ---- Physics-Grounded AI content ----
+
+export interface Capability {
+  _id: string
+  slug: string
+  order?: number
+  tagline?: string
+  titleEn: string
+  titleZh: string
+  descriptionEn?: string
+  descriptionZh?: string
+  cardIcon?: string
+  href?: string
+}
+
+export type SolutionGroupKey = "reliability" | "efficiency" | "process"
+
+export interface SolutionGroup {
+  _id: string
+  key: SolutionGroupKey
+  order?: number
+  tagline?: string
+  titleEn: string
+  titleZh: string
+  introEn?: string
+  introZh?: string
+}
+
+export interface Solution {
+  _id: string
+  slug: string
+  order?: number
+  group: SolutionGroupKey
+  tagline?: string
+  titleEn: string
+  titleZh: string
+  descriptionEn?: string
+  descriptionZh?: string
+  highlightEn?: string
+  highlightZh?: string
+  cardIcon?: string
+  isFeatured?: boolean
+}
+
+export interface CaseStudy {
+  _id: string
+  slug: string
+  order?: number
+  tagEn?: string
+  tagZh?: string
+  titleEn: string
+  titleZh: string
+  descriptionEn?: string
+  descriptionZh?: string
+  cardIcon?: string
+  href?: string
+  externalUrl?: string
+  evidenceUrl?: string
+  metrics?: Array<{
+    _key?: string
+    value: string
+    labelEn: string
+    labelZh: string
+    sourceUrl: string
+  }>
+  isFlagship?: boolean
+}
+
 export interface SanityImageRef {
   _type?: "image"
   asset?: {_ref: string; _type: "reference"}
@@ -80,6 +148,9 @@ export interface Publication {
   summaryZh?: string
   coverImage?: SanityImageRef
   externalUrl?: string
+  doi?: string
+  venue?: string
+  peerReviewed?: boolean
 }
 
 export interface LabShot {
