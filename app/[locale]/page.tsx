@@ -8,7 +8,6 @@ import CaseStudies from "@/components/CaseStudies"
 import Vision from "@/components/Vision"
 import TrustedBy from "@/components/TrustedBy"
 import About from "@/components/About"
-import Careers from "@/components/Careers"
 import Contact from "@/components/Contact"
 import Footer from "@/components/Footer"
 import AuroraBackground from "@/components/AuroraBackground"
@@ -47,7 +46,6 @@ export default async function Page({
       <Vision ns="home.vision" />
       <TrustedBy />
       <About />
-      <Careers />
       <Contact />
       <Footer />
     </main>
