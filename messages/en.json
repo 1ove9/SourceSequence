@@ -1,5 +1,19 @@
 {
   "brand": { "name": "Source Sequence" },
+  "capabilitiesPage": {
+    "label": "Core Capabilities",
+    "heading": "Three Pillars of Physics-Grounded AI",
+    "intro": "Each capability corresponds to a core technology card on our homepage. Explore each direction below for detailed descriptions, technical pathways, and application scenarios.",
+    "metaTitle": "Core Capabilities — Source Sequence",
+    "metaDescription": "Source Sequence's three core capabilities: Physics-Informed AI Modeling, Physical Validation for AI, and High-Fidelity Simulation & Data.",
+    "cap1Title": "Physics-Informed AI Modeling",
+    "cap1Desc": "Reliable prediction and uncertainty quantification on small, low-quality industrial datasets. We inject physical laws—differential equations, conservation laws, boundary conditions—as hard constraints into neural network architectures and loss functions. Models are not merely data-driven black boxes; they carry an innate understanding of the physical world. In fault diagnosis scenarios with only dozens of valid samples, our models still deliver predictions with confidence intervals, avoiding the overfitting and misjudgment that data scarcity normally causes.",
+    "cap2Title": "Physical Validation for AI",
+    "cap2Desc": "AI needs to know where its boundaries lie. We build an independent physical-consistency review layer that evaluates model outputs across multiple dimensions of trustworthiness: Does it violate conservation laws? Does it exceed physically feasible ranges? Does it remain reasonable under extreme operating conditions? This layer does not rely on training data but on known physical laws and engineering common sense, acting as a gatekeeper for the physical world. In reliability engineering, this means you won't erroneously shut down—or fail to shut down—because of a hallucinated prediction.",
+    "cap3Title": "High-Fidelity Simulation & Synthetic Data",
+    "cap3Desc": "Built on real solvers and mechanistic models, we construct physically consistent simulation environments and synthetic data generation pipelines. Full-wave solvers like HFSS, CST, and openEMS work in tandem with neural surrogate models, completing electromagnetic simulations in seconds that would otherwise take hours. Synthetic data follows physical laws rather than statistical distributions, serving as training corpora for AI models and bridging the natural scarcity of real fault data in industrial settings. This is the bridge between simulation and reality, and the technical foundation of our 'Physics-Grounded' philosophy.",
+    "back": "← Back to home"
+  },
   "nav": {
     "capabilities": "Capabilities",
     "solutions": "Solutions",

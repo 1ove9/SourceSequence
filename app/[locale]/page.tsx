@@ -6,7 +6,6 @@ import Capabilities from "@/components/Capabilities"
 import Solutions from "@/components/Solutions"
 import CaseStudies from "@/components/CaseStudies"
 import Vision from "@/components/Vision"
-import TrustedBy from "@/components/TrustedBy"
 import About from "@/components/About"
 import Contact from "@/components/Contact"
 import Footer from "@/components/Footer"
@@ -44,7 +43,6 @@ export default async function Page({
       <CaseStudies />
       {/* 5 · Vision */}
       <Vision ns="home.vision" />
-      <TrustedBy />
       <About />
       <Contact />
       <Footer />
