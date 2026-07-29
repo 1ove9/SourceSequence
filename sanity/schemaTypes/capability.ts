@@ -29,6 +29,12 @@ export const capability = defineType({
     defineField({name: "descriptionEn", title: "Description (EN)", type: "text", rows: 3}),
     defineField({name: "descriptionZh", title: "Description (ZH) / 描述", type: "text", rows: 3}),
     defineField({name: "cardIcon", title: "Card Icon Name (lucide-react)", type: "string"}),
+    defineField({
+      name: "href",
+      title: "Link / 跳转链接",
+      type: "string",
+      description: "留空则卡片不可点击。填写站内路径如 /solutions，或完整 URL",
+    }),
   ],
   preview: {
     select: {title: "titleEn", subtitle: "tagline"},

@@ -12,7 +12,8 @@ export const CAPABILITIES_QUERY = groq`
     titleZh,
     descriptionEn,
     descriptionZh,
-    cardIcon
+    cardIcon,
+    href
   }
 `
 

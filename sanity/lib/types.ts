@@ -18,6 +18,7 @@ export interface Capability {
   descriptionEn?: string
   descriptionZh?: string
   cardIcon?: string
+  href?: string
 }
 
 export type SolutionGroupKey = "reliability" | "efficiency" | "process"
